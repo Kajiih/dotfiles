@@ -10,16 +10,21 @@ brew "zsh"
 brew "zsh-autosuggestions"
 brew "zsh-completions"
 brew "zsh-syntax-highlighting"
+
 # === Terminal ===
 brew "eza"
 brew "git-delta"
 brew "fzf"  
-brez "fd"
+brew "fd"
 brew "bat"
 brew "tlrc"
 brew "thefuck"
 brew "zoxide"
 brew "yazi ffmpeg sevenzip jq poppler ripgrep imagemagick"
+
+# Tools
+brew  "imageoptim-cli"
+cask "imageoptim"
 
 # Other Apps
 cask "visual-studio-code"
