@@ -25,8 +25,9 @@ brew "yazi ffmpeg sevenzip jq poppler ripgrep imagemagick"
 # Tools
 brew  "imageoptim-cli"
 cask "imageoptim"
+brew "pandoc"
 
-# Other Apps
+# === Apps ===
 cask "visual-studio-code"
 cask "bitwarden"
 cask "notion"
