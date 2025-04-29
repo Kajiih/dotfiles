@@ -20,7 +20,8 @@ brew "bat"
 brew "tlrc"
 brew "thefuck"
 brew "zoxide"
-brew "yazi ffmpeg sevenzip jq poppler ripgrep imagemagick"
+brew "ripgrep"
+brew "yazi ffmpeg sevenzip jq poppler imagemagick"
 
 # Tools
 brew  "imageoptim-cli"
