@@ -1,15 +1,9 @@
-tap "homebrew/bundle"
-tap "homebrew/core"
-tap "homebrew/cask"
+brew "mas"
 
 # === Fonts ===
 cask "font-fira-code-nerd-font"
+cask "font-inter"
 
-# === Shell ===
-brew "zsh"
-brew "zsh-autosuggestions"
-brew "zsh-completions"
-brew "zsh-syntax-highlighting"
 
 # === Terminal ===
 brew "eza"
@@ -17,23 +11,34 @@ brew "git-delta"
 brew "fzf"  
 brew "fd"
 brew "bat"
-brew "tlrc"
+brew "tealdeer"
 brew "thefuck"
 brew "zoxide"
 brew "ripgrep"
-brew "yazi ffmpeg sevenzip jq poppler imagemagick"
+brew "yazi"
+brew "starship"
+brew "zellij"
+brew "carapace"
+brew "yazi"
+brew "hyperfine"
+brew "bandwhich"
+brew "bottom"
+brew "onefetch"
 
-# Tools
+# --- Tools ---
+brew "git"
+brew "grex"
+brew "tesseract"
 brew  "imageoptim-cli"
 cask "imageoptim"
 brew "pandoc"
+# TODOs:
+# Add bws
+
+
 
 # === Apps ===
 cask "visual-studio-code"
 cask "bitwarden"
 cask "notion"
 cask "slack"
-
-# App Store 
-brew "mas"
-
