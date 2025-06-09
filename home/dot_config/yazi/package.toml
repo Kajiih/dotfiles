@@ -1,0 +1,64 @@
+[[plugin.deps]]
+use = "Rolv-Apneseth/starship"
+rev = "6fde3b2"
+hash = "7ddb7a790746fd91ecdd0350cc5a5d8c"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:full-border"
+rev = "a54b96a"
+hash = "3996fc74044bc44144b323686f887e1"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "c0ad8a3"
+hash = "d5d4f3527592da5fbe77fd6f51815f80"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:jump-to-char"
+rev = "c0ad8a3"
+hash = "30fc0b37f03a597b92d387268319450f"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:git"
+rev = "c0ad8a3"
+hash = "bf6f074cd41ee33c3360341d168f9733"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-filter"
+rev = "c0ad8a3"
+hash = "4d82cd9e7534d976f000edf9c0f68d8f"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-paste"
+rev = "c0ad8a3"
+hash = "6fe47945aff6571d76f3beb65099ad7a"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:diff"
+rev = "c0ad8a3"
+hash = "47865a70cade14a0b9b6bc6a54f16bdb"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:mactag"
+rev = "c0ad8a3"
+hash = "6e0cbddb97038ea95f04f9de0944c175"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-enter"
+rev = "c0ad8a3"
+hash = "a7ab702e1ef0c097defbc976ed34c186"
+
+[[plugin.deps]]
+use = "Rolv-Apneseth/bypass"
+rev = "85b5e96"
+hash = "db441e5d2a2aad7fcd356440148136f0"
+
+[[plugin.deps]]
+use = "wylie102/duckdb"
+rev = "3f8c863"
+hash = "87b9233a74325e95011670ed20bbd0d4"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-mocha"
+rev = "657aaf3"
+hash = "662a1b35b98668d4f75746eb37af7fd"

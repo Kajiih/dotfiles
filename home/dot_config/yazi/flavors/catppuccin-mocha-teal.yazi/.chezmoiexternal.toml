@@ -1,0 +1,9 @@
+["flavor.toml"]
+type = "file"
+url = "https://raw.githubusercontent.com/catppuccin/yazi/refs/heads/main/themes/mocha/catppuccin-mocha-teal.toml"
+refreshPeriod = "168h"
+
+["tmtheme.xml"]
+type = "file"
+url = "https://raw.githubusercontent.com/catppuccin/bat/refs/heads/main/themes/Catppuccin%20Mocha.tmTheme"
+refreshPeriod = "168h"
