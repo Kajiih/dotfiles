@@ -1,0 +1,50 @@
+theme = "onedark"
+
+# Inspired from https://tqwewe.com/blog/enhanced-helix-config/
+[editor]
+# Show currently open buffers, only when more than one exists.
+bufferline = "multiple"
+# Highlight all lines with a cursor
+cursorline = true
+# Use relative line numbers
+line-number = "relative"
+# Show a ruler at column 120
+rulers = [80, 100, 120]
+# Force the theme to show colors
+true-color = true
+
+# Minimum severity to show a diagnostic after the end of a line
+end-of-line-diagnostics = "hint"
+
+[editor.inline-diagnostics]
+cursor-line = "error" # Show inline diagnostics when the cursor is on the line
+other-lines = "disable" # Don't expand diagnostics unless the cursor is on the line
+    [editor.soft-wrap]
+    enable = true
+
+    [editor.cursor-shape]
+    insert = "bar"
+    normal = "block"
+    select = "underline"
+    # Have the cursor blink
+
+    [editor.indent-guides]
+    character = "╎"
+    render = true
+
+    [editor.statusline]
+    left = ["mode", "spinner", "version-control", "file-name"]
+
+
+[keys.normal]
+A-x = "extend_to_line_bounds"
+X = "select_line_above"
+
+# "A-," = "goto_previous_buffer"
+# "A-." = "goto_next_buffer"
+# "A-w" = ":buffer-close"
+# "A-/" = "repeat_last_motion"
+
+[keys.select]
+A-x = "extend_to_line_bounds"
+X = "select_line_above"
