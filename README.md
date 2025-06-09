@@ -2,10 +2,13 @@
 
 ## Usage
 
+Cross platform tools managed by cross platforms package managers, at least in theory..!
+
 ### Setting up new machine
 
 #### TODOs, look [chezmoi's doc](https://www.chezmoi.io/user-guide/daily-operations/#install-chezmoi-and-your-dotfiles-on-a-new-machine-with-a-single-command)
 
+- Install `chezmoi` and probably `nushell`
 - Install package managers and apps
 - Setup secrets
 - and more
@@ -36,6 +39,17 @@
 - Managed with [Chezmoi](https://www.chezmoi.io/)
 - [Nushell](https://www.nushell.sh/) as login shell
 
+- Secret loading with `bitwarden secrets`
+  - MacOS: Token access in `keychain`. To add the access token:
+
+    ```nu
+    security add-generic-password -a $env.USER -s bws_token -w <access_token>
+    ```
+
+- Cross platform package managers (MacOs, Linux, WSL) by order of precedence:
+  - [Homebrew](/dot_config/homebrew/Brewfile)
+  - [Cargo](/.chezmoiscripts/run_onchange_install-cargo-bins.nu)
+
 - `XDG_CONFIG_HOME` and `XDG_DATA_HOME` set on all platforms
 
   - [MacOS](https://github.com/nushell/nushell/discussions/14663#discussioncomment-11876260): `/Users/<user_name>/Launchagents/<whatever>.plis` (don't use comments, it doesn't work):
@@ -65,13 +79,6 @@
     </plist>
     ```
 
-- Secret loading with `bitwarden secrets`
-  - MacOS: Token access in `keychain`. To add the access token:
+## Resources
 
-    ```nu
-    security add-generic-password -a $env.USER -s bws_token -w <access_token>
-    ```
-
-- Package managers:
-  - [Homebrew](dot_config/homebrew/Brewfile)
-  - [Cargo](./.chezmoiscripts/run_onchange_install-cargo-bins.nu)
+- [Reference repo](https://github.com/twpayne/dotfiles/tree/master)

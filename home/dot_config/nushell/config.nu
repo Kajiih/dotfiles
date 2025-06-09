@@ -441,10 +441,9 @@ $env.config.completions.external = {
 # Using Vivid: https://github.com/sharkdp/vivid
 # $env.LS_COLORS = (vivid generate ayu)
 
-# https://github.com/trapd00r/LS_COLORS
-# TODO: Add colors for nu
-let ls_colors_file = $"($nu.config-path | path dirname)/data/ls_colors.txt"
-$env.LS_COLORS = (open $ls_colors_file | str trim)
+# Auto imported from https://github.com/trapd00r/LS_COLORS
+let ls_colors_file = $nu.default-config-dir | path join data lscolors.sh
+$env.LS_COLORS = open $ls_colors_file | str substring 11..-20
 
 # === Keybindings ===
 # https://www.nushell.sh/book/line_editor.html#keybindings

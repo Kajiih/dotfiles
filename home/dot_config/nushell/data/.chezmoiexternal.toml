@@ -1,0 +1,4 @@
+["lscolors.sh"]
+type = "file"
+url = "https://raw.githubusercontent.com/trapd00r/LS_COLORS/refs/heads/master/lscolors.sh"
+refreshPeriod = "168h"
