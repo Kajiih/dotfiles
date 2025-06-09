@@ -132,6 +132,9 @@ let carapace_completer = {|spans: list<string>|
     | if ($in | default [] | where value =~ '^-.*ERR$' | is-empty) { $in } else { null }
 }
 
+# --- atuin ---
+source ~/.local/share/atuin/init.nu
+
 # --- Bat ---
 # TODO? Install Nushell completion: https://gist.github.com/melMass/294c21a113d0bd329ae935a79879fe04 
 
@@ -231,6 +234,8 @@ alias chd = ch diff
 alias chda = ch data
 alias chs = ch status
 alias chdr = ch doctor
+
+$env.HOMEBREW_BUNDLE_FILE = $env.XDG_CONFIG_HOME | path join homebrew Brewfile
 
 # --- OCR with tesseract ---
 alias ocr = tesseract
