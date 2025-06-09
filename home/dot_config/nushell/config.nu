@@ -224,6 +224,7 @@ def rgf [pattern: string ...rest] {
 alias gs = git status
 alias gll = git log --graph --all --pretty="format:%C(yellow)%h %C(white) %an  %ar%C(blue)  %D%n%s%n"
 alias gl = gl --oneline
+alias gui = gitui
 
 # --- Chezmoi ---
 alias ch = chezmoi
