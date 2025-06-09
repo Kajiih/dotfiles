@@ -6,6 +6,8 @@ cask "font-inter"
 
 
 # === Terminal ===
+cask "ghostty"
+brew "nushell"
 brew "eza"
 brew "git-delta"
 brew "fzf"  
@@ -28,6 +30,7 @@ brew "onefetch"
 
 # --- Tools ---
 brew "git"
+brew "gh"
 brew "grex"
 brew "tesseract"
 brew  "imageoptim-cli"
@@ -36,5 +39,11 @@ brew "pandoc"
 
 
 # === Apps ===
+tap "nikitabobko/tap"
+brew "aerospace"
+tap "FelixKratz/formulae"
+brew "borders"
+
 cask "visual-studio-code"
 cask "bitwarden"
+
