@@ -1,4 +1,4 @@
-# KJ's dotfiles
+****# KJ's dotfiles
 
 ## Usage
 
@@ -76,6 +76,8 @@ Cross platform tools managed by cross platforms package managers, at least in th
     </dict>
     </plist>
     ```
+
+  - Raycast has to be sync manually
 
 ## Resources
 
