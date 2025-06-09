@@ -16,7 +16,8 @@
 
 use std "path add"
 
-const NU_LIB_DIRS = [($nu.default-config-dir | path join completions) ($nu.default-config-dir | path join modules) ($nu.default-config-dir | path join submodules) ...$NU_LIB_DIRS]
+const NU_COMPLETIONS_DIR = $nu.default-config-dir | path join completions
+const NU_LIB_DIRS = [$NU_COMPLETIONS_DIR ($nu.default-config-dir | path join modules) ($nu.default-config-dir | path join submodules) ...$NU_LIB_DIRS]
 
 # TODO:
 # - Setup chezmoi for dotfiles
@@ -41,6 +42,10 @@ path add [
 # --- Secrets ---
 # TODO: Research secret zero/first secret to solve the problem of the first secret
 use bws_secrets.nu; bws_secrets load-all
+
+# --- My Info ---
+$env.EMAIL = "itskajih@gmail.com"
+$env.USERNAME = "Kajih"
 
 # --- Other --
 $env.SHELL = "nu"
@@ -365,16 +370,15 @@ def --env fzg [ --from-home (-a)] {
 alias zj = zellij
 
 # === Completions ===
-$env.NU_COMPLETIONS_DIR = $nu.data-dir | path join completions
 # TODO: Check if it's possible to autoload completion modules using $nu.user_autoload_dirs
 use completions *
-# Update the completions module exporting every module inside $env.NU_COMPLETIONS_DIR
+# Update the completions module exporting every module inside $NU_COMPLETIONS_DIR
 # To use after adding completions
 def update_completions_module [] {
-    let module_path = ($env.NU_COMPLETIONS_DIR | path join mod.nu)
+    let module_path = ($NU_COMPLETIONS_DIR | path join mod.nu)
     rm $module_path --force
 
-    ls $env.NU_COMPLETIONS_DIR
+    ls $NU_COMPLETIONS_DIR
     | where name ends-with ".nu"
     | get name
     | each {|file| $"export use ($file | path basename) *" }
