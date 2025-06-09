@@ -20,14 +20,8 @@ const NU_COMPLETIONS_DIR = $nu.default-config-dir | path join completions
 const NU_LIB_DIRS = [$NU_COMPLETIONS_DIR ($nu.default-config-dir | path join modules) ($nu.default-config-dir | path join submodules) ...$NU_LIB_DIRS]
 
 # TODO:
-# - Setup chezmoi for dotfiles
 # Move completers, omnihelp, resolve alias etc in a single utils module
-# Make login shell (and check that env vars are loaded in vscode)
-# - https://github.com/nushell/nushell/issues/10316
-# - https://www.nushell.sh/book/default_shell.html#setting-nu-as-default-shell-on-your-terminal
-# - https://www.nushell.sh/book/configuration.html#configuring-nu-as-a-login-shell
 # File issue on https://github.com/blindFS/topiary-nushell to break long lists, pipelines, etc
-# Improve omnihelp to support things like help modules where modules is not a command but still support help ... (try to call help and if it fails, fallback to --help)
 
 # === Env Vars ===
 
@@ -233,6 +227,7 @@ alias glo = gl --oneline
 
 # --- Chezmoi ---
 alias ch = chezmoi
+alias ched = code (ch source-path)
 alias chad = ch add
 alias chap = ch apply
 alias chd = ch diff

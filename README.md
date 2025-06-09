@@ -4,8 +4,11 @@
 
 ### Setting up new machine
 
-TODO
-<https://www.chezmoi.io/user-guide/daily-operations/#install-chezmoi-and-your-dotfiles-on-a-new-machine-with-a-single-command>
+#### TODOs, look [chezmoi's doc](https://www.chezmoi.io/user-guide/daily-operations/#install-chezmoi-and-your-dotfiles-on-a-new-machine-with-a-single-command)
+
+- Install package managers and apps
+- Setup secrets
+- and more
 
 ### Using `Chezmoi`
 
@@ -25,12 +28,8 @@ TODO
 
 - [WIP] Cross platform
   - [ ] Windows
-  - [WIP] Mac (homebrew)
+  - [WIP] Mac
   - [ ] Linux
-
-- [WIP] `Chezmoi` setup
-  - [Use `atuin`](https://www.chezmoi.io/user-guide/frequently-asked-questions/usage/#can-i-use-chezmoi-to-manage-my-shell-history-across-multiple-machines)
-  -
 
 ## Features
 
@@ -72,3 +71,7 @@ TODO
     ```nu
     security add-generic-password -a $env.USER -s bws_token -w <access_token>
     ```
+
+- Package managers:
+  - [Homebrew](dot_config/homebrew/Brewfile)
+  - [Cargo](./.chezmoiscripts/run_onchange_install-cargo-bins.nu)
