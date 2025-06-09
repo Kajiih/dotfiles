@@ -9,7 +9,15 @@ TODO
 
 ### Using `Chezmoi`
 
--
+- `update` to sync local dotfiles with remote repo
+- `apply` to sync local dotfiles with local repo (source)
+  - also `diff` to see what changes would be made
+- `edit $FILE` to edit the file in the local repo (but not the real file until apply)
+  - More [here](https://www.chezmoi.io/user-guide/frequently-asked-questions/usage/#how-do-i-edit-my-dotfiles-with-chezmoi)
+- `merge $FILE` to merge changes to real file with source on local repo
+- `git commit` and `git push` to sync with remote
+  - More [here](https://www.chezmoi.io/user-guide/frequently-asked-questions/usage/#once-ive-made-a-change-to-the-source-directory-how-do-i-commit-it)
+- `status`, `managed`, `unmaganaged`: useful to get info
 
 ## Roadmap
 
@@ -20,7 +28,9 @@ TODO
   - [WIP] Mac (homebrew)
   - [ ] Linux
 
-- [WIP] Chezmoi setup
+- [WIP] `Chezmoi` setup
+  - [Use `atui`](https://www.chezmoi.io/user-guide/frequently-asked-questions/usage/#can-i-use-chezmoi-to-manage-my-shell-history-across-multiple-machines)
+  -
 
 ## Features
 
