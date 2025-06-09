@@ -27,8 +27,6 @@ Cross platform tools managed by cross platforms package managers, at least in th
 
 ## Roadmap
 
-- [ ] Use externals for LS_COLORS
-
 - [WIP] Cross platform
   - [ ] Windows
   - [WIP] Mac

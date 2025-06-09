@@ -222,8 +222,8 @@ def rgf [pattern: string ...rest] {
 
 # --- Git ---
 alias gs = git status
-alias gl = git log --graph --all --pretty="format:%C(yellow)%h %C(white) %an  %ar%C(blue)  %D%n%s%n"
-alias glo = gl --oneline
+alias gll = git log --graph --all --pretty="format:%C(yellow)%h %C(white) %an  %ar%C(blue)  %D%n%s%n"
+alias gl = gl --oneline
 
 # --- Chezmoi ---
 alias ch = chezmoi
@@ -231,7 +231,6 @@ alias ched = code (ch source-path)
 alias chad = ch add
 alias chap = ch apply
 alias chd = ch diff
-alias chda = ch data
 alias chs = ch status
 alias chdr = ch doctor
 

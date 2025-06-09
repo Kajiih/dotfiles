@@ -1,0 +1,98 @@
+[user]
+name = Kajih               # Julian Paquerot
+email = itskajih@gmail.com # 111422357+Kajiih@users.noreply.github.com
+
+[core]
+compression = 9
+whitespace = error
+preloadindex = true
+pager = delta
+
+[commit]
+template = ~/.config/git/commit_message_template
+
+[push]
+autoSetupRemote = true # easier to push new branches
+default = current      # push only current branch by default
+followTags = true      # push also tags
+gpgSign = false        # my remotes doesn't support sign pushes
+
+[pull]
+rebase = true
+
+[rebase]
+autoStash = true
+
+[init]
+defaultBranch = main
+
+[status]
+branch = true
+short = true
+showStash = true
+# showUntrackedFiles = all # show individual untracked files
+
+[diff]
+context = 3           # less context in diffs
+renames = copies      # detect copies as renames in diffs
+interHunkContext = 10 # merge near hunks in diffs
+colorMoved = default
+
+[log]
+abbrevCommit = true # short commits
+graphColors = blue,yellow,cyan,magenta,green,red
+
+[interactive]
+diffFilter = delta --color-only
+
+[delta]
+navigate = true # use n and N to move between diff sections
+side-by-side = true
+
+# delta detects terminal colors automatically; set one of these to disable auto-detection
+# dark = true
+# light = true
+
+[merge]
+conflictstyle = diff3
+
+[color]
+# status = always
+
+# Colors
+[color "blame"]
+highlightRecent = black bold,1 year ago,white,1 month ago,default,7 days ago,blue
+
+[color "branch"]
+current = magenta
+local = default
+remote = yellow
+upstream = green
+plain = blue
+
+[color "diff"]
+meta = black bold
+frag = magenta
+context = white
+whitespace = yellow reverse
+
+# URL shortcuts
+[url "git@github.com:"]
+insteadOf = "gh:"
+
+[url "git@github.com:Kajiih/"]
+insteadOf = "kj:"
+
+[filter "lfs"]
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+required = true
+
+[credential]
+helper =
+helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+useHttpPath = true
+[credential "https://huggingface.co"]
+provider = generic
