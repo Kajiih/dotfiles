@@ -287,6 +287,15 @@ run = "layout floating"
 [[on-window-detected]]
 if.app-id = 'com.apple.QuickTimePlayerX'
 run = "layout floating"
+[[on-window-detected]]
+if.app-id = 'com.bitwarden.desktop'
+run = "layout floating"
+[[on-window-detected]]
+if.app-id = 'net.whatsapp.WhatsApp'
+run = "layout floating"
+[[on-window-detected]]
+if.app-id = 'com.facebook.archon' # Messenger
+run = "layout floating"
 
 
 ## Specific Apps Workspaces
