@@ -227,8 +227,9 @@ alias gl = gl --oneline
 alias gui = gitui
 
 # --- Chezmoi ---
+$env.DOTFILES_DIR = (chezmoi source-path | path dirname)
 alias ch = chezmoi
-alias ched = code (ch source-path)
+alias ched = code $env.DOTFILES_DIR
 alias chad = ch add
 alias chap = ch apply
 alias chd = ch diff
@@ -363,6 +364,9 @@ def --env fzg [ --from-home (-a)] {
 
 # --- zellij ---
 alias zj = zellij
+
+# --- Copier ---
+$env.COPIER_SETTINGS_PATH = $env.XDG_CONFIG_HOME | path join copier settings.yml
 
 # === Completions ===
 # TODO: Check if it's possible to autoload completion modules using $nu.user_autoload_dirs
