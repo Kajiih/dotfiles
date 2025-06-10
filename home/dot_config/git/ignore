@@ -2,6 +2,10 @@
 # --- MacOS ---
 .DS_Store
 
+# === IDE ===
+# --- VSCode ---
+.vscode/
+
 # === Languages ===
 # --- Python ---
 .mypy_cache/
