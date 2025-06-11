@@ -1,11 +1,19 @@
 defaults:
+  username: Kajih
   user_name: Kajih
   author_name: Kajih
+  author_username: Kajih
+
   user_email: itskajih@gmail.com
   author_email: itskajih@gmail.com
 
+  fullname: Julian Paquerot
+  user_fullname: Julian Paquerot
+  author_fullname: Julian Paquerot
   copyright_holder: Julian Paquerot
+
   repo_namespace: Kajiih
+  github_username: Kajiih
 
 trust:
   - https://github.com/Kajiih
