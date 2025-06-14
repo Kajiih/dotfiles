@@ -47,6 +47,7 @@ Cross platform tools managed by cross platforms package managers, at least in th
 - Cross platform package managers (MacOs, Linux, WSL) by order of precedence:
   - [Homebrew](/dot_config/homebrew/Brewfile)
   - [Cargo](/.chezmoiscripts/run_onchange_install-cargo-bins.nu)
+  - [uv tool](https://docs.astral.sh/uv/concepts/tools/)
 
 - `XDG_CONFIG_HOME` and `XDG_DATA_HOME` set on all platforms
 
@@ -77,7 +78,7 @@ Cross platform tools managed by cross platforms package managers, at least in th
     </plist>
     ```
 
-  - Raycast has to be sync manually
+  - Raycast has to be synced manually
 
 ## Resources
 

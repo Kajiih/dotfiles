@@ -36,7 +36,6 @@ brew "tesseract"
 brew  "imageoptim-cli"
 cask "imageoptim"
 brew "pandoc"
-brew "copier"
 
 # --- Python ---
 brew "python"

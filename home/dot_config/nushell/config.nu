@@ -30,6 +30,7 @@ const NU_LIB_DIRS = [$NU_COMPLETIONS_DIR ($nu.default-config-dir | path join mod
 path add [
     "/opt/homebrew/bin" # Homebrew binaries
     "~/.cargo/bin" # Cargo binaries
+    "~/.local/share/uv/tools" # uv tools binaries
     "/opt/homebrew/opt/uutils-coreutils/libexec/uubin" # uutils-coreutils binaries
 ]
 
