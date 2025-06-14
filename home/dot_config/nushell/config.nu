@@ -237,6 +237,14 @@ alias chd = ch diff
 alias chs = ch status
 alias chdr = ch doctor
 
+# Chezmoi and git status (chezmoi all status)
+def chas [] {
+    print -n (ansi cyan) (ansi default_bold) "Chezmoi status:" (ansi reset) "\n"
+    chezmoi status
+
+    print -n (ansi cyan) (ansi default_bold) "Git status:" (ansi reset) "\n"
+    git status
+}
 $env.HOMEBREW_BUNDLE_FILE = $env.XDG_CONFIG_HOME | path join homebrew Brewfile
 
 # --- OCR with tesseract ---
