@@ -8,6 +8,7 @@ cask "font-inter"
 # === Terminal ===
 cask "ghostty"
 brew "nushell"
+brew "uutils-coreutils"
 brew "eza"
 brew "git-delta"
 brew "fzf"  
