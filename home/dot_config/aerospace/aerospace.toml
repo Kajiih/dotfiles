@@ -164,6 +164,11 @@ ctrl-shift-alt-e = 'focus right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus-back-and-forth
 ctrl-shift-alt-space = 'focus-back-and-forth'
+# See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
+ctrl-shift-alt-cmd-space = 'workspace-back-and-forth'
+# See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
+ctrl-shift-alt-tab = 'workspace --wrap-around next'
+ctrl-shift-alt-cmd-tab = 'workspace --wrap-around prev'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move
 ctrl-shift-alt-cmd-h = 'move left'
@@ -243,11 +248,6 @@ ctrl-shift-alt-cmd-t = 'move-node-to-workspace --focus-follows-window T'
 # ctrl-shift-alt-cmd-x = 'move-node-to-workspace X'
 # ctrl-shift-alt-cmd-y = 'move-node-to-workspace Y'
 # ctrl-shift-alt-cmd-z = 'move-node-to-workspace Z'
-
-# See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-ctrl-shift-alt-tab = 'workspace-back-and-forth'
-# See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
-ctrl-shift-alt-cmd-tab = 'move-workspace-to-monitor --wrap-around next'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
 ctrl-alt-shift-i = 'mode service'

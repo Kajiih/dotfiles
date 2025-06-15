@@ -12,6 +12,8 @@ use resolve_alias_chain.nu resolve-alias-chain
 # TODO: Check why it sometimes runs the script when using on one and prevent that
 # TODO? Add arguments to pass to the final bat?
 # TODO: Detect subcommands in ...args to separate subcommands from --arguments and display if the item we run help on is a module or a command in the header
+# TODO: Detect subcommands when the main command is an alias (subcommand disappears when resolving alias), e.g., `omnihelp chs`
+# TODO: Handle commands and subcommands with a '-' inside, like `pre-commit run`
 # TODO? Handle pipeline inputs?
 def omnihelp [
     command: string # The command, module or alias to show help for
@@ -43,15 +45,14 @@ def omnihelp [
         $actual_cmd + " " + ($args | str join ' ')
     }
 
-    let cmd_help = if $actual_cmd in (scope aliases | get name) {  # Recursive alias of external commands won't give proper help with `help ...`
+    let cmd_help = if $actual_cmd in (scope aliases | get name) {
+        # Recursive alias of external commands won't give proper help with `help ...`
         ^$actual_cmd ...$args --help
     } else try {
-        help $full_command  # TODO: Check why this doesn't work on help aliases and such
+        help $full_command # TODO: Check why this doesn't work on help aliases and such
     } catch {
         ^$actual_cmd ...$args --help
     }
-
-    
 
     let cmd_header = $"(ansi yellow)# ═════ ($full_command) ═════(ansi reset)"
 
@@ -59,8 +60,6 @@ def omnihelp [
         $aliases_help + $cmd_header + "\n" + ($cmd_help | bat --plain --language=help --force-colorization --paging=never)
     ) | bat --plain
 }
-
-
 
 # Display syntax highlighted help information for a builtin or external command or a module, recursively resolving aliases.
 #
