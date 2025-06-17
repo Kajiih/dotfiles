@@ -1,0 +1,4 @@
+{{ if eq .chezmoi.os "darwin" -}}
+--platform macos-latest=ghcr.io/catthehacker/ubuntu:act-latest
+--container-architecture linux/amd64
+{{- end }}
