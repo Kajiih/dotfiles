@@ -46,10 +46,19 @@ brew "ruff"
 
 # === Apps ===
 tap "nikitabobko/tap"
-brew "aerospace"
+cask "aerospace"
 tap "FelixKratz/formulae"
 brew "borders"
 
+cask "raycast"
 cask "visual-studio-code"
 cask "bitwarden"
 
+# === Browser ===
+cask "firefox"
+tap "egovelox/mozeidon"
+cask "mozeidon-macos-ui"
+
+# === Testing ===
+cask "docker"
+brew "act"
