@@ -229,10 +229,15 @@ alias gll = git log --graph --all --pretty="format:%C(yellow)%h %C(white) %an  %
 alias gl = gll --oneline
 alias gad = git add
 alias gada = git add --all
+alias gps = git push
+alias gpl = git pull
 alias gui = gitui
 
 def gcm [message: string] {
     git commit --message $message
+}
+def gcam [message: string] {
+    git commit --all --message $message
 }
 
 # --- Chezmoi ---
