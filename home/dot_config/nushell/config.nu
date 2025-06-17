@@ -222,10 +222,18 @@ def rgf [pattern: string ...rest] {
 }
 
 # --- Git ---
+# Some from: https://github.com/nushell/nu_scripts/blob/main/aliases/git/git-aliases.nu
+
 alias gs = git status
 alias gll = git log --graph --all --pretty="format:%C(yellow)%h %C(white) %an  %ar%C(blue)  %D%n%s%n"
-alias gl = gl --oneline
+alias gl = gll --oneline
+alias gad = git add
+alias gada = git add --all
 alias gui = gitui
+
+def gcm [message: string] {
+    git commit --message $message
+}
 
 # --- Chezmoi ---
 $env.DOTFILES_DIR = (chezmoi source-path | path dirname)
