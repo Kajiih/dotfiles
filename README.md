@@ -4,13 +4,18 @@
 
 Cross platform tools managed by cross platforms package managers, at least in theory..!
 
+⚠️ **This repo is only teste for SOME config, not a full machine setup from scratch, and only on MacOS (specifically my Mac M2 laptop), so it will have to be fine tuned for other systems and architectures with time. Only some files contain templates that separate Mac specific config to platform agnostic config.**
+
 ### Setting up new machine
 
 #### TODOs, look [chezmoi's doc](https://www.chezmoi.io/user-guide/daily-operations/#install-chezmoi-and-your-dotfiles-on-a-new-machine-with-a-single-command)
 
 - Install `chezmoi` and probably `nushell`
-- Install package managers and apps
-- Setup secrets
+  - Probably set `nushell` as login shell
+- Install package managers
+  - ⚠️ Brewfile install script is not written yet
+- Setup secrets (e.g. with keychain on mac, etc)
+- Setup [things that have yet to be setup manually](/docs/thing-to-setup-manually.md)
 - and more
 
 ### Using `Chezmoi`
@@ -36,9 +41,11 @@ Cross platform tools managed by cross platforms package managers, at least in th
 
 - Managed with [Chezmoi](https://www.chezmoi.io/)
 - [Nushell](https://www.nushell.sh/) as login shell
+- [Ghostty](https://ghostty.org/) as terminal emulator
+- [Firefox](https://www.mozilla.org/en-US/firefox/new/) as main browser
 
 - Secret loading with `bitwarden secrets`
-  - MacOS: Token access in `keychain`. To add the access token:
+  - MacOS: Token access in `keychain`. To add the [access token of your machine account](https://vault.bitwarden.eu/#/sm/6e2de25d-081c-40c1-ab1e-b1f700e89888/projects/f2a257f6-7179-4f88-9c77-b2ee01342082/machine-accounts):
 
     ```nu
     security add-generic-password -a $env.USER -s bws_token -w <access_token>
@@ -77,8 +84,6 @@ Cross platform tools managed by cross platforms package managers, at least in th
     </dict>
     </plist>
     ```
-
-  - Raycast has to be synced manually
 
 ## Resources
 

@@ -261,7 +261,7 @@ def chapn [] {
     chap | nu
 }
 
-# Chezmoi and git status (chezmoi all status)
+# Chezmoi and git status (Chezmoi All Status)
 def chas [] {
     print -n (ansi cyan) (ansi default_bold) "Chezmoi status:" (ansi reset) "\n"
     chezmoi status
