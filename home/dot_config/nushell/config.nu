@@ -233,11 +233,17 @@ alias gps = git push
 alias gpl = git pull
 alias gui = gitui
 
-def gcm [message: string] {
-    git commit --message $message
+alias gcm = git commit --message
+alias gcam = git commit --all --message
+
+# Git commit with message (everything after the command is captured as message)
+def gc [...message] {
+    git commit --message ($message | str join " ")
 }
-def gcam [message: string] {
-    git commit --all --message $message
+
+# Git commit ALL changes with message (everything after the command is captured as message)
+def gca [...message] {
+    git commit --all --message ($message | str join " ")
 }
 
 # --- Chezmoi ---
@@ -245,10 +251,15 @@ $env.DOTFILES_DIR = (chezmoi source-path | path dirname)
 alias ch = chezmoi
 alias ched = code $env.DOTFILES_DIR
 alias chad = ch add
-alias chap = ch apply
 alias chd = ch diff
 alias chs = ch status
 alias chdr = ch doctor
+alias chap = ch apply
+
+# Apply chezmoi changes and start new nu shell
+def chapn [] {
+    chap | nu
+}
 
 # Chezmoi and git status (chezmoi all status)
 def chas [] {
