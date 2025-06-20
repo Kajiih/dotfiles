@@ -230,6 +230,7 @@ alias gl = gll --oneline
 alias gad = git add
 alias gada = git add --all
 alias gps = git push
+def gpst [] {git push; git push --tags}
 alias gpl = git pull
 alias gui = gitui
 
