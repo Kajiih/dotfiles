@@ -233,16 +233,16 @@ alias gps = git push
 alias gpl = git pull
 alias gui = gitui
 
-alias gcm = git commit --message
-alias gcam = git commit --all --message
+alias gc = git commit --message
+alias gca = git commit --all --message
 
 # Git commit with message (everything after the command is captured as message)
-def gc [...message] {
+def gcm [...message] {
     git commit --message ($message | str join " ")
 }
 
 # Git commit ALL changes with message (everything after the command is captured as message)
-def gca [...message] {
+def gcam [...message] {
     git commit --all --message ($message | str join " ")
 }
 
