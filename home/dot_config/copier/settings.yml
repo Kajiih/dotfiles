@@ -15,5 +15,13 @@ defaults:
   repo_namespace: Kajiih
   github_username: Kajiih
 
+  bluesky_url: https://bsky.app/profile/kajih.bsky.social
+  linkedin_url: https://www.linkedin.com/in/kajih/
+  youtube_url: ""
+  discord_url: ""
+  x_twitter_url: ""
+  instagram_url: ""
+  facebook_url: ""
+
 trust:
   - https://github.com/Kajiih
