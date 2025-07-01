@@ -1,4 +1,4 @@
-****# KJ's dotfiles
+# KJ's dotfiles
 
 ## Usage
 
