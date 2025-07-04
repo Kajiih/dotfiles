@@ -85,6 +85,10 @@ Cross platform tools managed by cross platforms package managers, at least in th
     </plist>
     ```
 
+## Thinking about adding
+
+- [Gemini CLI](https://github.com/google-gemini/gemini-cli)
+
 ## Resources
 
 - [Reference repo](https://github.com/twpayne/dotfiles/tree/master)
