@@ -203,7 +203,7 @@ ctrl-shift-alt-f = 'workspace F'
 # ctrl-shift-alt-i = 'workspace I'
 # ctrl-shift-alt-j = 'workspace J'
 # ctrl-shift-alt-k = 'workspace K'
-# ctrl-shift-alt-l = 'workspace L'
+ctrl-shift-alt-l = 'workspace L'
 ctrl-shift-alt-m = 'workspace M'
 ctrl-shift-alt-n = 'workspace N'
 ctrl-shift-alt-p = 'workspace P'
@@ -234,7 +234,7 @@ ctrl-shift-alt-cmd-f = 'move-node-to-workspace --focus-follows-window F'
 # ctrl-shift-alt-cmd-i = 'move-node-to-workspace I'
 # ctrl-shift-alt-cmd-j = 'move-node-to-workspace J'
 # ctrl-shift-alt-cmd-k = 'move-node-to-workspace K'
-# ctrl-shift-alt-cmd-l = 'move-node-to-workspace L'
+ctrl-shift-alt-cmd-l = 'move-node-to-workspace --focus-follows-window L'
 ctrl-shift-alt-cmd-m = 'move-node-to-workspace --focus-follows-window M'
 ctrl-shift-alt-cmd-n = 'move-node-to-workspace --focus-follows-window N'
 ctrl-shift-alt-cmd-p = 'move-node-to-workspace --focus-follows-window P'
@@ -296,6 +296,9 @@ run = "layout floating"
 [[on-window-detected]]
 if.app-id = 'com.facebook.archon' # Messenger
 run = "layout floating"
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = "layout floating"
 
 
 ## Specific Apps Workspaces
@@ -323,6 +326,9 @@ run = "move-node-to-workspace N" # Notion
 [[on-window-detected]]
 if.app-id = 'md.obsidian'
 run = "move-node-to-workspace P" # Obsidian
+[[on-window-detected]]
+if.app-id = 'net.ankiweb.dtop'
+run = "move-node-to-workspace L" # Anki/AnkiApp
 
 # --- Special cases/bugs ---
 # --- Ghostty bug ---
