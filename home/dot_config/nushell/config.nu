@@ -274,6 +274,7 @@ def chas [] {
 $env.HOMEBREW_BUNDLE_FILE = $env.XDG_CONFIG_HOME | path join homebrew Brewfile
 
 # --- OCR with tesseract ---
+
 alias ocr = tesseract
 
 # --- Topiary Nushell formatter ---
