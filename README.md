@@ -36,6 +36,11 @@ Cross platform tools managed by cross platforms package managers, at least in th
   - [ ] Windows
   - [WIP] Mac
   - [ ] Linux
+  - Settings (currently based on Mac)
+  - [ ] Key repeat rate
+  - [ ] Delay after repeat
+  - [ ] Press and hold key (for accent)
+    - `defaults write -g ApplePressAndHoldEnabled -bool false`
 
 ## Features
 
