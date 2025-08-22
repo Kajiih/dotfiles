@@ -17,21 +17,21 @@ export def resolve-alias-chain [
     mut expansion = $current
 
     mut chain = []
-    mut seen_aliases = []  # Track the base aliases we've seen to detect recursion
-    
+    mut seen_aliases = [] # Track the base aliases we've seen to detect recursion
+
     while $expansion != null {
         $current = ($expansion | split words | first)
-        
+
         # Check if we've seen this alias before (recursion detected)
         if $current in $seen_aliases {
             $chain ++= [$expansion]
             break
         }
-        
+
         $chain ++= [$expansion]
         $seen_aliases ++= [$current]
 
-        $expansion = (scope aliases | where name == $current | get -i 0.expansion)
+        $expansion = (scope aliases | where name == $current | get -o 0.expansion)
     }
 
     $chain
