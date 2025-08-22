@@ -10,7 +10,7 @@ Cross platform tools managed by cross platforms package managers, at least in th
 
 #### TODOs, look [chezmoi's doc](https://www.chezmoi.io/user-guide/daily-operations/#install-chezmoi-and-your-dotfiles-on-a-new-machine-with-a-single-command)
 
-- Install `chezmoi` and probably `nushell`
+- Install [`chezmoi`](https://www.chezmoi.io/install/) and probably [`nushell`](https://www.nushell.sh/book/installation.html)
   - Probably set `nushell` as login shell
 - Install package managers
   - ⚠️ Brewfile install script is not written yet
