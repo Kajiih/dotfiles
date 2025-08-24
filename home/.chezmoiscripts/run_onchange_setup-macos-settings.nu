@@ -9,10 +9,13 @@ if (sys host | get name) != "Darwin" {
     print (ansi attr_bold) ("Reminder: Turn off 'Open folders in tabs instead of new windows' manually in Finder General Settings. Also remember to remap caps lock to escape and disable spotlight shortucts in Keyboard Shortcuts settings." | ansi gradient --fgstart '0xffc040' --fgend '0xff8040') (ansi reset)
 }
 
-# === Key repeat ===
+# === Keyboard ===
 # https://apple.stackexchange.com/questions/10467/how-to-increase-keyboard-key-repeat-rate-on-os-x
 defaults write -g InitialKeyRepeat -float 10.0
 defaults write -g KeyRepeat -float 1.0
+
+# Disable press and hold for key variations to enable key repetitions
+defaults write -g ApplePressAndHoldEnabled -bool false
 
 # === Dock ===
 defaults write com.apple.dock autohide-delay -float 0
@@ -42,7 +45,7 @@ defaults write com.apple.finder ShowStatusBar -bool true
 # Disable window animations and Get Info animations
 defaults write com.apple.finder DisableAllAnimations -bool true
 
-# === Desktop Services ===
+# === DS_Store files ===
 # Avoid creating .DS_Store files on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 # Avoid creating .DS_Store files on USB volumes
