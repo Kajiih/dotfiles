@@ -90,9 +90,12 @@ Cross platform tools managed by cross platforms package managers, at least in th
     </plist>
     ```
 
+- Keyboard mapping using [Karabiner Elements](https://karabiner-elements.pqrs.org/) + [karabiner.ts-greg-mods](https://github.com/gregorias/karabiner.ts-greg-mods) for home row mods
+
 ## Thinking about adding
 
 - [Gemini CLI](https://github.com/google-gemini/gemini-cli)
+- Replace Karabiner Element by [Kanata](https://github.com/jtroo/kanata) when the installation will be better on macOS
 
 ## Resources
 
