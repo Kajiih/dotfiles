@@ -6,7 +6,7 @@ if (sys host | get name) != "Darwin" {
     exit 0
 } else {
     print (ansi attr_bold) ("Applying macOS settings" | ansi gradient --fgstart '0x40c9ff' --fgend '0xe81cff') (ansi reset)
-    print (ansi attr_bold) ("Reminder: Turn off 'Open folders in tabs instead of new windows' manually in Finder General Settings." | ansi gradient --fgstart '0xffc040' --fgend '0xff8040') (ansi reset)
+    print (ansi attr_bold) ("Reminder: Turn off 'Open folders in tabs instead of new windows' manually in Finder General Settings. Also remember to remap caps lock to escape and disable spotlight shortucts in Keyboard Shortcuts settings." | ansi gradient --fgstart '0xffc040' --fgend '0xff8040') (ansi reset)
 }
 
 # === Key repeat ===
