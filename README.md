@@ -101,6 +101,7 @@ Operations in the chezmoi repository (which is a git repository) are like any re
 - [WIP] Cross platform
   - [ ] Windows
   - [x] Mac
+    - [ ] Move _Bitwarden_ to Mac Appstore because it can't integrate with browser otherwise.
   - [ ] Linux
 - Settings (currently only on macOS)
   - [x] Key repeat rate
