@@ -1,0 +1,22 @@
+# Personal only
+{{ if ne .deviceUsage "personal" -}}
+# Homebrew
+spicetify/
+git/
+gh/
+gitui/
+helix/
+nvim/
+# uv
+copier/
+# rust/binstall
+bws/
+{{- end }}
+
+# macOS only
+{{ if ne .chezmoi.os "darwin" -}}
+aerospace/
+borders/
+karabiner/
+{{- end }}
+brew install neovim

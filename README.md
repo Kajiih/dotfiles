@@ -108,6 +108,8 @@ Operations in the chezmoi repository (which is a git repository) are like any re
   - [x] Delay after repeat
   - [x] Press and hold key (for accent)
 - Replace Karabiner Element by [Kanata](https://github.com/jtroo/kanata) when the installation will be better on macOS
+- [ ] add rust/binstall
+- [ ] Check if it's possible to automatically install nushell and then use it in scripts
 
 ### May be added
 

@@ -1,0 +1,71 @@
+#!/usr/bin/env nu
+
+if (which brew | is-empty) {
+    print (ansi red_bold) "Error: Homebrew is not installed. Aborting." (ansi reset)
+    exit 1
+}
+
+# === Define package lists ===
+# --- Everywhere ---
+let brews = [
+    "starship"
+    "carapace"
+    "eza"
+    "fzf"
+    "fd"
+    "zoxide"
+]
+let casks = [
+    "font-fira-code-nerd-font"
+    "raycast"
+]
+# --- Personal ---
+let personal_only_brews = [
+    "mas"
+    "uutils-coreutils"
+    "zellij"
+    "tealdeer"
+    "hyperfine"
+    "bandwhich"
+    "bottom"
+    "onefetch"
+    "grex"
+    "tesseract"
+    "tesseract-lang"
+    "imageoptim-cli"
+    "pandoc"
+    "python"
+    "uv"
+    "ruff"
+]
+let personal_only_casks = [
+    "font-inter"
+    "imageoptim"
+    "visual-studio-code"
+    "bitwarden"
+    "firefox"
+    "mozeidon-macos-ui"
+    "docker"
+]
+# --- Professional ---
+let professional_only_brews = []
+let professional_only_casks = []
+
+# === Select which packages to install based on usage ===
+let usage = "{{ .deviceUsage }}"
+
+let brews_to_install = if $usage == "personal" { $brews ++ $personal_only_brews } else { $brews ++ $professional_only_brews }
+let casks_to_install = if $usage == "personal" { $casks ++ $personal_only_casks } else { $casks ++ $professional_only_casks }
+
+# === Install ===
+print (ansi attr_bold) ("Installing Homebrew packages:" | ansi gradient --fgstart '0x40c9ff' --fgend '0xe81cff') (ansi reset)
+
+for brew in $brews_to_install {
+    try { brew install $brew } catch { print $"Skipping ($brew): installation failed" }
+}
+# Cask only for macOS
+if (sys host | get name) == "Darwin" {
+    for cask in $casks_to_install {
+        try { brew install --cask $cask } catch { print $"Skipping ($cask): installation failed" }
+    }
+}

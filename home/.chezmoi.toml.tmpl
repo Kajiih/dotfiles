@@ -1,2 +1,33 @@
+# Detect device name in an OS-agnostic way
+# https://www.chezmoi.io/user-guide/machines/macos/#determine-the-hostname
+{{- $deviceName := "" -}}
+{{- if eq .chezmoi.os "darwin" -}}
+  {{- $deviceName = (output "scutil" "--get" "ComputerName" | trim) -}}
+{{- else -}}
+  {{- $deviceName = .chezmoi.hostname -}}
+{{- end -}}
+
+# Map device name to usage
+# 
+# Register computer names are defined in the digital pantheon: Epic titles and updated descriptions incoming!
+# - Imoen: Friendly, cheerful, dependable and versatile, always by your side; main macOS laptop, currently a MacBook Air M2
+# - Ombrecoeur: Dark, strict and secret; professional macOS laptop, currently a MacBook Pro M4
+# - Mystra/linkin-park (old name): Free, fast, and acts from the sky; professional Linux cloudtop
+# - Gond: Embodies craft and inventiveness, only he can build a such complex systems from bare pieces and raw materials; professional Linux desktop/workstation
+{{- $usageMap := dict
+  "Imoen" "personal"
+  "Ombrecoeur" "professional"
+  "Mystra" "professional"
+  "linkin-park" "professional"
+  "Gond" "professional"
+-}}
+{{- $deviceUsage := index $usageMap $deviceName | default "unknown" }}
+
+
+[data]
+deviceName = "{{ $deviceName }}"
+deviceUsage = "{{ $deviceUsage }}"
+
+
 [diff]
 pager = "delta"

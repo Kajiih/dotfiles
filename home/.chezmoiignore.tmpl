@@ -1,1 +1,6 @@
 **/.DS_Store
+
+# act config only on Imoen
+{{ if ne .deviceName "Imoen" -}}
+dot_actrc.tmpl
+{{- end }}
