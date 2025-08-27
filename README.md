@@ -111,6 +111,7 @@ Operations in the chezmoi repository (which is a git repository) are like any re
 - [ ] add rust/binstall
 - [ ] Check if it's possible to automatically install nushell and then use it in scripts
 - [ ] add env variables for atuin setup
+- [ ] Explain how to setup config path for nu, because it's not obvious (or maybe make sure that XDG_CONFIG_HOME is set before).
 
 ### May be added
 
