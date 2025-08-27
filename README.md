@@ -109,8 +109,8 @@ Create a file `~/Library/LaunchAgents/<whatever>.plis`, with the following conte
         <string>/bin/sh</string>
         <string>-c</string>
         <string>
-            launchctl setenv XDG_CONFIG_HOME /Users/julian/.config &&
-            launchctl setenv XDG_DATA_HOME /Users/julian/.local/share
+            launchctl setenv XDG_CONFIG_HOME /Users/<user_name>/.config &&
+            launchctl setenv XDG_DATA_HOME /Users/<user_name>/.local/share
         </string>
     </array>
     <key>RunAtLoad</key>
