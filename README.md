@@ -110,6 +110,7 @@ Operations in the chezmoi repository (which is a git repository) are like any re
 - Replace Karabiner Element by [Kanata](https://github.com/jtroo/kanata) when the installation will be better on macOS
 - [ ] add rust/binstall
 - [ ] Check if it's possible to automatically install nushell and then use it in scripts
+- [ ] add env variables for atuin setup
 
 ### May be added
 
