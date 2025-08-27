@@ -20,14 +20,14 @@ Operations in the chezmoi repository (which is a git repository) are like any re
 
 ### Setting up new machine
 
-> TODO: look [chezmoi's doc](https://www.chezmoi.io/user-guide/daily-operations/#install-chezmoi-and-your-dotfiles-on-a-new-machine-with-a-single-command)
-
 - [Optional] Set your hostname if your dotfiles depend on it.
   - [macOS](https://apple.stackexchange.com/a/461489)
 - Install [`chezmoi`](https://www.chezmoi.io/install/) and probably [`nushell`](https://www.nushell.sh/book/installation.html)
   - Probably set `nushell` as login shell
 - Install package managers
-  - ⚠️ Brewfile install script is not written yet
+  - brew, uv tools and cargo binstall
+- Apply dotfiles: `chezmoi init --apply kajiih`
+  - More info in [chezmoi's doc](https://www.chezmoi.io/user-guide/daily-operations/#install-chezmoi-and-your-dotfiles-on-a-new-machine-with-a-single-command)
 - Setup secrets (e.g. with keychain on mac, etc)
 - Setup [things that have yet to be setup manually](/docs/thing-to-setup-manually.md)
 - and more
@@ -69,33 +69,6 @@ Operations in the chezmoi repository (which is a git repository) are like any re
 
 - `XDG_CONFIG_HOME` and `XDG_DATA_HOME` set on all platforms
 
-  - [MacOS](https://github.com/nushell/nushell/discussions/14663#discussioncomment-11876260): `/Users/<user_name>/Launchagents/<whatever>.plis` (don't use comments, it doesn't work):
-
-    ```xml
-    <?xml version="1.0" encoding="UTF-8"?>
-
-    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-    <plist version="1.0">
-    <dict>
-        <key>Label</key>
-        <string>my.startup.shell_agnostic.environment</string>
-        <key>ProgramArguments</key>
-        <array>
-            <string>/bin/sh</string>
-            <string>-c</string>
-            <string>
-                launchctl setenv XDG_CONFIG_HOME /Users/julian/.config
-                && XDG_DATA_HOME /Users/julian/.local/share
-            </string>
-        </array>
-        <key>RunAtLoad</key>
-        <true/>
-        <key>ServiceIPC</key>
-        <false/>
-    </dict>
-    </plist>
-    ```
-
 ## Roadmap
 
 - [WIP] Cross platform
@@ -111,11 +84,44 @@ Operations in the chezmoi repository (which is a git repository) are like any re
 - [ ] add rust/binstall
 - [ ] Check if it's possible to automatically install nushell and then use it in scripts
 - [ ] add env variables for atuin setup
-- [ ] Explain how to setup config path for nu, because it's not obvious (or maybe make sure that XDG_CONFIG_HOME is set before).
+- [x] Explain how to setup config path for nu, because it's not obvious (or maybe make sure that XDG_CONFIG_HOME is set before).
 
 ### May be added
 
 - [Gemini CLI](https://github.com/google-gemini/gemini-cli)
+
+## XDG_ paths
+
+### MacOS
+
+Create a file `~/Library/LaunchAgents/<whatever>.plis`, with the following content (⚠️ don't use comments, it doesn't work):
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>my.startup.shell_agnostic.environment</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/sh</string>
+        <string>-c</string>
+        <string>
+            launchctl setenv XDG_CONFIG_HOME /Users/julian/.config &&
+            launchctl setenv XDG_DATA_HOME /Users/julian/.local/share
+        </string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>ServiceIPC</key>
+    <false/>
+</dict>
+</plist>
+```
+
+More info in this [GitHub issue](https://github.com/nushell/nushell/discussions/14663#discussioncomment-11876260).
 
 ## Resources
 
