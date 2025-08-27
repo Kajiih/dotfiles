@@ -2,7 +2,7 @@
 
 Cross platform tools managed by cross platforms package managers, at least in theory..!
 
-⚠️ **This repo is only teste for SOME config, not a full machine setup from scratch, and only on MacOS (specifically my Mac M2 laptop), so it will have to be fine tuned for other systems and architectures with time. Only some files contain templates that separate Mac specific config to platform agnostic config.**
+⚠️ **This repo is tested for SOME config only, not a full machine setup from scratch, and only on MacOS (specifically my Mac M2 laptop), so it will have to be fine tuned for other systems and architectures with time. Only some files contain templates that separate Mac specific config to platform agnostic config.**
 
 ## Usage
 
