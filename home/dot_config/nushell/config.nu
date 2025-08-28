@@ -123,6 +123,9 @@ $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 mkdir ~/.cache/carapace
 carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
 
+# TODO: Move both these lines in a setup script to run (probably with chezmoi) 
+# after installing carapace
+# We might need to add the path to the binary manually
 # https://carapace-sh.github.io/carapace-bin/setup.html
 source ~/.cache/carapace/init.nu
 
@@ -133,6 +136,7 @@ let carapace_completer = {|spans: list<string>|
 }
 
 # --- atuin ---
+# TODO: Check how to set this up
 source ~/.local/share/atuin/init.nu
 
 # --- Bat ---
