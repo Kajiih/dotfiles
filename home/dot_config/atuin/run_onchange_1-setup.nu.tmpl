@@ -5,4 +5,7 @@ print (ansi attr_bold) ("Setting up atuin:" | ansi gradient --fgstart '0x40c9ff'
 mkdir ~/.local/share/atuin/
 atuin init nu | save --force ~/.local/share/atuin/init.nu
 
+# Only sync Imoen
+{{ if eq .deviceName "Imoen" -}}
 atuin login --username $env.USERNAME --key $env.ATUIN_KEY --password $env.ATUIN_PASSWORD
+{{- end }}
