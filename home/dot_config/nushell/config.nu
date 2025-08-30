@@ -120,9 +120,7 @@ starship init nu | save -f ($nu.data-dir | path join vendor/autoload/starship.nu
 
 # --- Carapace ---
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
-if  (which carapace | is-not-empty) {
-    source ~/.cache/carapace/init.nu
-}
+source ~/.cache/carapace/init.nu
 
 
 
@@ -133,9 +131,7 @@ let carapace_completer = {|spans: list<string>|
 }
 
 # --- atuin ---
-if  (which atuin | is-not-empty) {
-    source ~/.local/share/atuin/init.nu
-}
+source ~/.local/share/atuin/init.nu
 
 # --- Bat ---
 # TODO? Install Nushell completion: https://gist.github.com/melMass/294c21a113d0bd329ae935a79879fe04 
