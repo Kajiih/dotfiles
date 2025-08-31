@@ -81,12 +81,8 @@ Operations in the chezmoi repository (which is a git repository) are like any re
   - [x] Delay after repeat
   - [x] Press and hold key (for accent)
 - Replace Karabiner Element by [Kanata](https://github.com/jtroo/kanata) when the installation will be better on macOS
-- [ ] add rust/binstall
-- [ ] Check if it's possible to automatically install nushell and then use it in scripts
 - [ ] add env variables for atuin setup
 - [x] Explain how to setup config path for nu, because it's not obvious (or maybe make sure that XDG_CONFIG_HOME is set before).
-- [ ] Setup scripts for `carapace` and `atuin`
-  - [ ] Also in [nushell config](/home/dot_config/nushell/config.nu) make lines about sourcing those files dependent on the whether or not the binaries are available (it will probably crash if they are not installed)
 
 ### May be added
 
