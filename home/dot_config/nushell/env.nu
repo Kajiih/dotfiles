@@ -4,3 +4,6 @@ use std "path add"
 path add "/opt/homebrew/bin"
 mkdir ~/.cache/carapace
 carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+
+# https://github.com/ajeetdsouza/zoxide#installation
+zoxide init nushell | save -f ~/.zoxide.nu

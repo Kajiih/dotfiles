@@ -172,8 +172,7 @@ $env.FZF_DEFAULT_OPTS = $" --color=,hl:($purple),hl+:($blue),prompt:($purple),po
 # Import the FZF keybindings module
 source init/fzf_keybindings.nu
 
-# --- Zoxide --- Keep at the end 
-zoxide init nushell | save -f ~/.zoxide.nu
+# --- Zoxide ---
 
 # z to fuzzy cd
 # zi to interactive cd with fzf
