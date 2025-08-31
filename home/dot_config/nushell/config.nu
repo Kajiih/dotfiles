@@ -36,7 +36,10 @@ path add [
 
 # --- Secrets ---
 # TODO: Research secret zero/first secret to solve the problem of the first secret
-use bws_secrets.nu; bws_secrets load-all
+use bws_secrets.nu
+if (which bws | is-not-empty) {
+    bws_secrets load-all
+}
 
 # --- My Info ---
 $env.EMAIL = "itskajih@gmail.com"
