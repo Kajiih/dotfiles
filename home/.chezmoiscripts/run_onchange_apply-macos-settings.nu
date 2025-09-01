@@ -39,7 +39,7 @@ defaults write com.apple.finder ShowPathbar -bool true
 # Change default view to Column
 defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 # Open Download folder by default
-defaults write com.apple.finder NewWindowTarget PfDL && killall Finder
+defaults write com.apple.finder NewWindowTarget PfDL
 # Search in current folder by default
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 # Show status bar

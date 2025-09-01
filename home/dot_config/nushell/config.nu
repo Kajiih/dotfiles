@@ -29,10 +29,12 @@ const NU_LIB_DIRS = [$NU_COMPLETIONS_DIR ($nu.default-config-dir | path join mod
 # https://reimbar.org/dev/nushell/
 path add [
     "/opt/homebrew/bin" # Homebrew binaries
-    "~/.cargo/bin" # Cargo binaries
     "~/.local/bin" # uv tools (and probably other) binaries
     "/opt/homebrew/opt/uutils-coreutils/libexec/uubin" # uutils-coreutils binaries
 ]
+
+# Source cargo env (and add binaries to path)
+source $"($nu.home-path)/.cargo/env.nu"
 
 # --- Secrets ---
 # TODO: Research secret zero/first secret to solve the problem of the first secret
