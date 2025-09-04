@@ -1,0 +1,15 @@
+#!/usr/bin/env nu
+
+{{ if not .developsAndroidAutomotive }}
+print (ansi attr_bold) ("Skipping Android Automotive development tools installation." | ansi gradient --fgstart '0xffc040' --fgend '0xff8040') (ansi reset)
+exit 0
+{{ end }}
+
+
+# === Install ===
+print (ansi attr_bold) ("Installing Android Automotive development tools..." | ansi gradient --fgstart '0x40c9ff' --fgend '0xe81cff') (ansi reset)
+
+brew install scrcpy
+brew install --cask android-platform-tools
+
+print (ansi attr_bold) ("Reminder: Also install AAE Toolbox." | ansi gradient --fgstart '0xffc040' --fgend '0xff8040') (ansi reset)

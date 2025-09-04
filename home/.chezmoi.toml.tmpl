@@ -23,10 +23,20 @@
 -}}
 {{- $deviceUsage := index $usageMap $deviceName | default "unknown" }}
 
+# List of devices on which we want to install Android Automotive specific tools
+{{- $androidAutomotiveDevices := list
+  "Ombrecoeur"
+  "Mystra"
+  "linkin-park"
+  "Gond"
+-}}
+{{- $developsAndroidAutomotive := has $deviceName $androidAutomotiveDevices }}
+
 
 [data]
 deviceName = "{{ $deviceName }}"
 deviceUsage = "{{ $deviceUsage }}"
+developsAndroidAutomotive = {{ $developsAndroidAutomotive }}
 
 
 [diff]

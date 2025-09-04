@@ -39,14 +39,14 @@ interHunkContext = 10 # merge near hunks in diffs
 colorMoved = default
 
 [log]
-abbrevCommit = true # short commits
+abbrevCommit = true                              # short commits
 graphColors = blue,yellow,cyan,magenta,green,red
 
 [interactive]
 diffFilter = delta --color-only
 
 [delta]
-navigate = true # use n and N to move between diff sections
+navigate = true     # use n and N to move between diff sections
 side-by-side = true
 
 # delta detects terminal colors automatically; set one of these to disable auto-detection
@@ -96,3 +96,6 @@ helper = /usr/local/share/gcm-core/git-credential-manager
 useHttpPath = true
 [credential "https://huggingface.co"]
 provider = generic
+
+[http]
+cookiefile = ~/.gitcookies
