@@ -43,6 +43,9 @@ if (which bws | is-not-empty) {
     bws_secrets load-all
 }
 
+# Also load from local file for secrets not managed by the secret manager or in case you can't use it
+source secrets.nu
+
 # --- My Info ---
 $env.EMAIL = "itskajih@gmail.com"
 $env.USERNAME = "Kajih"
