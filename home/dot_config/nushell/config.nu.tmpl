@@ -31,7 +31,12 @@ path add [
     "/opt/homebrew/bin" # Homebrew binaries
     "~/.local/bin" # uv tools (and probably other) binaries
     "/opt/homebrew/opt/uutils-coreutils/libexec/uubin" # uutils-coreutils binaries
+    # TODO: Improve this:
+    "~/.manual_bin/clippy/" # Replaces digest on corp laptop
 ]
+{{ if .developsAndroidAutomotive }}
+source /Users/paquerot/.aae-toolbox/bin/aae.nu # aae tools
+{{ end }}
 
 # Source cargo env (and add binaries to path)
 source $"($nu.home-path)/.cargo/env.nu"
