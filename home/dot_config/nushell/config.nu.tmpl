@@ -127,14 +127,15 @@ use resolve_alias_chain.nu resolve-alias-chain
 #
 @category network
 @search-terms ssh bash shell workaround corp-ssh-helper environment
-@example "Connect to a remote host using sshb" { sshb your-cloudtop.c.googlers.com }
-@example "Use sshb with specific ssh arguments" { sshb -v your-cloudtop.c.googlers.com }
-export def --wrapped sshb [...args] {
+@example "Connect to a remote host using sshb" { ssh_bash your-cloudtop.c.googlers.com }
+@example "Use sshb with specific ssh arguments" { ssh_bash -v your-cloudtop.c.googlers.com }
+export def --wrapped ssh_bash [...args] {
     # Temporarily set the SHELL environment variable to /bin/bash
     with-env { SHELL: "/bin/bash" } {
         command ssh ...$args
     }
 }
+alias ssh = ssh_bash
 
 # -- open --
 # https://www.nushell.sh/book/configuration.html#macos-keeping-usr-bin-open-as-open
