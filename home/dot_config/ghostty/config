@@ -17,13 +17,10 @@ window-save-state = always
 cursor-style-blink = true
 cursor-click-to-move = true
 
-
-
-# --- Base shell ---
+# === Base shell ===
 # https://github.com/ghostty-org/ghostty/discussions/3507
 command = /opt/homebrew/bin/nu --login --interactive
 # command = /opt/homebrew/bin/nu --login --interactive -c y
-
 
 # === Keybindings ===
 keybind = super+enter=unbind

@@ -123,6 +123,19 @@ alias h = omnihelp
 
 use resolve_alias_chain.nu resolve-alias-chain
 
+# ssh with an bash as environment's shell.
+#
+@category network
+@search-terms ssh bash shell workaround corp-ssh-helper environment
+@example "Connect to a remote host using sshb" { sshb your-cloudtop.c.googlers.com }
+@example "Use sshb with specific ssh arguments" { sshb -v your-cloudtop.c.googlers.com }
+export def --wrapped sshb [...args] {
+    # Temporarily set the SHELL environment variable to /bin/bash
+    with-env { SHELL: "/bin/bash" } {
+        command ssh ...$args
+    }
+}
+
 # -- open --
 # https://www.nushell.sh/book/configuration.html#macos-keeping-usr-bin-open-as-open
 # alias nu-open = open

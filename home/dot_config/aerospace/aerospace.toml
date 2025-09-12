@@ -244,7 +244,8 @@ ctrl-shift-alt-t = 'workspace T' # Terminal
 # ctrl-shift-alt-w = 'workspace W'
 # ctrl-shift-alt-x = 'workspace X'
 # ctrl-shift-alt-y = 'workspace Y'
-# ctrl-shift-alt-z = 'workspace Z'
+ctrl-shift-alt-z = 'workspace Z' # MuZik/Youtube
+
 ctrl-shift-alt-cmd-1 = 'move-node-to-workspace --focus-follows-window 1'
 ctrl-shift-alt-cmd-2 = 'move-node-to-workspace --focus-follows-window 2'
 ctrl-shift-alt-cmd-3 = 'move-node-to-workspace --focus-follows-window 3'
@@ -275,7 +276,7 @@ ctrl-shift-alt-cmd-t = 'move-node-to-workspace --focus-follows-window T'
 # ctrl-shift-alt-cmd-w = 'move-node-to-workspace W'
 # ctrl-shift-alt-cmd-x = 'move-node-to-workspace X'
 # ctrl-shift-alt-cmd-y = 'move-node-to-workspace Y'
-# ctrl-shift-alt-cmd-z = 'move-node-to-workspace Z'
+ctrl-shift-alt-cmd-z = 'move-node-to-workspace Z'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
 ctrl-alt-shift-i = 'mode service'
@@ -360,11 +361,17 @@ run = "move-node-to-workspace N"
 if.app-id = 'net.ankiweb.dtop'
 run = "move-node-to-workspace L"
 [[on-window-detected]]
+if.app-name-regex-substring = 'Duckie'
+run = "move-node-to-workspace L"
+[[on-window-detected]]
 if.app-id = 'com.todoist.mac.Todoist'
 run = "move-node-to-workspace S"
 [[on-window-detected]]
 if.app-id = 'com.apple.iCal'
 run = "move-node-to-workspace S"
+[[on-window-detected]]
+if.app-name-regex-substring = 'Youtube'
+run = "move-node-to-workspace Z"
 
 # --- Special cases/bugs ---
 # --- Ghostty bug ---
