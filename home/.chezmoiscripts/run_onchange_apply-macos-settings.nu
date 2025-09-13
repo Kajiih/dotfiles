@@ -17,6 +17,9 @@ defaults write -g KeyRepeat -float 1.0
 # Disable press and hold for key variations to enable key repetitions
 defaults write -g ApplePressAndHoldEnabled -bool false
 
+# === Mouse ===
+defaults write -g com.apple.mouse.scaling 0.125
+
 # === Dock ===
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.30
@@ -52,6 +55,9 @@ defaults write com.apple.finder DisableAllAnimations -bool true
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 # Avoid creating .DS_Store files on USB volumes
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+# === Screenshots ===
+defaults write com.apple.screencapture location ~/Documents/Screenshots
 
 # Apply changes
 killall Finder
