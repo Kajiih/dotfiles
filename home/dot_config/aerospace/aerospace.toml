@@ -11,7 +11,7 @@ after-login-command = []
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 
 # Run Sketchybar together with AeroSpace
-# sketchbar has a built-in detection of already running process,
+# sketchybar has a built-in detection of already running process,
 # so it won't be run twice on AeroSpace restart
 after-startup-command = [
     # 'exec-and-forget sketchybar',  # Doesn't currently work with Sketchybar
