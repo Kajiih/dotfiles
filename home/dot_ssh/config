@@ -1,0 +1,12 @@
+# Enable Multiplexing
+Host *
+    ControlMaster auto
+    ControlPath ~/.ssh/ctrl-%C
+    ControlPersist 15h
+    ServerAliveInterval 30
+
+# Aliases
+Host mystra
+  HostName mystra.c.googlers.com
+
+
