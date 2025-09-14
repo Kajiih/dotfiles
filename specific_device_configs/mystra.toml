@@ -1,0 +1,10 @@
+[data]
+deviceName = "mystra"
+deviceUsage = "professional"
+useAndroidAutomotiveTools = true
+useGoogleSpecificConfig = true
+
+    # This [data.chezmoi] table overrides the auto-detected values
+    [data.chezmoi]
+    os = "linux"
+    osRelease.id = "debian"

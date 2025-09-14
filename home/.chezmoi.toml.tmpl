@@ -28,13 +28,23 @@
   "Mystra"
   "Gond"
 -}}
-{{- $developsAndroidAutomotive := has $deviceName $androidAutomotiveDevices }}
+{{- $useAndroidAutomotiveTools := has $deviceName $androidAutomotiveDevices }}
+
+
+# List of devices on which we want to use specific config for development at Google - Mainly for devices with access to Google3
+{{- $googleSpecificConfigDevices := list
+  "Mystra"
+  "Gond"
+-}}
+{{- $useGoogleSpecificConfig := has $deviceName $googleSpecificConfigDevices }}
+
 
 
 [data]
 deviceName = "{{ $deviceName }}"
 deviceUsage = "{{ $deviceUsage }}"
-developsAndroidAutomotive = {{ $developsAndroidAutomotive }}
+useAndroidAutomotiveTools = {{ $useAndroidAutomotiveTools }}
+useGoogleSpecificConfig = {{ $useGoogleSpecificConfig }}
 
 
 [diff]

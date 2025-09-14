@@ -1,0 +1,142 @@
+theme = "onedark"
+
+# Inspired from https://tqwewe.com/blog/enhanced-helix-config/
+[editor]
+# Show currently open buffers, only when more than one exists.
+bufferline = "multiple"
+# Highlight all lines with a cursor
+cursorline = true
+# Use relative line numbers
+line-number = "relative"
+# Show a ruler at column 120
+rulers = [80, 100, 120]
+# Force the theme to show colors
+true-color = true
+
+# Minimum severity to show a diagnostic after the end of a line
+end-of-line-diagnostics = "hint"
+
+[editor.inline-diagnostics]
+cursor-line = "error" # Show inline diagnostics when the cursor is on the line
+other-lines = "disable" # Don't expand diagnostics unless the cursor is on the line
+    [editor.soft-wrap]
+    enable = true
+
+    [editor.cursor-shape]
+    insert = "bar"
+    normal = "block"
+    select = "underline"
+    # Have the cursor blink
+
+    [editor.indent-guides]
+    character = "╎"
+    render = true
+
+    [editor.statusline]
+    left = ["mode", "spinner", "version-control", "file-name"]
+
+
+[keys.normal]
+A-x = "extend_to_line_bounds"
+X = "select_line_above"
+
+# "A-," = "goto_previous_buffer"
+# "A-." = "goto_next_buffer"
+# "A-w" = ":buffer-close"
+# "A-/" = "repeat_last_motion"
+
+[keys.select]
+A-x = "extend_to_line_bounds"
+X = "select_line_above"
+
+
+{{- if .useGoogleSpecificConfig }}
+
+
+[keys.normal.space]
+# Default is using workspace root, which is a bit useless for google3.
+f = "file_picker_in_current_buffer_directory"
+
+[language-server.cider-lsp]
+command = "/google/bin/releases/cider/ciderlsp/ciderlsp"
+args = ["--tooltag=helix", "--noforward_sync_responses"]
+config = { provideFormatter = true }
+
+[[language]]
+name = "go"
+language-servers = [ { name = "cider-lsp" } ]
+formatter = { command = "goimports" }
+
+[[language]]
+name = "java"
+language-servers = [ { name = "cider-lsp" } ]
+indent = { tab-width = 2, unit = "  " }
+text-width = 100
+
+[[language]]
+name = "kotlin"
+language-servers = [ { name = "cider-lsp" } ]
+indent = { tab-width = 2, unit = "  " }
+text-width = 100
+
+[[language]]
+name = "sql"
+file-types = ["sql", "dsql", "sqlm", "sqlp"]
+# Default config uses "--" but comment-tokens does not overwrite comment-token:
+# https://github.com/helix-editor/helix/issues/11666
+# comment-tokens = "#"
+# comment-tokens = ["#", "--"]
+language-servers = [ { name = "cider-lsp", except-features= ["inlay-hints"] } ]
+formatter = { command = "/google/data/ro/teams/googlesql-formatter/fmt" }
+# optionally enable auto-formatting on save
+# auto-format = true
+
+[[language]]
+name = "protobuf"
+language-servers = [ { name = "cider-lsp", except-features= ["inlay-hints", "signature-help"] } ]
+
+[[language]]
+name = "textproto"
+# bundle covers RPC SP files
+file-types = ["txtpb", "textpb", "textproto", "bundle", { glob = "METADATA" }]
+language-servers = [ { name = "cider-lsp", except-features= ["inlay-hints", "signature-help"] } ]
+
+[[language]]
+name = "starlark"
+language-servers = [ { name = "cider-lsp", except-features= ["inlay-hints"] } ]
+
+# Workaround for blueprints. Not perfect but yields some syntax highlighting at
+# least.
+[[language]]
+name = "pkgbuild"
+file-types = [ "blueprint", { glob = "PKGBUILD" } ]
+
+[[language]]
+name = "python"
+language-servers = [ { name = "cider-lsp" } ]
+indent = { tab-width = 2, unit = "  " }
+# Adding piccolo to support syntax highlight.
+file-types = ["py", "pyi", "py3", "pyw", "ptl", "rpy", "cpy", "ipy", "pyt", { glob = ".python_history" }, { glob = ".pythonstartup" }, { glob = ".pythonrc" }, { glob = "*SConstruct" }, { glob = "*SConscript" }, { glob = "*sconstruct" }, "pi"]
+
+# Use with ":format" or auto-formatting below. "=" does not work as it uses the LSP.
+[[language]]
+name = "markdown"
+formatter = { command = "/google/bin/releases/corpeng-engdoc/tools/mdformat" , args = ["-"] }
+# optionally enable auto-formatting on save
+# auto-format = true
+
+[[language]]
+name = "typescript"
+language-servers = [ "cider-lsp" ]
+
+# go/rust-editors?polyglot=helix
+[language-server.rust-analyzer.config]
+rustfmt.overrideCommand = ["/google/bin/releases/rust-tools/tools/bin/rustfmt",  "--config-path", "/google/bin/releases/rust-tools/tools/rustfmt.toml"]
+cargo.extraArgs = [ "--target-dir", "/tmp/cargo" ]
+check.overrideCommand = ["/google/bin/releases/rust-tools/tools/bin/cobra", "check", "$saved_file"]
+
+[language-server.rust-analyzer.config.workspace.discoverConfig]
+command = ["/google/bin/releases/rust-tools/tools/bin/cobra", "discover", "{arg}"]
+progressLabel = "blaze"
+filesToWatch = ["BUILD"]
+{{ end }}

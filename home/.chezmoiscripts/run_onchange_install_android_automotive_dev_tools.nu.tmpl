@@ -1,6 +1,6 @@
 #!/usr/bin/env nu
 
-{{ if not .developsAndroidAutomotive }}
+{{ if not .useAndroidAutomotiveTools }}
 print (ansi attr_bold) ("Skipping Android Automotive development tools installation." | ansi gradient --fgstart '0xffc040' --fgend '0xff8040') (ansi reset)
 exit 0
 {{ end }}

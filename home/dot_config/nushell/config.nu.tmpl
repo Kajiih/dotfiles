@@ -34,7 +34,7 @@ path add [
     # TODO: Improve this:
     "~/.manual_bin/clippy/" # Replaces digest on corp laptop
 ]
-{{ if .developsAndroidAutomotive }}
+{{ if .useAndroidAutomotiveTools }}
 source /Users/paquerot/.aae-toolbox/bin/aae.nu # aae tools
 {{ end }}
 
@@ -294,7 +294,12 @@ def chas [] {
     print -n (ansi cyan) (ansi default_bold) "Git status:" (ansi reset) "\n"
     git status
 }
+
+# -- Homebrew --
 $env.HOMEBREW_BUNDLE_FILE = $env.XDG_CONFIG_HOME | path join homebrew Brewfile
+{{- if eq .deviceUsage "professional" }}
+$env.HOMEBREW_NO_AUTO_UPDATE = 1
+{{- end }}
 
 # --- OCR with tesseract ---
 

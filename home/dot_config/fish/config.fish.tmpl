@@ -1,0 +1,15 @@
+{{- if .useGoogleSpecificConfig }}
+if status is-interactive
+    # Commands to run in interactive sessions can go here
+  gcertstatus --check_remaining=60m >/dev/null 2>&1
+  or gcert -s
+end
+
+# === Google Packages ===
+# go/fish-shell#customization-for-google3
+source_google_fish_package hi
+source_google_fish_package graphviz
+source_google_fish_package autogcert
+
+alias gemini='/google/bin/releases/gemini-cli/tools/gemini'
+{{ end }}
