@@ -4,3 +4,9 @@
 {{ if ne .deviceName "Imoen" -}}
 dot_actrc.tmpl
 {{- end }}
+
+
+# Google specific (when you can't use chezmoi)
+{{ if ne .useGoogleSpecificConfig }}
+scripts_to_run_manually/
+{{- end }}

@@ -1,4 +1,3 @@
-{{- if .useGoogleSpecificConfig -}}
 #!/bin/bash
 
 # === Apps ===
@@ -45,7 +44,7 @@ else
 fi
 
 
-# === Ghostty ssh Terminfo ===
+# === Ghostty ssh Terminfo (on cloudtop) ===
 # https://ghostty.org/docs/help/terminfo#copy-ghostty's-terminfo-to-a-remote-machine
 CLOUDTOP_HOSTNAME=$(hostname)
 echo ""
@@ -64,9 +63,12 @@ echo "More info: https://ghostty.site/docs/help/terminfo/"
 echo "--------------------------------------------------------------------------"
 
 
+# === Cloudtop maintenance schedule ===
+ctop self maintenance schedule at "{{ now | dateModify "+27d" | date "2006-01-02" }} 02:00:00"
+
+
 # === Manual Installation Reminder ===
 echo ""
 echo "--------------------------------------------------------------------------"
 echo "IMPORTANT: Remember to install go/aae-toolbox if you need it."
 echo "--------------------------------------------------------------------------"
-{{- end }}
