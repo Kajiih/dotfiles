@@ -7,6 +7,6 @@ dot_actrc.tmpl
 
 
 # Google specific (when you can't use chezmoi)
-{{ if ne .useGoogleSpecificConfig }}
+{{ if not .useGoogleSpecificConfig }}
 scripts_to_run_manually/
 {{- end }}
