@@ -2,6 +2,7 @@
 #!/bin/bash
 
 # === Apps ===
+# https://g3doc.corp.google.com/company/editors/helix/index.md?cl=head
 sudo apt install hx
 
 # === Fish Shell ===
@@ -42,6 +43,25 @@ EOF
 else
   echo "Fish shell startup snippet already exists in $BASHRC_FILE."
 fi
+
+
+# === Ghostty ssh Terminfo ===
+# https://ghostty.org/docs/help/terminfo#copy-ghostty's-terminfo-to-a-remote-machine
+CLOUDTOP_HOSTNAME=$(hostname)
+echo ""
+echo "--------------------------------------------------------------------------"
+echo "ACTION REQUIRED for Ghostty Terminal Users:"
+echo ""
+echo "If you use Ghostty on your local machine to SSH to this machine,"
+echo "install the 'xterm-ghostty' terminfo to prevent errors."
+echo ""
+echo "Run this command from YOUR LOCAL MACHINE (e.g., Ombrecoeur):"
+echo ""
+echo "  infocmp -x xterm-ghostty | ssh ${CLOUDTOP_HOSTNAME} -- 'mkdir -p ~/.terminfo && tic -x -'"
+echo ""
+echo "This copies Ghostty's terminfo entry to the remote machine."
+echo "More info: https://ghostty.site/docs/help/terminfo/"
+echo "--------------------------------------------------------------------------"
 
 
 # === Manual Installation Reminder ===
