@@ -53,6 +53,37 @@ else
 fi
 
 
+# === Fish OSC 52 pbcopy ===
+echo "Adding custom 'pbcopy' (OSC 52) function for Fish shell..."
+
+FISH_FUNC_DIR=~/.config/fish/functions
+FISH_PBCOPY_FILE="$FISH_FUNC_DIR/pbcopy.fish"
+
+# Create the functions directory if it doesn't exist
+mkdir -p "$FISH_FUNC_DIR"
+
+# Write the pbcopy function using a HERE document
+# Quoting 'EOF' prevents $b64_data from being expanded by bash
+cat << 'EOF' > "$FISH_PBCOPY_FILE"
+# ~/.config/fish/functions/pbcopy.fish
+#
+# A pbcopy replacement that uses OSC 52.
+# This sends data to the *local* terminal's clipboard (e.g., Ghostty on Mac).
+function pbcopy
+    # Pipe stdin to base64 (no wrap)
+    # Then pipe base64's output to `read -l` (read one line)
+    # This avoids a shell deadlock.
+    base64 -w0 | read -l b64_data
+    
+    # Now, printf runs in a separate command
+    # Its stdin is not connected to the original pipe.
+    printf "\e]52;c;%s\a" $b64_data
+end
+EOF
+
+echo "'pbcopy.fish' function created."
+
+
 # === Ghostty ssh Terminfo (on cloudtop) ===
 # https://ghostty.org/docs/help/terminfo#copy-ghostty's-terminfo-to-a-remote-machine
 CLOUDTOP_HOSTNAME=$(hostname)

@@ -46,13 +46,15 @@ Operations in the chezmoi repository (which is a git repository) are like any re
   - More [info](https://www.chezmoi.io/user-guide/frequently-asked-questions/usage/#once-ive-made-a-change-to-the-source-directory-how-do-i-commit-it)
 - `status`, `managed`, `unmanaged`: useful to get info
 
-### Generating configs for specific devices
+### Generating configs for specific devices (for example if they can't use chezmoi)
 
 #### Mystra
 
 ```shell
 mkdir ~/.tmp/mystra_config; chezmoi apply --destination ~/.tmp/mystra_config --exclude=scripts --config ~/.local/share/chezmoi/specific_device_configs/mystra.toml
 ```
+
+Then manually execute necessary scripts and copy the config files you want
 
 ## Features
 
