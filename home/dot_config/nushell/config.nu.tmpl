@@ -28,6 +28,7 @@ const NU_LIB_DIRS = [$NU_COMPLETIONS_DIR ($nu.default-config-dir | path join mod
 # --- Package Manager Binaries --- 
 # https://reimbar.org/dev/nushell/
 path add [
+    "/usr/local/bin/" # System binaries (used at least on corp laptop)
     "/opt/homebrew/bin" # Homebrew binaries
     "~/.local/bin" # uv tools (and probably other) binaries
     "/opt/homebrew/opt/uutils-coreutils/libexec/uubin" # uutils-coreutils binaries
