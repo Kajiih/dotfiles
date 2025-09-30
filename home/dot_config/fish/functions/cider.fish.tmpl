@@ -1,0 +1,9 @@
+{{- if .useGoogleSpecificConfig }}
+function cider
+  if test "$TERM_PROGRAM" = "cider"
+    printf "\e]3945;OpenFile=%s\a" (realpath $argv[1])
+  else
+    echo "Not running inside Cider!"
+  end
+end
+{{ end }}
