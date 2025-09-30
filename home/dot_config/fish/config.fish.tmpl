@@ -12,7 +12,11 @@ source_google_fish_package graphviz
 source_google_fish_package autogcert
 
 alias gemini='/google/bin/releases/gemini-cli/tools/gemini'
+alias tx='tmx2'
 {{ end }}
+
+# === Env var ===
+set -gx EDITOR hx
 
 # === Starship ===
 starship init fish | source
