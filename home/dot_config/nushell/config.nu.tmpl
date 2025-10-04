@@ -143,6 +143,7 @@ alias ssh = ssh_bash
 # alias nu-open = open
 
 #  --- Starship --
+$env.STARSHIP_CONFIG = $env.XDG_CONFIG_HOME | path join starship config.toml
 mkdir ($nu.data-dir | path join vendor/autoload)
 starship init nu | save -f ($nu.data-dir | path join vendor/autoload/starship.nu)
 

@@ -1,14 +1,13 @@
 #!/usr/bin/env nu
 
 if (which brew | is-empty) {
-    print (ansi red_bold) "Error: Homebrew is not installed. Aborting." (ansi reset)
-    exit 1
+    print (ansi red_bold) "Homebrew is not installed. Skipping Homebrew packages" (ansi reset)
+    exit 0
 }
 
 # === Define package lists ===
 # --- Everywhere ---
 let brews = [
-    "starship"
     "carapace"
     "eza"
     "fzf"
