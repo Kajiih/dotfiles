@@ -5,10 +5,10 @@
 def run-and-print [name: string, manager: string, cmd_list: list<string>] {
     try {
         ($cmd_list | complete)
-        print (ansi green) $"--- (chezmoi::install) ({$name}): Installed successfully with {$manager}." (ansi reset)
+        print (ansi green) $"($name) installed with ($manager)." (ansi reset)
         return $manager
     } catch {
-        print (ansi red_bold) $"--- (chezmoi::install) ({$name}): Installation FAILED using {$manager}." (ansi reset)
+        print (ansi red_bold) $"Installing ($name) unexpectedly failed using ($manager)." (ansi reset)
         return null
     }
 }
@@ -23,12 +23,12 @@ export def install-package [
     let final_check_cmd = if ($check_cmd | is-not-empty) { $check_cmd } else { $name } 
     # Check if the tool is already installed
     if (which $final_check_cmd | is-not-empty) {
-        print $"--- ($name): already installed at (which $final_check_cmd | get path). Skipping."
+        print $"($name) already installed at (which $final_check_cmd | get path). Skipping."
         return null
     }
 
     # Install
-    print (ansi attr_bold) ($"Installing {$name}:" | ansi gradient --fgstart '0x40c9ff' --fgend '0xe81cff') (ansi reset)
+    print (ansi attr_bold) ($"Installing ($name):" | ansi gradient --fgstart '0x40c9ff' --fgend '0xe81cff') (ansi reset)
     
     let brew_pkg = ($packages | get brew | default null)
     if (which brew | is-not-empty and ($brew_pkg | is-not-null)) {
@@ -52,7 +52,7 @@ export def install-package [
     
     # Fallback
     else {
-        print (ansi yellow_bold) $"Skipping {$name} installation: No supported package manager found." (ansi reset)
+        print (ansi yellow_bold) $"Skipping ($name) installation: No supported package manager found." (ansi reset)
         return null
     }
 }
