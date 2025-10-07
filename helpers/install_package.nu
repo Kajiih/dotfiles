@@ -1,14 +1,13 @@
-# File: scripts/helper.nu
+source ~/.local/share/chezmoi/helpers/theme.nu
 
 # Helper to execute a command list
-# Returns the manager name string on SUCCESS, or null on failure.
 def run-and-print [name: string, manager: string, cmd_list: list<string>] {
     try {
         ($cmd_list | complete)
-        print (ansi green) $"($name) installed with ($manager)." (ansi reset)
+        print-success $"($name) installed with ($manager)."
         return $manager
     } catch {
-        print (ansi red_bold) $"Installing ($name) unexpectedly failed using ($manager)." (ansi reset)
+        print-error $"Installing ($name) unexpectedly failed using ($manager)."
         return null
     }
 }
@@ -20,39 +19,30 @@ export def install-package [
     # Command to check for existence to know whether the package is already installed
     --check-cmd: string = ""
 ] {
-    let final_check_cmd = if ($check_cmd | is-not-empty) { $check_cmd } else { $name } 
-    # Check if the tool is already installed
+    let final_check_cmd = if ($check_cmd | is-empty) { $name } else { $check_cmd }
     if (which $final_check_cmd | is-not-empty) {
-        print $"($name) already installed at (which $final_check_cmd | get path). Skipping."
+        print-info $"($name) already installed at (which $final_check_cmd | get path | first). Skipping."
         return null
     }
 
-    # Install
-    print (ansi attr_bold) ($"Installing ($name):" | ansi gradient --fgstart '0x40c9ff' --fgend '0xe81cff') (ansi reset)
-    
-    let brew_pkg = ($packages | get brew | default null)
-    if (which brew | is-not-empty and ($brew_pkg | is-not-null)) {
-        return (run-and-print $name "Homebrew" ["brew", "install", $brew_pkg])
-    } 
-    
-    let apt_pkg = ($packages | get apt | default null)
-    else if (which apt | is-not-empty and ($apt_pkg | is-not-null)) {
-        return (run-and-print $name "apt" ["sudo", "apt", "install", $apt_pkg])
-    } 
-    
-    let cargo_pkg = ($packages | get cargo | default null)
-    else if (which cargo | is-not-empty and which binstall | is-not-empty and ($cargo_pkg | is-not-null)) {
-        return (run-and-print $name "cargo binstall" ["cargo", "binstall", "--no-confirm", $cargo_pkg])
-    }
-    
-    let uv_pkg = ($packages | get uv | default null)
-    else if (which uv | is-not-empty and ($uv_pkg | is-not-null)) {
-        return (run-and-print $name "uv tool" ["uv", "tool", "install", $uv_pkg])
+    print-header $"Installing ($name):"
+
+    let managers = [
+        { mgr_name: "Homebrew",       check_cmd: "brew",     pkg_key: "brew",  install_cmd: ["brew", "install"] },
+        { mgr_name: "apt",            check_cmd: "apt",      pkg_key: "apt",   install_cmd: ["sudo", "apt", "install", "-y"] },
+        { mgr_name: "cargo binstall", check_cmd: "binstall", pkg_key: "cargo", install_cmd: ["cargo", "binstall", "--no-confirm"] },
+        { mgr_name: "uv tool",        check_cmd: "uv",       pkg_key: "uv",    install_cmd: ["uv", "tool", "install"] }
+    ]
+
+    for mgr in $managers {
+        let pkg_name = ($packages | get $mgr.pkg_key | default null)
+        if ((which $mgr.check_cmd | is-not-empty) and ($pkg_name | is-not-null)) {
+            let final_cmd = $mgr.install_cmd | append $pkg_name
+            return (run-and-print $name $mgr.mgr_name $final_cmd)
+        }
     }
     
     # Fallback
-    else {
-        print (ansi yellow_bold) $"Skipping ($name) installation: No supported package manager found." (ansi reset)
-        return null
-    }
+    print-warning $"Skipping ($name) installation: No supported package manager found."
+    return null
 }
