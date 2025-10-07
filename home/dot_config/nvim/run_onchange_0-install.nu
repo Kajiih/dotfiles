@@ -1,5 +1,5 @@
 #!/usr/bin/env nu
 
-print (ansi attr_bold) ("Installing Neovim:" | ansi gradient --fgstart '0x40c9ff' --fgend '0xe81cff') (ansi reset)
+source ~/.local/share/chezmoi/helpers/install_package.nu
 
-brew install neovim
+install-package "neovim" --brew "neovim" --apt "neovim" --check-cmd "nvim"

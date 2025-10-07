@@ -1,6 +1,6 @@
 #!/usr/bin/env nu
 
-print (ansi attr_bold) ("Installing bat:" | ansi gradient --fgstart '0x40c9ff' --fgend '0xe81cff') (ansi reset)
+source ~/.local/share/chezmoi/helpers/install_package.nu
 
-brew install bat
-brew install bat-extras
+install-package "bat" --brew "bat" --apt "bat"
+install-package "bat-extras" --brew "bat-extras" --check-cmd "batgrep" # Add install method for linux

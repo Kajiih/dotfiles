@@ -1,7 +1,7 @@
 #!/usr/bin/env nu
 
-print (ansi attr_bold) ("Installing git" | ansi gradient --fgstart '0x40c9ff' --fgend '0xe81cff') (ansi reset)
+source ~/.local/share/chezmoi/helpers/install_package.nu
 
-brew install git
-brew install pre-commit
-brew install git-delta
+install-package "git" --brew "git" --apt "git"
+install-package "pre-commit" --brew "pre-commit" --apt "pre-commit"
+install-package "git-delta" --brew "git-delta" --check-cmd "delta" # TODO: Add install method for linux

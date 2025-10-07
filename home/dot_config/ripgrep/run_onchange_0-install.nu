@@ -1,5 +1,5 @@
 #!/usr/bin/env nu
 
-print (ansi attr_bold) ("Installing ripgrep:" | ansi gradient --fgstart '0x40c9ff' --fgend '0xe81cff') (ansi reset)
+source ~/.local/share/chezmoi/helpers/install_package.nu
 
-brew install ripgrep
+install-package "ripgrep" --brew "ripgrep" --apt "ripgrep" --check-cmd "rg"

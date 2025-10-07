@@ -1,5 +1,5 @@
 #!/usr/bin/env nu
 
-print (ansi attr_bold) ("Installing yazi (terminal file manager):" | ansi gradient --fgstart '0x40c9ff' --fgend '0xe81cff') (ansi reset)
+source ~/.local/share/chezmoi/helpers/install_package.nu
 
-brew install yazi
+install-package "yazi" --brew "yazi" --cargo "yazi-build"
