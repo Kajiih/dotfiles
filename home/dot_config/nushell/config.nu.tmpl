@@ -236,10 +236,8 @@ def f [] {
 $env.RIPGREP_CONFIG_PATH = $env.XDG_CONFIG_HOME | path join ripgrep config.sh
 alias ripgrep = rg
 alias rg = batgrep
-alias rgi = rg -i
+alias rgi = rg -i  # Case insensitive
 alias rga = rg -uuu
-# def rgf [...arg]
-# alias rgf = ripgrep --files | ripgrep
 alias rgc = ripgrep --count
 
 # Search in files found by ripgrep
