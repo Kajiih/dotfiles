@@ -41,7 +41,6 @@ export def install-package [
     if not ($brew_present or $cask_present or $apt_present or $cargo_present or $uv_present) {
         error make {
             msg: $"No package manager flag was defined for package ($name)."
-            exit_code: 1 # TODO: Check if we need to keep this exit code
         }
     }
 
@@ -49,7 +48,6 @@ export def install-package [
     if $brew_present and $cask_present {
         error make {
             msg: $"Package ($name) cannot be defined with both '--brew' (Formula) and '--cask' (Application) flags."
-            exit_code: 1 # TODO: Check if we need to keep this exit code
         }
     }
     # ---------------------------------------------------
@@ -75,9 +73,8 @@ export def install-package [
         }
     }
 
-    # --- 3. Final Fallback ---
-    # This is a soft failure (manager not found/available), not a configuration error, 
-    # so we return null and let the script continue.
-    print-warning $"Skipping ($name) installation: Package defined, but no supported package manager is available on this system."
-    return null # TODO: Change to an error
+    # --- 3. Could not be installed ---
+    error make {
+        msg: $"Could not install ($name): no supported package manager is available on this system."
+    }
 }

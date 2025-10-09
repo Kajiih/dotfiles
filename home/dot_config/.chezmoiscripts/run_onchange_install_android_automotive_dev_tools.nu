@@ -3,9 +3,7 @@ use ~/.local/share/chezmoi/helpers/theme.nu print-info
 use ~/.local/share/chezmoi/helpers/install_package.nu install-package
 use ~/.config/.chezmoi_variables.nu USE_ANDROID_AUTOMOTIVE_TOOLS
 
-if not $USE_ANDROID_AUTOMOTIVE_TOOLS {
-exit 0 # TODO: Check if we need the 0 code
-}
+if not $USE_ANDROID_AUTOMOTIVE_TOOLS { exit }
 
 install-package "scrcpy" --brew "scrcpy"
 install-package "android-platform-tools" --cask "android-platform-tools"
