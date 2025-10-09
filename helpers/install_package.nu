@@ -1,18 +1,18 @@
-use ~/.local/share/chezmoi/helpers/theme.nu [print-header print-success print-error print-info print-warning]
+use ~/.local/share/chezmoi/helpers/theme.nu [ print-header print-success print-error print-info print-warning ]
 
 # Helper to execute a command list
-def run-and-print [name: string, manager: string, cmd_list: list<string>] {
+def run-and-print [name: string manager: string cmd_list: list<string>] {
     try {
-        ($cmd_list | complete)
+        ($cmd_list | complete) # TODO: Fix this for casks
         print-success $"($name) installed with ($manager)."
         return $manager
-    } catch {
+    } catch {|err|
         # This catch block only affects run-and-print; we'll let the calling script handle the exit status
         print-error $"Installing ($name) unexpectedly failed using ($manager)."
+        print $err.msg
         return null
     }
 }
-
 
 export def install-package [
     name: string
@@ -39,12 +39,12 @@ export def install-package [
 
     # CHECK A: At least one package manager must be defined
     if not ($brew_present or $cask_present or $apt_present or $cargo_present or $uv_present) {
-        error make { 
+        error make {
             msg: $"No package manager flag was defined for package ($name)."
             exit_code: 1 # TODO: Check if we need to keep this exit code
         }
     }
-    
+
     # CHECK B: Block simultaneous '--brew' and '--cask'
     if $brew_present and $cask_present {
         error make {
@@ -57,24 +57,24 @@ export def install-package [
     print-header $"Installing ($name):"
 
     let managers = [
-        { mgr_name: "Homebrew", check_cmd: "brew",     pkg_name: $brew,  install_cmd: ["brew", "install"] },
-        { mgr_name: "Homebrew (Cask)", check_cmd: "brew",     pkg_name: $cask,  install_cmd: ["brew", "install", "--cask"] },
-        { mgr_name: "apt",            check_cmd: "apt",      pkg_name: $apt,   install_cmd: ["sudo", "apt", "install", "-y"] },
-        { mgr_name: "cargo binstall", check_cmd: "binstall", pkg_name: $cargo, install_cmd: ["cargo", "binstall", "--no-confirm"] },
-        { mgr_name: "uv tool",        check_cmd: "uv",       pkg_name: $uv,    install_cmd: ["uv", "tool", "install"] }
+        {mgr_name: "Homebrew" check_cmd: "brew" pkg_name: $brew install_cmd: ["brew" "install"]}
+        {mgr_name: "Homebrew (Cask)" check_cmd: "brew" pkg_name: $cask install_cmd: ["brew" "install" "--cask"]}
+        {mgr_name: "apt" check_cmd: "apt" pkg_name: $apt install_cmd: ["sudo" "apt" "install" "-y"]}
+        {mgr_name: "cargo binstall" check_cmd: "binstall" pkg_name: $cargo install_cmd: ["cargo" "binstall" "--no-confirm"]}
+        {mgr_name: "uv tool" check_cmd: "uv" pkg_name: $uv install_cmd: ["uv" "tool" "install"]}
     ]
 
     # --- 2. Installation Logic ---
 
     for mgr in $managers {
         let pkg_name = $mgr.pkg_name
-        
+
         if ((which $mgr.check_cmd | is-not-empty) and ($pkg_name | is-not-empty)) {
             let final_cmd = $mgr.install_cmd | append $pkg_name
             return (run-and-print $name $mgr.mgr_name $final_cmd)
         }
     }
-    
+
     # --- 3. Final Fallback ---
     # This is a soft failure (manager not found/available), not a configuration error, 
     # so we return null and let the script continue.

@@ -16,7 +16,7 @@ export def print-warning [message: string] {
 
 # Cyan for informational messages
 export def print-info [message: string] {
-    print (ansi cyan_bold) $"ℹ ($message)" (ansi reset)
+    print (ansi cyan_bold) $"($message)" (ansi reset)
 }
 
 # Blue/purple gradient for main installation headers

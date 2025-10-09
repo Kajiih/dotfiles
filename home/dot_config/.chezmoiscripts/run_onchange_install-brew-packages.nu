@@ -1,8 +1,7 @@
 #!/usr/bin/env nu
 use ~/.local/share/chezmoi/helpers/theme.nu print-info
 use ~/.local/share/chezmoi/helpers/install_package.nu install-package
-use ~/.config/.chezmoi_variables.nu [DEVICE_USAGE IS_GOOGLE_SPECIFIC]
-
+use ~/.config/.chezmoi_variables.nu [ DEVICE_USAGE IS_GOOGLE_SPECIFIC ]
 
 if (which brew | is-empty) {
     print-info "Homebrew is not installed. Skipping Homebrew packages"
