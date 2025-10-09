@@ -1,5 +1,5 @@
 [data]
-deviceName = "mystra"
+deviceName = "mystra.c.googlers.com"
 deviceUsage = "professional"
 useAndroidAutomotiveTools = true
 useGoogleSpecificConfig = true
