@@ -17,7 +17,6 @@ let brews = [
     "zoxide"
     "cargo-binstall"
     "zellij"
-    # Python
     "uv"
 ]
 let casks = [
@@ -68,7 +67,7 @@ let google_specific_only_brews = []
 
 # === Select which packages to install based on usage ===
 let usage = "{{ .deviceUsage }}"
-let is_google_specific = "{{ .isGoogleSpecific }}"
+let is_google_specific = {{ .isGoogleSpecific }}
 
 let brews_to_install = $brews ++ (if $usage == "personal" { $personal_only_brews } else { $professional_only_brews }) ++ (if $is_google_specific { $google_specific_only_brews } else { $non_google_specific_only_brews })
 let casks_to_install = if $usage == "personal" { $casks ++ $personal_only_casks } else { $casks ++ $professional_only_casks }
