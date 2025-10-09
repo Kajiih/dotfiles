@@ -41,7 +41,7 @@ export def install-package [
     if not ($brew_present or $cask_present or $apt_present or $cargo_present or $uv_present) {
         error make { 
             msg: $"No package manager flag was defined for package ($name)."
-            exit_code: 1
+            exit_code: 1 # TODO: Check if we need to keep this exit code
         }
     }
     
@@ -49,7 +49,7 @@ export def install-package [
     if $brew_present and $cask_present {
         error make {
             msg: $"Package ($name) cannot be defined with both '--brew' (Formula) and '--cask' (Application) flags."
-            exit_code: 1
+            exit_code: 1 # TODO: Check if we need to keep this exit code
         }
     }
     # ---------------------------------------------------
