@@ -32,11 +32,11 @@
 
 
 # List of devices on which we want to use specific config for development at Google - Mainly for devices with access to Google3
-{{- $googleSpecificConfigDevices := list
+{{- $googleSpecificDevices := list
   "mystra.c.googlers.com"
   "Gond"
 -}}
-{{- $useGoogleSpecificConfig := has $deviceName $googleSpecificConfigDevices }}
+{{- $isGoogleSpecific := has $deviceName $googleSpecificDevices }}
 
 
 
@@ -44,7 +44,7 @@
 deviceName = "{{ $deviceName }}"
 deviceUsage = "{{ $deviceUsage }}"
 useAndroidAutomotiveTools = {{ $useAndroidAutomotiveTools }}
-useGoogleSpecificConfig = {{ $useGoogleSpecificConfig }}
+isGoogleSpecific = {{ $isGoogleSpecific }}
 
 
 [diff]

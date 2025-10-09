@@ -1,4 +1,4 @@
-{{- if .useGoogleSpecificConfig }}
+{{- if .isGoogleSpecific }}
 if status is-interactive
     # Commands to run in interactive sessions can go here
   gcertstatus --check_remaining=60m >/dev/null 2>&1

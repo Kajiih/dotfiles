@@ -2,7 +2,7 @@
 deviceName = "mystra.c.googlers.com"
 deviceUsage = "professional"
 useAndroidAutomotiveTools = true
-useGoogleSpecificConfig = true
+isGoogleSpecific = true
 
     # This [data.chezmoi] table overrides the auto-detected values
     [data.chezmoi]

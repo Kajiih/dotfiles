@@ -1,4 +1,4 @@
-{{- if .useGoogleSpecificConfig }}
+{{- if .isGoogleSpecific }}
 function cider
   if test "$TERM_PROGRAM" = "cider"
     printf "\e]3945;OpenFile=%s\a" (realpath $argv[1])

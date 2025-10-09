@@ -1,7 +1,9 @@
 #!/usr/bin/env nu
+source ~/.local/share/chezmoi/helpers/theme.nu
+source ~/.local/share/chezmoi/helpers/install_package.nu
 
 if (which brew | is-empty) {
-    print (ansi red_bold) "Homebrew is not installed. Skipping Homebrew packages" (ansi reset)
+    print-error "Homebrew is not installed. Skipping Homebrew packages"
     exit 0
 }
 
@@ -65,17 +67,16 @@ let brews_to_install = if $usage == "personal" { $brews ++ $personal_only_brews 
 let casks_to_install = if $usage == "personal" { $casks ++ $personal_only_casks } else { $casks ++ $professional_only_casks }
 
 # === Install ===
-if usage == "professional" {
+if $usage == "professional" {
     $env.HOMEBREW_NO_AUTO_UPDATE = 1
 }
-print (ansi attr_bold) ("Installing Homebrew packages:" | ansi gradient --fgstart '0x40c9ff' --fgend '0xe81cff') (ansi reset)
 
 for brew in $brews_to_install {
-    try { brew install $brew } catch { print $"Skipping ($brew): installation failed" }
+    install-package $brew --brew $brew
 }
 # Cask only for macOS
 if (sys host | get name) == "Darwin" {
     for cask in $casks_to_install {
-        try { brew install --cask $cask } catch { print $"Skipping ($cask): installation failed" }
+        install-package $cask --cask $cask
     }
 }
