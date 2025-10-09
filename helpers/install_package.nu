@@ -2,8 +2,8 @@ use ~/.local/share/chezmoi/helpers/theme.nu [ print-header print-success print-e
 
 # Helper to execute a command list
 def run-and-print [name: string manager: string cmd_list: list<string>] {
-    try {
-        ($cmd_list | complete) # TODO: Fix this for casks
+    try { # TODO: Check if we keep the try catch block
+        do {$cmd_list}
         print-success $"($name) installed with ($manager)."
         return $manager
     } catch {|err|
@@ -28,6 +28,9 @@ export def install-package [
         print-info $"($name) already installed at (which $final_check_cmd | get path | first). Skipping."
         return null
     }
+    # We can check installed apps with `mdfind "kMDItemKind == 'Application'"` 
+    # See: https://stackoverflow.com/questions/54100496/check-if-an-app-is-installed-on-macos-using-the-terminal
+    # TODO? Remove already installed check altogether?
 
     # --- 1. Robustness Checks (Force Exit 1 on failure) ---
 
