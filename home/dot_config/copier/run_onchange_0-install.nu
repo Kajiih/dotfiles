@@ -1,5 +1,5 @@
 #!/usr/bin/env nu
 
-source ~/.local/share/chezmoi/helpers/install_package.nu
+use ~/.local/share/chezmoi/helpers/install_package.nu install-package
 
-uv tool install copier --with copier-templates-extensions
+install-package "copier" --uv "copier --with copier-templates-extensions"

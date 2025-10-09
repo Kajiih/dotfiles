@@ -1,6 +1,6 @@
 #!/usr/bin/env nu
 
-source ~/.local/share/chezmoi/helpers/install_package.nu
+use ~/.local/share/chezmoi/helpers/install_package.nu install-package
 
 install-package "spotify" --cask "spotify"
 install-package "spicetify-cli" --brew "spicetify-cli" --check-cmd "spicetify"

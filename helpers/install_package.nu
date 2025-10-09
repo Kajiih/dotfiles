@@ -1,4 +1,4 @@
-source ~/.local/share/chezmoi/helpers/theme.nu
+use ~/.local/share/chezmoi/helpers/theme.nu [print-header print-success print-error print-info print-warning]
 
 # Helper to execute a command list
 def run-and-print [name: string, manager: string, cmd_list: list<string>] {
@@ -79,5 +79,5 @@ export def install-package [
     # This is a soft failure (manager not found/available), not a configuration error, 
     # so we return null and let the script continue.
     print-warning $"Skipping ($name) installation: Package defined, but no supported package manager is available on this system."
-    return null
+    return null # TODO: Change to an error
 }

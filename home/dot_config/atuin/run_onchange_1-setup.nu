@@ -1,11 +1,13 @@
 #!/usr/bin/env nu
+use ~/.local/share/chezmoi/helpers/theme.nu print-header
+use ~/.config/.chezmoi_variables.nu DEVICE_NAME
 
-print (ansi attr_bold) ("Setting up atuin:" | ansi gradient --fgstart '0x40c9ff' --fgend '0xe81cff') (ansi reset)
+print-header "Setting up atuin:"
 
 mkdir ~/.local/share/atuin/
 atuin init nu | save --force ~/.local/share/atuin/init.nu
 
 # Only sync Imoen
-{{ if eq .deviceName "Imoen" -}}
+if $DEVICE_NAME == "Imoen" {
 atuin login --username $env.USERNAME --key $env.ATUIN_KEY --password $env.ATUIN_PASSWORD
-{{- end }}
+}

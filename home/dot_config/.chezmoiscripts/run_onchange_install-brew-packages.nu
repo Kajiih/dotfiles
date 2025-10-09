@@ -1,9 +1,11 @@
 #!/usr/bin/env nu
-source ~/.local/share/chezmoi/helpers/theme.nu
-source ~/.local/share/chezmoi/helpers/install_package.nu
+use ~/.local/share/chezmoi/helpers/theme.nu print-info
+use ~/.local/share/chezmoi/helpers/install_package.nu install-package
+use ~/.config/.chezmoi_variables.nu [DEVICE_USAGE IS_GOOGLE_SPECIFIC]
+
 
 if (which brew | is-empty) {
-    print-error "Homebrew is not installed. Skipping Homebrew packages"
+    print-info "Homebrew is not installed. Skipping Homebrew packages"
     exit 0
 }
 
@@ -66,14 +68,11 @@ let non_google_specific_only_brews = [
 let google_specific_only_brews = []
 
 # === Select which packages to install based on usage ===
-let usage = "{{ .deviceUsage }}"
-let is_google_specific = {{ .isGoogleSpecific }}
-
-let brews_to_install = $brews ++ (if $usage == "personal" { $personal_only_brews } else { $professional_only_brews }) ++ (if $is_google_specific { $google_specific_only_brews } else { $non_google_specific_only_brews })
-let casks_to_install = if $usage == "personal" { $casks ++ $personal_only_casks } else { $casks ++ $professional_only_casks }
+let brews_to_install = $brews ++ (if $DEVICE_USAGE == "personal" { $personal_only_brews } else { $professional_only_brews }) ++ (if $IS_GOOGLE_SPECIFIC { $google_specific_only_brews } else { $non_google_specific_only_brews })
+let casks_to_install = if $DEVICE_USAGE == "personal" { $casks ++ $personal_only_casks } else { $casks ++ $professional_only_casks }
 
 # === Install ===
-if $usage == "professional" {
+if $DEVICE_USAGE == "professional" {
     $env.HOMEBREW_NO_AUTO_UPDATE = 1
 }
 

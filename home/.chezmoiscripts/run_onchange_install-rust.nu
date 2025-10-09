@@ -1,6 +1,6 @@
 #!/usr/bin/env nu
 
-source ~/.local/share/chezmoi/helpers/theme.nu
+use ~/.local/share/chezmoi/helpers/theme.nu print-header
 
 print-header "Installing Rust..."
 
