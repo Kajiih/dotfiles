@@ -1,6 +1,6 @@
 # Green for success messages
 export def print-success [message: string] {
-    print (ansi green) $"✔ ($message)" (ansi reset)
+    print (ansi green_bold) $"✔ ($message)" (ansi reset)
 }
 
 # Red and bold for error messages
