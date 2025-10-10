@@ -21,3 +21,8 @@ karabiner/
 {{ if .isGoogleSpecific }}
 gh/
 {{- end }}
+
+{{ if not .isGoogleSpecific }}
+tmux/
+fish/
+{{- end }}

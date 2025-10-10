@@ -365,6 +365,16 @@ alias onefetch-s = onefetch --disabled-fields dependencies authors contributors 
 # also: 
 # - title
 
+{{- if .isGoogleSpecific }}
+# --- Google Specific tools ---
+alias gemini = /google/bin/releases/gemini-cli/tools/gemini
+alias tx = tmx2
+if $nu.is-interactive and (gcertstatus --check_remaining=60m | complete | get exit_code | $in != 0) {
+    gcert -s
+}
+{{ end }}
+
+
 # --- Custom utils ---
 
 # A smarter head command that preserves colors and shows truncation indicators
