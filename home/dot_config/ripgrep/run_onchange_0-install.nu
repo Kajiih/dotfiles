@@ -2,4 +2,4 @@
 
 use ~/.local/share/chezmoi/helpers/install_package.nu install-package
 
-install-package "ripgrep" --brew "ripgrep" --apt "ripgrep" --check-cmd "rg"
+install-package "ripgrep" --brew "ripgrep" --apt "ripgrep" --check-installed "rg"
