@@ -1,12 +1,14 @@
 #!/usr/bin/env nu
 
+use ~/.local/share/chezmoi/helpers/theme.nu [ print-header print-warning ]
+
 # Run only on macOS
 if (sys host | get name) != "Darwin" {
-    print (ansi attr_bold) ("Skipping macOS settings" | ansi gradient --fgstart '0xffc040' --fgend '0xff8040') (ansi reset)
+    print-header "Skipping macOS settings"
     exit 0
 } else {
-    print (ansi attr_bold) ("Applying macOS settings" | ansi gradient --fgstart '0x40c9ff' --fgend '0xe81cff') (ansi reset)
-    print (ansi attr_bold) ("Reminder: Turn off 'Open folders in tabs instead of new windows' manually in Finder General Settings. Also remember to remap caps lock to escape and disable spotlight shortcuts in Keyboard Shortcuts settings." | ansi gradient --fgstart '0xffc040' --fgend '0xff8040') (ansi reset)
+    print-header "Applying macOS settings"
+    print-warning "Reminder: Turn off 'Open folders in tabs instead of new windows' manually in Finder General Settings. Also remember to remap caps lock to escape and disable spotlight shortcuts in Keyboard Shortcuts settings."
 }
 
 # === Keyboard ===
