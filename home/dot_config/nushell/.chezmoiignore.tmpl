@@ -3,3 +3,8 @@ data/ls_colors.txt
 **/*.nu.swp
 
 secrets.nu
+
+# === Google Specific ===
+{{ if not .isGoogleSpecific }}
+.bash_nu_setup.sh
+{{- end }}

@@ -68,6 +68,7 @@ let google_specific_only_brews = []
 
 # === Select which packages to install based on usage ===
 let brews_to_install = $brews ++ (if $DEVICE_USAGE == "personal" { $personal_only_brews } else { $professional_only_brews }) ++ (if $IS_GOOGLE_SPECIFIC { $google_specific_only_brews } else { $non_google_specific_only_brews })
+
 let casks_to_install = if $DEVICE_USAGE == "personal" { $casks ++ $personal_only_casks } else { $casks ++ $professional_only_casks }
 
 # === Install ===
