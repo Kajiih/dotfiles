@@ -10,7 +10,6 @@ sudo apt install gqui
 
 # === Add nushell startup to .bashrc ===
 print-info "
-Setting up nu shell...
 Configuring .bashrc to launch nu shell for interactive sessions..." 
 
 let bashrc_file = "~/.bashrc"
