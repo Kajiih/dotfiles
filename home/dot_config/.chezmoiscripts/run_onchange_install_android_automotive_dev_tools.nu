@@ -1,4 +1,5 @@
 #!/usr/bin/env nu
+
 use ~/.local/share/chezmoi/helpers/theme.nu print-info
 use ~/.local/share/chezmoi/helpers/install_package.nu install-package
 use ~/.config/.chezmoi_variables.nu USE_ANDROID_AUTOMOTIVE_TOOLS

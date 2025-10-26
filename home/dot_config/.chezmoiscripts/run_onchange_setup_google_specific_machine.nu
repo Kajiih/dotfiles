@@ -3,6 +3,10 @@
 use ~/.config/.chezmoi_variables.nu IS_GOOGLE_SPECIFIC
 use ~/.local/share/chezmoi/helpers/theme.nu [ print-header print-info print-warning print-success ]
 
+if not $IS_GOOGLE_SPECIFIC {
+    exit
+}
+
 # === gLinux apps ===
 sudo glinux-add-repo gqui
 sudo apt update

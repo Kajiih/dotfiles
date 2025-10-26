@@ -307,7 +307,6 @@ shift-down = ['volume set 0', 'mode main']
 
 ## Floating Windows (before moving to specific workspaces)
 [[on-window-detected]]
-if.app-id = 'org.mozilla.firefox'
 if.window-title-regex-substring = 'Picture-in-Picture'
 run = 'layout floating'
 [[on-window-detected]]
