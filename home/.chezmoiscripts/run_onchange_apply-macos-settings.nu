@@ -19,6 +19,9 @@ defaults write -g KeyRepeat -float 1.0
 # Disable press and hold for key variations to enable key repetitions
 defaults write -g ApplePressAndHoldEnabled -bool false
 
+# Disable automatic period substitution when writing two spaces
+defaults write -g NSAutomaticPeriodSubstitutionEnabled -bool false
+
 # === Mouse ===
 defaults write -g com.apple.mouse.scaling 0.125
 
