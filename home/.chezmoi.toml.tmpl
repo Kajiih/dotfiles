@@ -17,7 +17,8 @@
 {{- $usageMap := dict
   "Imoen" "personal"
   "Ombrecoeur" "professional"
-  "mystra.c.googlers.com" "professional"
+  # "mystra.c.googlers.com" "professional"
+  "mystra" "professional"
   "Gond" "professional"
 -}}
 {{- $deviceUsage := index $usageMap $deviceName | default "unknown" }}
@@ -25,7 +26,8 @@
 # List of devices on which we want to install Android Automotive specific tools
 {{- $androidAutomotiveDevices := list
   "Ombrecoeur"
-  "mystra.c.googlers.com"
+  # "mystra.c.googlers.com"
+  "mystra"
   "Gond"
 -}}
 {{- $useAndroidAutomotiveTools := has $deviceName $androidAutomotiveDevices }}
@@ -33,7 +35,8 @@
 
 # List of devices on which we want to use specific config for development at Google - Mainly for devices with access to Google3
 {{- $googleSpecificDevices := list
-  "mystra.c.googlers.com"
+  # "mystra.c.googlers.com"
+  "mystra"
   "Gond"
 -}}
 {{- $isGoogleSpecific := has $deviceName $googleSpecificDevices }}
