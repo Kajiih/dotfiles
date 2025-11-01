@@ -28,7 +28,7 @@ if (open $bashrc_file | grep $message_to_check | is-not-empty) {
     ($message_to_check)
     . ($dot_bash_nu_startup_file)
     " | save --append $bashrc_file
-    print-success "Nushell was successfully setup."
+    print-success $"Nushell startup snippet added to ($bashrc_file). Please start a new shell session."
 }
 
 
@@ -37,25 +37,25 @@ ctop self maintenance schedule at "{{ now | dateModify "+27d" | date "2006-01-02
 
 
 # === Ghostty ssh Terminfo (on cloudtop) === 
-# https://ghostty.org/docs/help/terminfo#copy-ghostty's-terminfo-to-a-remote-machine 
-print-info $"
---------------------------------------------------------------------------
-ACTION REQUIRED for Ghostty Terminal Users:
+# https://ghostty.org/docs/help/terminfo#copy-ghostty's-terminfo-to-a-remote-machine
+# TODO: P0 - Add check to see whether xterm-ghostty terminfo is installed
+# Check if the 'xterm-ghostty' terminfo is installed
+let ghostty_terminfo_installed = (infocmp -x xterm-ghostty | complete).exit_code == 0
 
-If you use Ghostty on your local machine to SSH to this machine,
-install the 'xterm-ghostty' terminfo to prevent errors later.
+# Only show the warning if the command failed (exit_code != 0)
+if not $ghostty_terminfo_installed {
+  print-warning "
+  --------------------------------------------------------------------------
+  ACTION REQUIRED for Ghostty Terminal users:
 
-Run this command from YOUR LOCAL MACHINE \(e.g., Ombrecoeur\):
+  If you use Ghostty on your local machine to SSH to this machine,
+  install the 'xterm-ghostty' terminfo to prevent errors later.
 
-infocmp -x xterm-ghostty | ssh (hostname) -- 'mkdir -p ~/.terminfo && tic -x -'
+  Run this command from YOUR LOCAL MACHINE (e.g., Ombrecoeur):"
 
-This copies Ghostty's terminfo entry to the remote machine.
-More info: https://ghostty.site/docs/help/terminfo/
---------------------------------------------------------------------------"
+  print-info $"infocmp -x xterm-ghostty | ssh (hostname) -- 'mkdir -p ~/.terminfo && tic -x -'"
 
-
-# === Manual Installation Reminder ===
-print-warning "
---------------------------------------------------------------------------
-IMPORTANT: Remember to install go/aae-toolbox if you need it.
---------------------------------------------------------------------------"
+  print-warning "This copies Ghostty's terminfo entry to the remote machine.
+  More info: https://ghostty.site/docs/help/terminfo/
+  --------------------------------------------------------------------------"
+}

@@ -1,4 +1,5 @@
-#!/bin/sh
+# shellcheck shell=bash
+# This script is intended to be sourced by Bash during startup.
 
 WHICH_NU="$(which nu)" 
 

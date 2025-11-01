@@ -9,4 +9,4 @@ if not $USE_ANDROID_AUTOMOTIVE_TOOLS { exit }
 install-package "scrcpy" --brew "scrcpy"
 install-package "android-platform-tools" --cask "android-platform-tools"
 
-print-info "Reminder: Also install AAE Toolbox."
+print-info "Reminder: Also install AAE Toolbox (go/aae-toolbox)."
