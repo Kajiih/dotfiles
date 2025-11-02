@@ -33,7 +33,8 @@ if (open $bashrc_file | grep $message_to_check | is-not-empty) {
 
 
 # === Cloudtop maintenance schedule === 
-ctop self maintenance schedule at $SCHEDULED_MAINTENANCE_DATE_TIME 
+print-info $"
+To schedule maintenance at 4 AM (CET): ctop self maintenance schedule at ($SCHEDULED_MAINTENANCE_DATE_TIME)"
 
 
 # === Ghostty ssh Terminfo (on cloudtop) === 
