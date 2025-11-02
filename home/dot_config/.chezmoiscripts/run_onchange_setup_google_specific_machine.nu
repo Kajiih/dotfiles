@@ -16,8 +16,8 @@ sudo apt install gqui
 print-info "
 Configuring .bashrc to launch nu shell for interactive sessions..." 
 
-let bashrc_file = "~/.bashrc"
-let dot_bash_nu_startup_file = "~/.config/nushell/.bash_nu_startup.sh"
+let bashrc_file = ~/.bashrc
+let dot_bash_nu_startup_file = ~/.config/nushell/.bash_nu_startup.sh
 
 let message_to_check = "# === Source nu startup file === DON'T MODIFY THIS COMMENT"
 
