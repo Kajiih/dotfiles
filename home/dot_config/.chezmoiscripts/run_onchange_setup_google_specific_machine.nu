@@ -8,7 +8,7 @@ if not $IS_GOOGLE_SPECIFIC {
 }
 
 # === gLinux apps ===
-sudo glinux-add-repo gqui
+sudo glinux-add-repo gqui -b
 sudo apt update
 sudo apt install gqui
 
