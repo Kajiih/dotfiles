@@ -223,7 +223,7 @@ ctrl-shift-alt-6 = 'workspace 6'
 ctrl-shift-alt-7 = 'workspace 7'
 ctrl-shift-alt-8 = 'workspace 8'
 ctrl-shift-alt-9 = 'workspace 9'
-ctrl-shift-alt-b = 'workspace B' # Browser
+ctrl-shift-alt-b = 'workspace B' # Browser (unused)
 ctrl-shift-alt-c = 'workspace C' # Code
 ctrl-shift-alt-d = 'workspace D' # Discord
 ctrl-shift-alt-f = 'workspace F' # Finder/File management
@@ -329,12 +329,6 @@ if.app-id = 'com.spotify.client'
 run = "layout floating"
 
 ## Specific Apps Workspaces
-[[on-window-detected]]
-if.app-id = 'org.mozilla.firefox'
-run = "move-node-to-workspace B"
-[[on-window-detected]]
-if.app-id = 'com.google.Chrome'
-run = "move-node-to-workspace B"
 [[on-window-detected]]
 if.app-id = 'com.microsoft.VSCode'
 run = "move-node-to-workspace C"
