@@ -1,6 +1,6 @@
 #!/usr/bin/env nu
 
-use ~/.config/.chezmoi_variables.nu IS_GOOGLE_SPECIFIC
+use ~/.config/.chezmoi_variables.nu [ IS_GOOGLE_SPECIFIC SCHEDULED_MAINTENANCE_DATE_TIME ]
 use ~/.local/share/chezmoi/helpers/theme.nu [ print-header print-info print-warning print-success ]
 
 if not $IS_GOOGLE_SPECIFIC {
@@ -33,7 +33,7 @@ if (open $bashrc_file | grep $message_to_check | is-not-empty) {
 
 
 # === Cloudtop maintenance schedule === 
-ctop self maintenance schedule at "{{ now | dateModify "+27d" | date "2006-01-02" }} 02:00:00" 
+ctop self maintenance schedule at $SCHEDULED_MAINTENANCE_DATE_TIME 
 
 
 # === Ghostty ssh Terminfo (on cloudtop) === 
