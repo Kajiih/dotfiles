@@ -42,6 +42,11 @@ source /Users/paquerot/.aae-toolbox/bin/aae.nu # aae tools
 # Source cargo env (and add binaries to path)
 source $"($nu.home-path)/.cargo/env.nu"
 
+# --- XDG config paths ---
+$env.XDG_CONFIG_HOME = $env | get -o XDG_CONFIG_HOME | default ("~/.config" | path expand)
+$env.XDG_DATA_HOME = $env | get -o XDG_DATA_HOME | default ("~/.local/share" | path expand)
+
+
 # --- Secrets ---
 # TODO: Research secret zero/first secret to solve the problem of the first secret
 use bws_secrets.nu
