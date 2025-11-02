@@ -29,7 +29,10 @@ defaults write -g com.apple.mouse.scaling 0.125
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.30
 # Add a small spacer tile
-defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="small-spacer-tile";}'
+let dock_apps = (defaults read com.apple.dock persistent-apps | str join)
+if not ($dock_apps | str contains "small-spacer-tile") {
+    defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="small-spacer-tile";}'
+}
 # Disable “Show recent applications in Dock”
 defaults write com.apple.dock show-recents -bool false
 
