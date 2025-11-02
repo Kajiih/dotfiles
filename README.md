@@ -2,7 +2,7 @@
 
 Cross platform tools managed by cross platforms package managers, at least in theory..!
 
-⚠️ **This repo is tested for SOME configurations only, not a full machine setup from scratch, and only on MacOS (specifically my Mac M2 laptop), so it will have to be fine tuned for other systems and architectures with time. Only some files contain templates that separate Mac specific config to platform agnostic config.**
+⚠️ **This config setup is still in early development, don't expect a setup from scratch to be without any sharp edges or errors to fix along the way.**
 
 ## Usage
 
@@ -60,6 +60,7 @@ Then manually execute necessary scripts and copy the config files you want
 - [Nushell](https://www.nushell.sh/) as login shell
 - [Ghostty](https://ghostty.org/) as terminal emulator
 - [Firefox](https://www.mozilla.org/en-US/firefox/new/) as main browser
+  - Will become Zen
 
 - Secret loading with `bitwarden secrets`
   - MacOS: Token access in `keychain`. To add the [access token of your machine account](https://vault.bitwarden.eu/#/sm/6e2de25d-081c-40c1-ab1e-b1f700e89888/projects/f2a257f6-7179-4f88-9c77-b2ee01342082/machine-accounts):
@@ -84,13 +85,8 @@ Then manually execute necessary scripts and copy the config files you want
   - [x] Mac
     - [ ] Move _Bitwarden_ to Mac Appstore because it can't integrate with browser otherwise.
   - [ ] Linux
-- Settings (currently only on macOS)
-  - [x] Key repeat rate
-  - [x] Delay after repeat
-  - [x] Press and hold key (for accent)
 - Replace Karabiner Element by [Kanata](https://github.com/jtroo/kanata) when the installation will be better on macOS
-- [ ] add env variables for atuin setup
-- [x] Explain how to setup config path for nu, because it's not obvious (or maybe make sure that XDG_CONFIG_HOME is set before).
+- Remove Firefox features and add setup for Zen browser instead
 
 ### Empirical rules for scalable dotfiles
 
