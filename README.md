@@ -52,12 +52,6 @@ Operations in the **local chezmoi repository** (which is a git repository) are l
 
 ### Generating configs for specific devices (for example if they can't use chezmoi)
 
-#### Mystra
-
-```shell
-mkdir ~/.tmp/mystra_config; chezmoi apply --destination ~/.tmp/mystra_config --exclude=scripts --config ~/.local/share/chezmoi/specific_device_configs/mystra.toml
-```
-
 Then manually execute necessary scripts and copy the config files you want
 
 ## Features
