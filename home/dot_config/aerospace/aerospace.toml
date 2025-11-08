@@ -324,9 +324,9 @@ run = "layout floating"
 [[on-window-detected]]
 if.app-id = 'com.facebook.archon' # Messenger
 run = "layout floating"
-[[on-window-detected]]
-if.app-id = 'com.spotify.client'
-run = "layout floating"
+# [[on-window-detected]]
+# if.app-id = 'com.spotify.client'
+# run = "layout floating"
 
 ## Specific Apps Workspaces
 [[on-window-detected]]
@@ -364,6 +364,9 @@ if.app-id = 'com.apple.iCal'
 run = "move-node-to-workspace S"
 [[on-window-detected]]
 if.app-name-regex-substring = 'Youtube'
+run = "move-node-to-workspace Z"
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
 run = "move-node-to-workspace Z"
 
 # --- Special cases/bugs ---
