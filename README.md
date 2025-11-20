@@ -87,6 +87,7 @@ Then manually execute necessary scripts and copy the config files you want
   - [ ] Linux
 - Replace Karabiner Element by [Kanata](https://github.com/jtroo/kanata) when the installation will be better on macOS
 - Remove Firefox features and add setup for Zen browser instead
+- Add full setup for spicetify
 
 ### Empirical rules for scalable dotfiles
 

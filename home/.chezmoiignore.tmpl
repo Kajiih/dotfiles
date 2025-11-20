@@ -5,6 +5,11 @@
 dot_actrc.tmpl
 {{- end }}
 
+# Clippy/pack only on professional
+{{ if ne .deviceUsage "professional" -}}
+manual_bin/
+{{- end }}
+
 
 # === Google specific ===
 {{ if not .isGoogleSpecific }}
