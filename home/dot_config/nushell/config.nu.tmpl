@@ -129,7 +129,7 @@ alias h = omnihelp
 
 use resolve_alias_chain.nu resolve-alias-chain
 
-# ssh with an bash as environment's shell.
+# ssh with bash as environment's shell.
 #
 @category network
 @search-terms ssh bash shell workaround corp-ssh-helper environment
@@ -378,6 +378,29 @@ alias tx = tmx2
 if $nu.is-interactive and (gcertstatus --check_remaining=60m | complete | get exit_code | $in != 0) {
     gcert -s
 }
+
+
+# Copy file across piper/fig/jj workspaces
+# 
+# Source and destination paths are relative to google3/, as obtained by "Copy Path" in cider
+# Ref: https://yaqs.corp.google.com/eng/q/6441503164976857088
+# TODO: P2 - Test this
+@category filesystem
+@search-terms google copy workspace
+@example "Copy a file from one workspace to another" { copy_across_workspaces "my_source_workspace" "path/to/source/file.ext" "my_dest_workspace" "path/to/dest/file.ext" }
+def --wrapped copy_across_workspaces [source_workspace: string, source_path: string, dest_workspace: string, dest_path: string, ...args: string]: [nothing -> nothing] {
+    let username = (whoami)
+    # cp /google/src/cloud/<your username>/<your src workspace>/google3/<your/file.ext> /google/src/cloud/<your username>/<your dst workspace>/google3/<your/file.ext> 
+    let full_source_path = $"/google/src/cloud/($username)/($source_workspace)/google3/($source_path)"
+    let full_dest_path = $"/google/src/cloud/($username)/($dest_workspace)/google3/($dest_path)"
+    cp $full_source_path $full_dest_path ...$args
+}
+
+
+
+
+
+
 {{ end }}
 
 
