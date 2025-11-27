@@ -20,6 +20,7 @@ let brews = [
     "cargo-binstall"
     "zellij"
     "uv"
+    "jj"
 ]
 let casks = [
     "font-fira-code-nerd-font"
