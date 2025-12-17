@@ -63,8 +63,10 @@ $env.USERNAME = "Kajih"
 
 # --- Other --
 $env.SHELL = "nu"
-alias default_editor = code
-$env.config.buffer_editor = "code"
+alias default_editor = {{ if eq .deviceUsage "professional" }}hx{{ else }}code{{ end }}
+$env.config.buffer_editor = "{{ if eq .deviceUsage "professional" }}hx{{ else }}code{{ end }}"
+# TODO(P1): Replace the template using resolve-alias-chain
+# See: https://github.com/Kajiih/dotfiles/issues/1
 $env.EDITOR = $env.config.buffer_editor
 
 $env.config.show_banner = false
