@@ -123,18 +123,19 @@ def lsf [s: string] {
 alias o = open
 
 # --- Customs ---
-# source omnihelp.nu
 use omnihelp.nu
 alias h = omnihelp
 
 use resolve_alias_chain.nu resolve-alias-chain
 
-# ssh with bash as environment's shell.
+# -- SSH --
+
+# ssh with an bash as environment's shell.
 #
 @category network
 @search-terms ssh bash shell workaround corp-ssh-helper environment
-@example "Connect to a remote host using sshb" { ssh_bash your-cloudtop.c.googlers.com }
-@example "Use sshb with specific ssh arguments" { ssh_bash -v your-cloudtop.c.googlers.com }
+@example "Connect to a remote host" { ssh_bash user@remote_host }
+@example "Use with specific ssh arguments" { ssh_bash -v user@remote_host }
 export def --wrapped ssh_bash [...args] {
     # Temporarily set the SHELL environment variable to /bin/bash
     with-env { SHELL: "/bin/bash" } {
@@ -142,6 +143,37 @@ export def --wrapped ssh_bash [...args] {
     }
 }
 alias ssh = ssh_bash
+
+{{- if .isGoogleSpecific }}
+# --- Google Specific tools ---
+
+# Returns true if gcert is valid for at least the specified duration
+def is-gcert-valid [min_remaining = 60m] {
+    (gcertstatus 
+        --check_remaining=($min_remaining) 
+        --nocheck_loas2 
+        --quiet 
+    | complete 
+    | get exit_code) == 0
+}
+
+# Run a command after ensuring a valid gcert exists
+# 
+@category network
+@search-terms gcert google authentication retry
+@example "Run a command with gcert" { with-gcert { your-command-here } }
+@example "Run ssh with gcert" { with-gcert { ssh user@remote_host } }
+def with-gcert [action: closure] {
+    if not (is-gcert-valid 60m) {
+        gcert -s
+    }
+    do $action
+}
+
+alias mystra = with-gcert { ssh mystra }
+
+{{ end }}
+
 
 # -- open --
 # https://www.nushell.sh/book/configuration.html#macos-keeping-usr-bin-open-as-open
@@ -395,12 +427,6 @@ def --wrapped copy_across_workspaces [source_workspace: string, source_path: str
     let full_dest_path = $"/google/src/cloud/($username)/($dest_workspace)/google3/($dest_path)"
     cp $full_source_path $full_dest_path ...$args
 }
-
-
-
-
-
-
 {{ end }}
 
 
