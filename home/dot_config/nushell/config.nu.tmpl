@@ -63,6 +63,7 @@ $env.USERNAME = "Kajih"
 
 # --- Other --
 $env.SHELL = "nu"
+alias default_editor = code
 $env.config.buffer_editor = "code"
 $env.EDITOR = $env.config.buffer_editor
 
@@ -260,7 +261,7 @@ alias lzrr = lz --recurse
 
 # --- thefuck ---
 # Workaround because repo is kinda dead: https://github.com/nvbn/thefuck/issues/1254
-def f [] {
+def fk [] {
     with-env {TF_ALIAS: "f" PYTHONIOENCODING: "utf-8"} {
         let cmd = thefuck (history | last 1 | get command.0)
         if ($cmd | is-not-empty) {
@@ -310,13 +311,15 @@ def gcam [...message] {
 }
 
 # --- Chezmoi ---
-$env.DOTFILES_DIR = (chezmoi source-path | path dirname)
 alias ch = chezmoi
-alias ched = code $env.DOTFILES_DIR
-alias chd = ch diff
-alias chs = ch status
-alias chdr = ch doctor
-alias chap = ch apply
+$env.DOTFILES_DIR = (chezmoi source-path | path dirname)
+alias ched = default_editor $env.DOTFILES_DIR
+$env.NUSHELL_DOTFILES_CONFIG = $env.DOTFILES_DIR | path join home dot_config nushell config.nu.tmpl
+alias nuced = default_editor $env.NUSHELL_DOTFILES_CONFIG
+alias chd = chezmoi diff
+alias chs = chezmoi status
+alias chdr = chezmoi doctor
+alias chap = chezmoi apply
 
 # Apply chezmoi changes and start new nu shell
 def chapn [] {
