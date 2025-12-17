@@ -49509,6 +49509,7 @@
                     {
                         "comment": "source: https://github.com/pqrs-org/Karabiner-Elements/discussions/4135",
                         "description": "Change spacebar to left_shift. From GitHub",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -49522,108 +49523,6 @@
                                     }
                                 ],
                                 "to_if_alone": [{ "key_code": "spacebar" }],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Change right_command+hjkl to arrow keys",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "h",
-                                    "modifiers": {
-                                        "mandatory": ["right_command"],
-                                        "optional": ["any"]
-                                    }
-                                },
-                                "to": [{ "key_code": "left_arrow" }],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
-                                    "key_code": "j",
-                                    "modifiers": {
-                                        "mandatory": ["right_command"],
-                                        "optional": ["any"]
-                                    }
-                                },
-                                "to": [{ "key_code": "down_arrow" }],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
-                                    "key_code": "k",
-                                    "modifiers": {
-                                        "mandatory": ["right_command"],
-                                        "optional": ["any"]
-                                    }
-                                },
-                                "to": [{ "key_code": "up_arrow" }],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
-                                    "key_code": "l",
-                                    "modifiers": {
-                                        "mandatory": ["right_command"],
-                                        "optional": ["any"]
-                                    }
-                                },
-                                "to": [{ "key_code": "right_arrow" }],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Caps + Quote -> Hyper",
-                        "enabled": false,
-                        "manipulators": [
-                            {
-                                "from": { "key_code": "caps_lock" },
-                                "to_delayed_action": {
-                                    "to_if_canceled": [
-                                        { "sticky_modifier": { "left_shift": "toggle" } },
-                                        { "sticky_modifier": { "left_control": "toggle" } },
-                                        { "sticky_modifier": { "left_option": "toggle" } },
-                                        { "sticky_modifier": { "left_command": "toggle" } }
-                                    ],
-                                    "to_if_invoked": [{ "key_code": "vk_none" }]
-                                },
-                                "to_if_alone": [
-                                    {
-                                        "halt": true,
-                                        "key_code": "caps_lock"
-                                    }
-                                ],
-                                "to_if_held_down": [
-                                    {
-                                        "halt": true,
-                                        "key_code": "left_shift",
-                                        "modifiers": ["left_command", "left_option", "left_control"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "from": { "key_code": "quote" },
-                                "to_delayed_action": {
-                                    "to_if_canceled": [{ "key_code": "quote" }],
-                                    "to_if_invoked": [{ "key_code": "vk_none" }]
-                                },
-                                "to_if_alone": [
-                                    {
-                                        "halt": true,
-                                        "key_code": "quote"
-                                    }
-                                ],
-                                "to_if_held_down": [
-                                    {
-                                        "halt": true,
-                                        "key_code": "right_shift",
-                                        "modifiers": ["right_command", "right_option", "right_control"]
-                                    }
-                                ],
                                 "type": "basic"
                             }
                         ]
@@ -50409,21 +50308,6 @@
                             }
                         ],
                         "parameters": {}
-                    },
-                    {
-                        "description": "Change spacebar to left_shift. (Post spacebar if pressed alone)",
-                        "enabled": false,
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "spacebar",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "left_shift" }],
-                                "to_if_alone": [{ "key_code": "spacebar" }],
-                                "type": "basic"
-                            }
-                        ]
                     }
                 ]
             },
@@ -50452,6 +50336,14 @@
                 {
                     "from": { "key_code": "caps_lock" },
                     "to": [{ "key_code": "escape" }]
+                },
+                {
+                    "from": { "key_code": "right_command" },
+                    "to": [{ "key_code": "right_shift" }]
+                },
+                {
+                    "from": { "key_code": "right_shift" },
+                    "to": [{ "key_code": "right_command" }]
                 }
             ],
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
