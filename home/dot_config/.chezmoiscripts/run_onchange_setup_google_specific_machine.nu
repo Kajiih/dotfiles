@@ -1,5 +1,7 @@
 #!/usr/bin/env nu
 
+use std-rfc/str # For `str dedent`: https://github.com/nushell/nushell/issues/11477
+
 use ~/.config/.chezmoi_variables.nu [ IS_GOOGLE_SPECIFIC SCHEDULED_MAINTENANCE_DATE_TIME ]
 use ~/.local/share/chezmoi/helpers/theme.nu [ print-header print-info print-warning print-success ]
 
@@ -27,7 +29,7 @@ if (open $bashrc_file | grep $message_to_check | is-not-empty) {
     $"
     ($message_to_check)
     . ($dot_bash_nu_startup_file)
-    " | save --append $bashrc_file
+    " | str dedent | save --append $bashrc_file
     print-success $"Nushell startup snippet added to ($bashrc_file). Please start a new shell session."
 }
 
