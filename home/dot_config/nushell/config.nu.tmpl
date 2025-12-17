@@ -145,7 +145,7 @@ export def --wrapped ssh_bash [...args] {
 }
 alias ssh = ssh_bash
 
-{{- if .isGoogleSpecific }}
+{{- if eq .deviceUsage "professional" }}
 # --- Google Specific tools ---
 
 # Returns true if gcert is valid for at least the specified duration
@@ -172,7 +172,6 @@ def with-gcert [action: closure] {
 }
 
 alias mystra = with-gcert { ssh mystra }
-
 {{ end }}
 
 
@@ -405,7 +404,7 @@ alias onefetch-s = onefetch --disabled-fields dependencies authors contributors 
 # also: 
 # - title
 
-{{- if eq .deviceUsage "professional" }}
+{{- if .isGoogleSpecific }}
 # --- Google Specific tools ---
 alias gemini = /google/bin/releases/gemini-cli/tools/gemini
 alias colab = /google/bin/releases/grp-ix-team/rapid/colab-cli/cli.par  # TODO: P1 - Test this
