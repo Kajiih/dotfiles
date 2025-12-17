@@ -9,5 +9,13 @@ install-package "spicetify-cli" --brew "spicetify-cli" --check-installed "spicet
 # Also backup marketplace and import (file in spicetify config folder) with: https://github.com/spicetify/marketplace/wiki#back-up-marketplace
 
 # TODO: P1: Test this
-spicetify backup apply
-spicetify restart
+try {
+    print "Attempting to apply spicetify backup..."
+    spicetify backup apply
+    
+    print "Restarting Spotify..."
+    spicetify restart
+} catch { |err|
+    print $"(ansi red_bold)Spicetify failed:(ansi reset) ($err.msg)"
+    print "Check if Spotify needs a manual update or if 'spicetify restore' is required."
+}
