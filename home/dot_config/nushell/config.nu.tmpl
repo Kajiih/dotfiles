@@ -405,7 +405,7 @@ alias onefetch-s = onefetch --disabled-fields dependencies authors contributors 
 # also: 
 # - title
 
-{{- if .isGoogleSpecific }}
+{{- if eq .deviceUsage "professional" }}
 # --- Google Specific tools ---
 alias gemini = /google/bin/releases/gemini-cli/tools/gemini
 alias colab = /google/bin/releases/grp-ix-team/rapid/colab-cli/cli.par  # TODO: P1 - Test this
