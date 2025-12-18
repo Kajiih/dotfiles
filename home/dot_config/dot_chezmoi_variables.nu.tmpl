@@ -6,7 +6,5 @@ export const DEVICE_USAGE = "{{ .deviceUsage }}"
 export const USE_ANDROID_AUTOMOTIVE_TOOLS = {{ .useAndroidAutomotiveTools }}
 export const IS_GOOGLE_SPECIFIC = {{ .isGoogleSpecific }}
 
-{{ if eq .deviceName "mystra"}}
-export const SCHEDULED_MAINTENANCE_DATE_TIME = "{{ now | date "2006-01-02" }} 02:00:00"
-{{ end }}
-# TODO: P? Clean up this file at the end of the generation?
+export const SCHEDULED_MAINTENANCE_DATE_TIME = "{{ if eq .deviceName "mystra" }}{{ now | date "2006-01-02" }} 02:00:00{{ else }}N/A{{ end }}";
+# TODO? Clean up this file at the end of the generation?
