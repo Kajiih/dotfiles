@@ -1,4 +1,6 @@
 {{- if .isGoogleSpecific }}
+# TODO?: Setup so the config works outside of google3?
+# See:  go/helix-editor#working-inside-and-outside-google3
 [language-server.cider-lsp]
 command = "/google/bin/releases/cider/ciderlsp/ciderlsp"
 args = ["--tooltag=helix", "--noforward_sync_responses"]
