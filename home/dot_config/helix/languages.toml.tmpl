@@ -6,18 +6,18 @@ config = { provideFormatter = true }
 
 [[language]]
 name = "go"
-language-servers = [ { name = "cider-lsp" } ]
+language-servers = [{ name = "cider-lsp" }]
 formatter = { command = "goimports" }
 
 [[language]]
 name = "java"
-language-servers = [ { name = "cider-lsp" } ]
+language-servers = [{ name = "cider-lsp" }]
 indent = { tab-width = 2, unit = "  " }
 text-width = 100
 
 [[language]]
 name = "kotlin"
-language-servers = [ { name = "cider-lsp" } ]
+language-servers = [{ name = "cider-lsp" }]
 indent = { tab-width = 2, unit = "  " }
 text-width = 100
 
@@ -28,57 +28,99 @@ file-types = ["sql", "dsql", "sqlm", "sqlp"]
 # https://github.com/helix-editor/helix/issues/11666
 # comment-tokens = "#"
 # comment-tokens = ["#", "--"]
-language-servers = [ { name = "cider-lsp", except-features= ["inlay-hints"] } ]
+language-servers = [{ name = "cider-lsp", except-features = ["inlay-hints"] }]
 formatter = { command = "/google/data/ro/teams/googlesql-formatter/fmt" }
 # optionally enable auto-formatting on save
 # auto-format = true
 
 [[language]]
 name = "protobuf"
-language-servers = [ { name = "cider-lsp", except-features= ["inlay-hints", "signature-help"] } ]
+language-servers = [
+    { name = "cider-lsp", except-features = [
+        "inlay-hints",
+        "signature-help",
+    ] },
+]
 
 [[language]]
 name = "textproto"
 # bundle covers RPC SP files
 file-types = ["txtpb", "textpb", "textproto", "bundle", { glob = "METADATA" }]
-language-servers = [ { name = "cider-lsp", except-features= ["inlay-hints", "signature-help"] } ]
+language-servers = [
+    { name = "cider-lsp", except-features = [
+        "inlay-hints",
+        "signature-help",
+    ] },
+]
 
 [[language]]
 name = "starlark"
-language-servers = [ { name = "cider-lsp", except-features= ["inlay-hints"] } ]
+language-servers = [{ name = "cider-lsp", except-features = ["inlay-hints"] }]
 
 # Workaround for blueprints. Not perfect but yields some syntax highlighting at
 # least.
 [[language]]
 name = "pkgbuild"
-file-types = [ "blueprint", { glob = "PKGBUILD" } ]
+file-types = ["blueprint", { glob = "PKGBUILD" }]
 
 [[language]]
 name = "python"
-language-servers = [ { name = "cider-lsp" } ]
+language-servers = [{ name = "cider-lsp" }]
 indent = { tab-width = 2, unit = "  " }
 # Adding piccolo to support syntax highlight.
-file-types = ["py", "pyi", "py3", "pyw", "ptl", "rpy", "cpy", "ipy", "pyt", { glob = ".python_history" }, { glob = ".pythonstartup" }, { glob = ".pythonrc" }, { glob = "*SConstruct" }, { glob = "*SConscript" }, { glob = "*sconstruct" }, "pi"]
+file-types = [
+    "py",
+    "pyi",
+    "py3",
+    "pyw",
+    "ptl",
+    "rpy",
+    "cpy",
+    "ipy",
+    "pyt",
+    { glob = ".python_history" },
+    { glob = ".pythonstartup" },
+    { glob = ".pythonrc" },
+    { glob = "*SConstruct" },
+    { glob = "*SConscript" },
+    { glob = "*sconstruct" },
+    "pi",
+]
 
 # Use with ":format" or auto-formatting below. "=" does not work as it uses the LSP.
 [[language]]
 name = "markdown"
-formatter = { command = "/google/bin/releases/corpeng-engdoc/tools/mdformat" , args = ["-"] }
+formatter = { command = "/google/bin/releases/corpeng-engdoc/tools/mdformat", args = [
+    "-",
+] }
 # optionally enable auto-formatting on save
 # auto-format = true
 
 [[language]]
 name = "typescript"
-language-servers = [ "cider-lsp" ]
+language-servers = ["cider-lsp"]
 
 # go/rust-editors?polyglot=helix
 [language-server.rust-analyzer.config]
-rustfmt.overrideCommand = ["/google/bin/releases/rust-tools/tools/bin/rustfmt",  "--config-path", "/google/bin/releases/rust-tools/tools/rustfmt.toml"]
-cargo.extraArgs = [ "--target-dir", "/tmp/cargo" ]
-check.overrideCommand = ["/google/bin/releases/rust-tools/tools/bin/cobra", "check", "$saved_file"]
+rustfmt.overrideCommand = [
+    "/google/bin/releases/rust-tools/tools/bin/rustfmt",
+    "--config-path",
+    "/google/bin/releases/rust-tools/tools/rustfmt.toml",
+]
+cargo.extraArgs = ["--target-dir", "/tmp/cargo"]
+check.overrideCommand = [
+    "/google/bin/releases/rust-tools/tools/bin/cobra",
+    "check",
+    "$saved_file",
+]
 
-[language-server.rust-analyzer.config.workspace.discoverConfig]
-command = ["/google/bin/releases/rust-tools/tools/bin/cobra", "discover", "{arg}"]
-progressLabel = "blaze"
-filesToWatch = ["BUILD"]
+    [language-server.rust-analyzer.config.workspace.discoverConfig]
+    command = [
+        "/google/bin/releases/rust-tools/tools/bin/cobra",
+        "discover",
+        "{arg}",
+    ]
+    progressLabel = "blaze"
+    filesToWatch = ["BUILD"]
+
 {{ end }}
