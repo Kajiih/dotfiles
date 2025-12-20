@@ -20,7 +20,6 @@ const NU_COMPLETIONS_DIR = $nu.default-config-dir | path join completions
 const NU_LIB_DIRS = [$NU_COMPLETIONS_DIR ($nu.default-config-dir | path join modules) ($nu.default-config-dir | path join submodules) ...$NU_LIB_DIRS]
 
 # TODO:
-# Move completers, omnihelp, resolve alias etc in a single utils module
 # File issue on https://github.com/blindFS/topiary-nushell to break long lists, pipelines, etc
 
 # === Env Vars ===
@@ -113,6 +112,8 @@ $env.config.plugins.nupsql.databases = [
 ]
 
 # === Tools ===
+use std help
+
 # --- Builtins ---
 source init/custom_ls.nu
 alias ll = ls -l
@@ -126,10 +127,32 @@ def lsf [s: string] {
 alias o = open
 
 # --- Customs ---
-use omnihelp.nu
+use omnihelp.nu # omnihelp
 alias h = omnihelp
 
 use resolve_alias_chain.nu resolve-alias-chain
+
+# -- Clipboard --
+alias copy-to-clipboard = pbcopy
+
+# Copy input to clipboard
+# 
+@category clipboard
+@search-terms clipboard copy pbcopy
+@example "Copy text to clipboard" { "Hello, World!" | to-clipboard }
+@example "Strip ANSI codes and copy to clipboard" { "(ansi blue)Hello, World!(ansi reset)" | to-clipboard --strip }
+def to-clipboard [
+    --strip (-s) # Strip ANSI escape codes before copying
+]: string -> nothing {
+    let input = $in
+    if $strip {
+        $input | ansi strip | pbcopy
+    } else {
+        $input | pbcopy
+    }
+}
+alias tc = to-clipboard
+
 
 # -- SSH --
 

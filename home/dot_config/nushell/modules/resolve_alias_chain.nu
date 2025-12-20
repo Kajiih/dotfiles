@@ -1,4 +1,4 @@
-# Resolve a Nushell command alias to its full expansion chain
+# Resolve a Nushell command alias to its full expansion chain.
 # 
 # This command performs a greedy expansion of aliases. It isolates the head 
 # (command) from the tail (arguments) and recursively lookups the head in the 
@@ -65,7 +65,7 @@ export def run-tests [] {
     alias third_alias = second_alias -s
     let resolved_chain = (resolve-alias-chain third_alias)
 
-    assert equal $resolved_chain [third_alias "second_alias -s" "first_alias -d -s" "ls -a -d -s"]
+    assert equal $resolved_chain ["third_alias" "second_alias -s" "first_alias -d -s" "ls -a -d -s"]
 }
 
 export def run-benchmark [] {
