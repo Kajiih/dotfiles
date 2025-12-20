@@ -1,8 +1,20 @@
+
+# Isolate the first word (the potential alias name) and the rest of the command
+# ^(?P<head>\S+)  : Anchors to start; captures the first word (command) as 'head'.
+# (?: ... )?      : Optional non-capturing group. Handles the separator and arguments if present.
+# \s+             : Matches (and discards) the whitespace separator.
+# (?P<tail>.*)    : Captures the rest of the string as 'tail'.
+const ISOLATE_POTENTIAL_ALIAS_REGEX = '^(?P<head>\S+)(?:\s+(?P<tail>.*))?$'
+
 # Resolve a Nushell command alias to its full expansion chain.
 # 
 # This command performs a greedy expansion of aliases. It isolates the head 
 # (command) from the tail (arguments) and recursively lookups the head in the 
 # current scope.
+# 
+# This function doesn't support aliases or commands with space in the name, and
+# will only resolve the first word in those cases.
+# TODO(P3): Add support for quoted alias with spaces inside.
 # 
 # Returns:
 #   The list of the full resolution path. Index 0 is the input; the last index 
@@ -27,9 +39,9 @@ export def resolve-alias-chain [
 
     loop {
         # Isolate the first word (the potential alias name) and the rest of the command
-        let parts = ($current_full_cmd | parse -r '^(?P<head>\S+)(?P<tail>.*)$' | first)
+        let parts = ($current_full_cmd | parse -r $ISOLATE_POTENTIAL_ALIAS_REGEX | first)
         let alias_name = $parts.head
-        let rest = $parts.tail | str trim
+        let rest = $parts.tail
 
         # Detect recursion
         if $alias_name in $seen_aliases {
