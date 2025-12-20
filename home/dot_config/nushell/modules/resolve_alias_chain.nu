@@ -4,7 +4,7 @@
 # (?: ... )?      : Optional non-capturing group. Handles the separator and arguments if present.
 # \s+             : Matches (and discards) the whitespace separator.
 # (?P<tail>.*)    : Captures the rest of the string as 'tail'.
-const ISOLATE_POTENTIAL_ALIAS_REGEX = '^(?P<head>\S+)(?:\s+(?P<tail>.*))?$'
+export const ISOLATE_POTENTIAL_ALIAS_REGEX = '^(?P<head>\S+)(?:\s+(?P<tail>.*))?$'
 
 # Resolve a Nushell command alias to its full expansion chain.
 # 
