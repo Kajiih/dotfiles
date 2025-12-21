@@ -44,7 +44,7 @@ source $"($nu.home-path)/.cargo/env.nu"
 # --- XDG config paths ---
 $env.XDG_CONFIG_HOME = $env | get -o XDG_CONFIG_HOME | default ("~/.config" | path expand)
 $env.XDG_DATA_HOME = $env | get -o XDG_DATA_HOME | default ("~/.local/share" | path expand)
-
+$env.DOWNLOAD_DIR = "~/Downloads" | path expand
 
 # --- Secrets ---
 # TODO: Research secret zero/first secret to solve the problem of the first secret
@@ -131,6 +131,12 @@ use resolve_alias_chain.nu resolve-alias-chain
 
 use omnihelp.nu
 alias h = omnihelp
+
+# --- YouTube Downloader ---
+$env.YOUTUBE_DOWNLOAD_DIR = $env.DOWNLOAD_DIR | path join youtube
+
+# Download video/audio from YouTube using yt-dlp
+alias ytdl = yt-dlp -P $env.YOUTUBE_DOWNLOAD_DIR
 
 # -- Clipboard --
 alias copy-to-clipboard = pbcopy
@@ -341,13 +347,14 @@ alias ch = chezmoi
 $env.DOTFILES_DIR = (chezmoi source-path | path dirname)
 alias ched = default_editor $env.DOTFILES_DIR
 $env.NUSHELL_DOTFILES_CONFIG = $env.DOTFILES_DIR | path join home dot_config nushell config.nu.tmpl
-alias nuced = default_editor $env.NUSHELL_DOTFILES_CONFIG
+alias nuced = default_editor $env.DOTFILES_DIR --add $env.NUSHELL_DOTFILES_CONFIG
 alias chd = chezmoi diff
 alias chs = chezmoi status
 alias chdr = chezmoi doctor
 alias chap = chezmoi apply
 
-# Apply chezmoi changes and start new nu shell
+# (BROKEN) Apply chezmoi changes and start new nu shell
+# TODO(P1): Fix this
 def chapn [] {
     chap | nu
 }
