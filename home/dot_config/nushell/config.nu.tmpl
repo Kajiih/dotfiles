@@ -465,6 +465,28 @@ def --wrapped copy_across_workspaces [source_workspace: string, source_path: str
     let full_dest_path = $"/google/src/cloud/($username)/($dest_workspace)/google3/($dest_path)"
     cp $full_source_path $full_dest_path ...$args
 }
+
+# -- Refresh colab auth --
+
+# Timestamp marker file path
+let marker = ($env.XDG_DATA_HOME | path join "colab_auth_marker")
+
+# Wrapper to run colab auth and update the timestamp
+def update-colab-auth [] {
+    ^/google/bin/releases/colaboratory/public/tools/authorize_colab
+    # Create/update a marker file in your data directory
+    touch $marker
+}
+
+let threshold = 90day 
+
+# If marker doesn't exist or is too old, warn the user
+if not ($marker | path exists) or ((ls $marker | get 0.modified) + $threshold < (date now)) {
+    print $"(ansi yellow_bold)⚠️  Colab authorization may be expired \(> 2 months\).(ansi reset)"
+    print $"Run (ansi cyan)update-colab-auth(ansi reset) to refresh."
+}
+
+
 {{ end }}
 
 
