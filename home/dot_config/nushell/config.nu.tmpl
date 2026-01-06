@@ -124,7 +124,11 @@ def lsf [s: string] {
     lsa | where name =~ $s
 }
 
+# -- open --
 alias o = open
+
+# https://www.nushell.sh/book/configuration.html#macos-keeping-usr-bin-open-as-open
+# alias nu-open = open
 
 # --- Customs ---
 use resolve_alias_chain.nu resolve-alias-chain
@@ -205,11 +209,6 @@ def with-gcert [action: closure] {
 alias mystra = with-gcert { ssh mystra }
 {{ end }}
 
-
-# -- open --
-# https://www.nushell.sh/book/configuration.html#macos-keeping-usr-bin-open-as-open
-# alias nu-open = open
-
 #  --- Starship --
 $env.STARSHIP_CONFIG = $env.XDG_CONFIG_HOME | path join starship config.toml
 mkdir ($nu.data-dir | path join vendor/autoload)
@@ -270,6 +269,9 @@ $env.FZF_DEFAULT_OPTS = $" --color=,hl:($purple),hl+:($blue),prompt:($purple),po
 
 # Import the FZF keybindings module
 source init/fzf_keybindings.nu
+
+# --- Node/NPM ---
+$env.NPM_CONFIG_USERCONFIG = $env.XDG_CONFIG_HOME | path join npm npmrc.ini
 
 # --- Zoxide ---
 
