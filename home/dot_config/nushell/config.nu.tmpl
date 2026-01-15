@@ -187,7 +187,6 @@ alias ssh = ssh_bash
 def is-gcert-valid [min_remaining = 60m] {
     (gcertstatus 
         --check_remaining=($min_remaining) 
-        --nocheck_loas2 
         --quiet 
     | complete 
     | get exit_code) == 0
@@ -201,7 +200,7 @@ def is-gcert-valid [min_remaining = 60m] {
 @example "Run ssh with gcert" { with-gcert { ssh user@remote_host } }
 def with-gcert [action: closure] {
     if not (is-gcert-valid 60m) {
-        gcert -s
+        gcert -prodssh
     }
     do $action
 }
