@@ -486,6 +486,13 @@ if not ($marker | path exists) or ((ls $marker | get 0.modified) + $threshold < 
     print $"Run (ansi cyan)update-colab-auth(ansi reset) to refresh."
 }
 
+# -- Blaze tools --
+alias blest = blaze test :all
+alias blesta = blaze test ...:all
+
+# -- Build Cleaner --
+alias bclean = build_cleaner :all
+alias bcleana = build_cleaner ...:all
 
 {{ end }}
 
