@@ -15,6 +15,8 @@ alias ls-builtin = ls
 @example "List the full path of all dirs in your home directory" { ls -a ~ | where type == dir }
 @example "List only the names (not paths) of all dirs in your home directory which have not been modified in 7 days" { ls -as ~ | where type == dir and modified < ((date now) - 7day) }
 @example "Recursively list all files and subdirectories under the current directory using a glob pattern" { ls -a **/* }
+@example "Recursively list *.rs and *.toml files using the glob command" { ls ...(glob **/*.{rs,toml}) }
+@example "List given paths and show directories themselves" { ['/path/to/directory' '/path/to/file'] | each {|| ls -D $in } | flatten }
 export def ls [
     --all (-a) # Show hidden files
     --long (-l) # Get all available columns for each entry (slower; columns are platform-dependent)
@@ -40,6 +42,3 @@ export def ls [
         ...$pattern
     ) | sort-by type name -i
 }
-
-# @example "Recursively list *.rs and *.toml files using the glob command" { ls ...(glob **/*.{rs,toml}) }
-# @example "List given paths and show directories themselves" { ['/path/to/directory' '/path/to/file'] | each {|| ls -D $in } | flatten }

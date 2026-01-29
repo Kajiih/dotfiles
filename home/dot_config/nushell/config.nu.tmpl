@@ -182,7 +182,7 @@ export def --wrapped ssh_bash [...args] {
 alias ssh = ssh_bash
 
 {{- if eq .deviceUsage "professional" }}
-# --- Google Specific tools ---
+# --- Tools for Professional Devices ---
 
 # Returns true if gcert is valid for at least the specified duration
 def is-gcert-valid [min_remaining = 60m] {
@@ -218,12 +218,20 @@ starship init nu | save -f ($nu.data-dir | path join vendor/autoload/starship.nu
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 source ~/.cache/carapace/init.nu
 
-
-
 let carapace_completer = {|spans: list<string>|
     carapace $spans.0 nushell ...$spans
     | from json
     | if ($in | default [] | where value =~ '^-.*ERR$' | is-empty) { $in } else { null }
+}
+
+# --- Fish ---
+let fish_completer = {|spans: list<string>|
+    fish --command $"complete '--do-complete=($spans | str join ' ')'"
+    | from tsv --flexible --noheaders --no-infer
+    | rename value description
+    | update value {
+        if ($in | path exists) { $'"($in | str replace "\"" "\\\"")"' } else { $in }
+    }
 }
 
 # --- atuin ---
@@ -440,101 +448,34 @@ alias onefetch-s = onefetch --disabled-fields dependencies authors contributors 
 # also: 
 # - title
 
-{{- if .isGoogleSpecific }}
-# --- Google Specific tools ---
-alias gemini = /google/bin/releases/gemini-cli/tools/gemini
-alias colab = /google/bin/releases/grp-ix-team/rapid/colab-cli/cli.par  # TODO: P1 - Test this
-alias tx = tmx2
-if $nu.is-interactive and (gcertstatus --check_remaining=60m | complete | get exit_code | $in != 0) {
-    gcert -s
-}
-
-
-# Copy file across piper/fig/jj workspaces
-# 
-# Source and destination paths are relative to google3/, as obtained by "Copy Path" in cider
-# Ref: https://yaqs.corp.google.com/eng/q/6441503164976857088
-# TODO: P2 - Test this
-@category filesystem
-@search-terms google copy workspace
-@example "Copy a file from one workspace to another" { copy_across_workspaces "my_source_workspace" "path/to/source/file.ext" "my_dest_workspace" "path/to/dest/file.ext" }
-def --wrapped copy_across_workspaces [source_workspace: string, source_path: string, dest_workspace: string, dest_path: string, ...args: string]: [nothing -> nothing] {
-    let username = (whoami)
-    # cp /google/src/cloud/<your username>/<your src workspace>/google3/<your/file.ext> /google/src/cloud/<your username>/<your dst workspace>/google3/<your/file.ext> 
-    let full_source_path = $"/google/src/cloud/($username)/($source_workspace)/google3/($source_path)"
-    let full_dest_path = $"/google/src/cloud/($username)/($dest_workspace)/google3/($dest_path)"
-    cp $full_source_path $full_dest_path ...$args
-}
-
-# -- Refresh colab auth --
-
-# Timestamp marker file path
-let marker = ($env.XDG_DATA_HOME | path join "colab_auth_marker")
-
-# Wrapper to run colab auth and update the timestamp
-def update-colab-auth [] {
-    ^/google/bin/releases/colaboratory/public/tools/authorize_colab
-    # Create/update a marker file in your data directory
-    touch $marker
-}
-
-let threshold = 90day 
-
-# If marker doesn't exist or is too old, warn the user
-if not ($marker | path exists) or ((ls $marker | get 0.modified) + $threshold < (date now)) {
-    print $"(ansi yellow_bold)⚠️  Colab authorization may be expired \(> 2 months\).(ansi reset)"
-    print $"Run (ansi cyan)update-colab-auth(ansi reset) to refresh."
-}
-
-# -- Blaze tools --
-alias blest = blaze test :all
-alias blesta = blaze test ...:all
-
-# -- Build Cleaner --
-alias bclean = build_cleaner :all
-alias bcleana = build_cleaner ...:all
-
-{{ end }}
-
 
 # --- Custom utils ---
 
-# A smarter head command that preserves colors and shows truncation indicators
-def better-head [
-    --lines: int = 10 # Number of lines to show (default: 10)
-    --indicator: string = "..." # Truncation indicator
-    --context: int = 0 # Additional context lines to show after indicator
+# Return an overview of the content of a string including an extract of the head and the tail.
+def content-overview [
+    --head: int = 7 
+    --truncation-indicator: string = "..." 
+    --tail: int = 2 
 ]: nothing -> string {
     let input = $in
-    let colored_lines = ($input | ansi strip | lines | length)
-    let all_lines = ($input | lines)
+    let lines = ($input | lines)
+    let remaining = ($lines | length) - $head - $tail
 
-    if ($all_lines | length) <= $lines {
-        $input # Return original input if within limit
-    } else {
-        # Preserve colors in output
-        let output = ($all_lines | first $lines | str join "\n")
-        let remaining = (($all_lines | length) - $lines)
+    if $remaining <= 1 { return $input }
 
-        # Build indicator with context
-        let indicator = if $context > 0 {
-            [
-                $indicator
-                ($all_lines | last $context | str join "\n")
-                $"($remaining) more lines"
-            ] | str join "\n"
-        } else {
-            $"($indicator) ($remaining) more lines"
-        }
+    let truncation_message = $"(ansi blue)($truncation_indicator) ($remaining) more lines(ansi reset)"
 
-        # Return colored output with indicator
-        [$output $indicator] | str join "\n"
-    }
+    [
+        ...($lines | first $head)
+        $truncation_message
+        ...($lines | last $tail)
+    ] | str join "\n"
 }
+alias ov = content-overview
 
 # Updated git-status-short using better-head
 def git-status-short [] {
-    git -c color.ui=always status | better-head --lines 7 --context 2
+    git -c color.ui=always status | content-overview
 }
 
 def --env fzg [ --from-home (-a)] {
@@ -568,6 +509,7 @@ $env.COPIER_SETTINGS_PATH = $env.XDG_CONFIG_HOME | path join copier settings.yml
 # === Completions ===
 # TODO: Check if it's possible to autoload completion modules using $nu.user_autoload_dirs
 use completions *
+
 # Update the completions module exporting every module inside $NU_COMPLETIONS_DIR
 # To use after adding completions
 def update_completions_module [] {
@@ -582,52 +524,11 @@ def update_completions_module [] {
     | save $module_path -f
 }
 
+use init/external_completers.nu create-external-completer
+
+let external_completer = create-external-completer --carapace-completer $carapace_completer --fish-completer $fish_completer --zoxide-completer $zoxide_completer
+
 # --- External Completers --
-# https://www.nushell.sh/cookbook/external_completers.html#putting-it-all-together
-
-let fish_completer = {|spans: list<string>|
-    fish --command $"complete '--do-complete=($spans | str join ' ')'"
-    | from tsv --flexible --noheaders --no-infer
-    | rename value description
-    | update value {
-        if ($in | path exists) { $'"($in | str replace "\"" "\\\"")"' } else { $in }
-    }
-}
-
-# let chain = resolve-alias-chain $spans.0
-# let expanded_alias = $chain | last
-# print $expanded_alias
-
-# This completer will use carapace by default
-# TODO: Remove already used flags? -> already the case it seems
-let external_completer = {|spans: list<string>|
-    # let expanded_alias = scope aliases
-    # | where name == $spans.0
-    # | get -i 0.expansion
-    let expanded_alias = resolve-alias-chain $spans.0 | last
-    # print $expanded_alias
-
-    let spans = if $expanded_alias != null {
-        $spans
-        | skip 1
-        | prepend ($expanded_alias | split row ' ' | take 1)
-    } else {
-        $spans
-    }
-    # print $spans
-
-    match $spans.0 {
-        # carapace completions are incorrect for nu
-        nu => $fish_completer
-        # fish completes commits and branch names in a nicer way
-        git => $fish_completer
-        # carapace doesn't have completions for asdf
-        asdf => $fish_completer
-        # use zoxide completions for zoxide commands
-        __zoxide_z|__zoxide_zi => $zoxide_completer
-        _ => $carapace_completer
-    } | do $in $spans
-}
 
 # Update config
 $env.config.completions.external = {
@@ -692,3 +593,69 @@ $env.config.menus ++= [
         }
     }
 ]
+
+
+# === Google Specific Device Config ===
+{{- if .isGoogleSpecific }}
+alias gemini = /google/bin/releases/gemini-cli/tools/gemini
+alias colab = /google/bin/releases/grp-ix-team/rapid/colab-cli/cli.par  # TODO: P1 - Test this
+alias tx = tmx2
+if $nu.is-interactive and (gcertstatus --check_remaining=60m | complete | get exit_code | $in != 0) {
+    gcert -s
+}
+
+# --- Colab Auth ---
+
+# Timestamp marker file path
+let colab_auth_marker = ($env.XDG_DATA_HOME | path join "colab_auth_marker")
+
+# Wrapper to run colab auth and update the timestamp
+def update-colab-auth [] {
+    ^/google/bin/releases/colaboratory/public/tools/authorize_colab
+    # Create/update a marker file in your data directory
+    touch $colab_auth_marker
+}
+
+# Return true if the colab auth is valid
+def is-colab-auth-valid [] {
+    let threshold = 90day 
+    return (not ($colab_auth_marker | path exists) or ((ls $colab_auth_marker | get 0.modified) + $threshold < (date now)))
+}
+
+# Warn the user if colab auth is not valid.
+def check-colab-auth-validity [] {
+    if not is-colab-auth-valid() {
+    print $"(ansi yellow_bold)⚠️  Colab authorization may be expired \(> 2 months\).(ansi reset)"
+    print $"Run (ansi cyan)update-colab-auth(ansi reset) to refresh."
+    }
+}
+
+
+
+# --- Workspace tools ---
+
+# Copy file across piper/fig/jj workspaces
+# 
+# Source and destination paths are relative to google3/, as obtained by "Copy Path" in cider
+# Ref: https://yaqs.corp.google.com/eng/q/6441503164976857088
+# TODO: P2 - Test this
+@category filesystem
+@search-terms google copy workspace
+@example "Copy a file from one workspace to another" { copy-across-workspaces "my_source_workspace" "path/to/source/file.ext" "my_dest_workspace" "path/to/dest/file.ext" }
+def --wrapped copy-across-workspaces [source_workspace: string, source_path: string, dest_workspace: string, dest_path: string, ...args: string]: [nothing -> nothing] {
+    let username = (whoami)
+    # cp /google/src/cloud/<your username>/<your src workspace>/google3/<your/file.ext> /google/src/cloud/<your username>/<your dst workspace>/google3/<your/file.ext> 
+    let full_source_path = $"/google/src/cloud/($username)/($source_workspace)/google3/($source_path)"
+    let full_dest_path = $"/google/src/cloud/($username)/($dest_workspace)/google3/($dest_path)"
+    cp $full_source_path $full_dest_path ...$args
+}
+
+
+# --- Blaze tools ---
+alias blest = blaze test :all
+alias blesta = blaze test ...:all
+
+# --- Build Cleaner ---
+alias bclean = build_cleaner :all
+alias bcleana = build_cleaner ...:all
+{{ end }}
