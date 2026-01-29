@@ -125,6 +125,13 @@ outer.right = 6
 1 = 1 # Left
 2 = 3 # Middle
 3 = 2 # Right
+4 = 1
+5 = 3
+6 = 2
+7 = 1
+8 = 3
+9 = 2
+0 = 1
 # We could also use: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
 
 
@@ -223,7 +230,8 @@ ctrl-shift-alt-6 = 'workspace 6'
 ctrl-shift-alt-7 = 'workspace 7'
 ctrl-shift-alt-8 = 'workspace 8'
 ctrl-shift-alt-9 = 'workspace 9'
-ctrl-shift-alt-b = 'workspace B' # Browser (unused)
+ctrl-shift-alt-0 = 'workspace 0'
+ctrl-shift-alt-b = 'workspace B' # Browser
 ctrl-shift-alt-c = 'workspace C' # Code
 ctrl-shift-alt-d = 'workspace D' # Discord
 ctrl-shift-alt-f = 'workspace F' # Finder/File management
@@ -255,6 +263,7 @@ ctrl-shift-alt-cmd-6 = 'move-node-to-workspace --focus-follows-window 6'
 ctrl-shift-alt-cmd-7 = 'move-node-to-workspace --focus-follows-window 7'
 ctrl-shift-alt-cmd-8 = 'move-node-to-workspace --focus-follows-window 8'
 ctrl-shift-alt-cmd-9 = 'move-node-to-workspace --focus-follows-window 9'
+ctrl-shift-alt-cmd-0 = 'move-node-to-workspace --focus-follows-window 0'
 ctrl-shift-alt-cmd-b = 'move-node-to-workspace --focus-follows-window B'
 ctrl-shift-alt-cmd-c = 'move-node-to-workspace --focus-follows-window C'
 ctrl-shift-alt-cmd-d = 'move-node-to-workspace --focus-follows-window D'
@@ -330,7 +339,17 @@ run = "layout floating"
 
 ## Specific Apps Workspaces
 [[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+if.during-aerospace-startup = true
+run = "move-node-to-workspace B"
+[[on-window-detected]]
 if.app-id = 'com.microsoft.VSCode'
+run = "move-node-to-workspace C"
+[[on-window-detected]]
+if.app-name-regex-substring = 'cider'
+run = "move-node-to-workspace C"
+[[on-window-detected]]
+if.app-id = 'com.google.antigravity'
 run = "move-node-to-workspace C"
 [[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
