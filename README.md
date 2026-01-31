@@ -70,8 +70,8 @@ Then manually execute necessary scripts and copy the config files you want
     ```
 
 - Cross platform package managers (MacOs, Linux, WSL) by order of precedence:
-  - [Homebrew](/dot_config/homebrew/Brewfile)
-  - [Cargo](/.chezmoiscripts/run_onchange_install-cargo-bins.nu)
+  - Homebrew
+  - [Cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html)
   - [uv tool](https://docs.astral.sh/uv/concepts/tools/)
 
 - [Karabiner Elements](https://karabiner-elements.pqrs.org/) + [karabiner.ts-greg-mods](https://github.com/gregorias/karabiner.ts-greg-mods) for keyboard mapping and home row mods

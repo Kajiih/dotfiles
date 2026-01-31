@@ -40,7 +40,7 @@ source /Users/paquerot/.aae-toolbox/bin/aae.nu # aae tools
 {{ end }}
 
 # Source cargo env (and add binaries to path)
-source $"($nu.home-path)/.cargo/env.nu"
+source $"($nu.home-dir)/.cargo/env.nu"
 
 # --- XDG config paths ---
 $env.XDG_CONFIG_HOME = $env | get -o XDG_CONFIG_HOME | default ("~/.config" | path expand)
@@ -381,6 +381,7 @@ def chas [] {
 $env.HOMEBREW_BUNDLE_FILE = $env.XDG_CONFIG_HOME | path join homebrew Brewfile
 {{- if eq .deviceUsage "professional" }}
 $env.HOMEBREW_NO_AUTO_UPDATE = 1
+$env.HOMEBREW_NO_CLEANUP_FORMULAE = "nushell,chezmoi"
 {{- end }}
 
 # --- OCR with tesseract ---
