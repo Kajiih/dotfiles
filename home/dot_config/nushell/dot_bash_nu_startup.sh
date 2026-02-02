@@ -1,5 +1,6 @@
 # shellcheck shell=bash
-# This script ensures Nushell is used for interactive sessions.
+# This bash script ensures Nushell is used for interactive sessions.
+# It can be added to .bashrc to always launch an nushell session on launch.
 
 # Add Nushell location to PATH if it's not already there
 # It is currently installed via Rust's cargo

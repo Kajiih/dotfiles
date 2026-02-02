@@ -26,8 +26,8 @@
   # You can set the whole directory to executable with chmod +x -R scripts
   ```
 
-- [data](./data/) - Data used by other tools in config
-- [submodules](./submodules/) - Git submodules used in config
-  - Check [this](https://www.chezmoi.io/user-guide/include-files-from-elsewhere/#include-a-subdirectory-from-a-url) to use with `Chezmoi`
-- [completions](./completions/) - Command completions
-- [.old](./.old/) - Temporary store for old data
+- [data](./data/) - Data used by other tools in config.
+- [submodules](./submodules/) - Git submodules used in config.
+  - Check [this](https://www.chezmoi.io/user-guide/include-files-from-elsewhere/#include-a-subdirectory-from-a-url) to use with `Chezmoi`.
+- [completions](./completions/) - Command completions.
+- [secrets](./secrets.nu) - Secrets not managed by a secret manager.
