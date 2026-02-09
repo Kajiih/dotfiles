@@ -223,8 +223,8 @@ ctrl-shift-alt-cmd-right = 'move right'
 ctrl-shift-alt-enter = 'fullscreen --no-outer-gaps'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#resize
-ctrl-alt-shift-minus = 'resize smart -50'
-ctrl-alt-shift-equal = 'resize smart +50'
+ctrl-alt-shift-minus = 'resize smart -200'
+ctrl-alt-shift-equal = 'resize smart +200'
 
 # === Workspaces ===
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace#
