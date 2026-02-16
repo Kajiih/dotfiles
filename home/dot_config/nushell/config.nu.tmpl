@@ -623,10 +623,21 @@ def --wrapped copy-across-workspaces [source_workspace: string, source_path: str
 
 
 # --- Blaze tools ---
+
+alias bbuild = blaze build
+alias btest = blaze test
+alias brun = blaze run
+# Run all tests in the directory
 alias blest = blaze test :all
+# Run all tests recursively in all directories
 alias blesta = blaze test ...:all
 
 # --- Build Cleaner ---
+
+# Run build_cleaner in all BUILD files in the directory
 alias bclean = build_cleaner :all
+
+# Run build_cleaner in all BUILD files recursively in all directories
 alias bcleana = build_cleaner ...:all
+
 {{ end }}
