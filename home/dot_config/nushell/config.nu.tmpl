@@ -205,7 +205,7 @@ def with-gcert [action: closure] {
     do $action
 }
 
-alias mystra = with-gcert { ssh mystra }
+alias mystra = with-gcert { ssh_bash mystra }
 {{ end }}
 
 #  --- Starship --
