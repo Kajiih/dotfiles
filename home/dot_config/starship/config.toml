@@ -72,6 +72,9 @@ shell = "bash"
 [sudo]
 disabled = false
 
+[gcloud]
+disabled = true
+
 [aws]
 symbol = "  "
 
