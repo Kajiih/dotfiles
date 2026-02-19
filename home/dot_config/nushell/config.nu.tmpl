@@ -188,22 +188,6 @@ alias copy-to-clipboard = pbcopy
 alias paste-from-clipboard = pbpaste
 {{ end }}
 
-
-def fix-bash-newlines [] {
-    let raw_command = (paste-from-clipboard | str trim)
-    
-    # Match a backslash OR any whitespace character (including \n)
-    # The '+' handles multiple spaces/newlines at once
-    let flattened = ($raw_command 
-        | str replace --all --regex '[\\\s]+' ' ' 
-        | str trim)
-
-    if ($flattened | is-empty) { return }
-    
-    $flattened | copy-to-clipboard
-    print "Command copied to clipboard:"
-}
-
 # -- SSH --
 
 # ssh with an bash as environment's shell.
@@ -218,6 +202,37 @@ def --wrapped ssh_bash [...args] {
         command ssh ...$args
     }
 }
+
+# -- input --
+
+# Read multiline input until EOF (Ctrl+D) and return it as a string. Useful for commands that need multiline input.
+def input-multiline [prompt: string = ""] {
+    print $"(ansi cyan_italic)($prompt) \(Ctrl+D to finish\)(ansi reset)"
+    # We use 'cat' to capture the raw stream until EOF
+    return (cat | str trim)
+}
+
+# -- bash helper --
+
+# Remove newlines and backslashes from a pasted command, flattening it into a single line, and copy the result to the clipboard. Useful for pasting multi-line bash commands in nushell.
+def remove-bash-newlines [
+    --manual-input (-m) # Manually trigger the command instead of automatically on paste
+]: nothing -> nothing {
+    # let raw_command = (paste-from-clipboard | str trim)
+    let raw_command = (if $manual_input { input-multiline "Paste your command:" } else { paste-from-clipboard } | str trim)
+    
+    # Match a backslash OR any whitespace character (including \n)
+    # The '+' handles multiple spaces/newlines at once
+    let flattened = ($raw_command 
+        | str replace --all --regex '[\\\s]+' ' ' 
+        | str trim)
+
+    if ($flattened | is-empty) { return }
+    
+    $flattened | copy-to-clipboard
+    print "Command copied to clipboard"
+}
+
 
 {{- if eq .deviceUsage "professional" }}
 # --- Tools for Professional Devices ---
