@@ -34,8 +34,8 @@ full_symbol = '🔋'
 charging_symbol = '⚡️'
 discharging_symbol = '🪫'
 
-[[battery.display]]
-threshold = 20
+    [[battery.display]]
+    threshold = 20
 
 [memory_usage]
 symbol = "󰍛 "
@@ -43,7 +43,7 @@ disabled = false
 threshold = 75
 
 [time]
-style="blue dimmed bold"
+style = "blue dimmed bold"
 disabled = false
 format = '[$time]($style)'
 # format = '🕙[\[$time\]]($style) '
@@ -57,6 +57,16 @@ style = 'blue dimmed italic'
 # [status]
 # disabled = false
 # map_symbol = true
+
+[custom.piper]
+description = "Displays the current Piper workspace"
+command = 'IFS="/" read -ra path_parts <<< "$PWD"; echo "${path_parts[5]}"'
+when = '[[ "$PWD" =~ ^/google/src/cloud/ ]]'                                # Only show in Piper workspaces
+# when = '[[ "$PWD" == *"/google/src/cloud"* ]]'  
+symbol = "☁️  "
+style = "bold blue"
+format = "in [$symbol$output]($style) "
+shell = "bash"
 
 [sudo]
 disabled = false
@@ -151,50 +161,50 @@ symbol = " "
 [os]
 # disabled = false
 
-[os.symbols]
-Alpaquita = " "
-Alpine = " "
-AlmaLinux = " "
-Amazon = " "
-Android = " "
-Arch = " "
-Artix = " "
-CentOS = " "
-Debian = " "
-DragonFly = " "
-Emscripten = " "
-EndeavourOS = " "
-Fedora = " "
-FreeBSD = " "
-Garuda = "󰛓 "
-Gentoo = " "
-HardenedBSD = "󰞌 "
-Illumos = "󰈸 "
-Kali = " "
-Linux = " "
-Mabox = " "
-Macos = " "
-Manjaro = " "
-Mariner = " "
-MidnightBSD = " "
-Mint = " "
-NetBSD = " "
-NixOS = " "
-OpenBSD = "󰈺 "
-openSUSE = " "
-OracleLinux = "󰌷 "
-Pop = " "
-Raspbian = " "
-Redhat = " "
-RedHatEnterprise = " "
-RockyLinux = " "
-Redox = "󰀘 "
-Solus = "󰠳 "
-SUSE = " "
-Ubuntu = " "
-Unknown = " "
-Void = " "
-Windows = "󰍲 "
+    [os.symbols]
+    Alpaquita = " "
+    Alpine = " "
+    AlmaLinux = " "
+    Amazon = " "
+    Android = " "
+    Arch = " "
+    Artix = " "
+    CentOS = " "
+    Debian = " "
+    DragonFly = " "
+    Emscripten = " "
+    EndeavourOS = " "
+    Fedora = " "
+    FreeBSD = " "
+    Garuda = "󰛓 "
+    Gentoo = " "
+    HardenedBSD = "󰞌 "
+    Illumos = "󰈸 "
+    Kali = " "
+    Linux = " "
+    Mabox = " "
+    Macos = " "
+    Manjaro = " "
+    Mariner = " "
+    MidnightBSD = " "
+    Mint = " "
+    NetBSD = " "
+    NixOS = " "
+    OpenBSD = "󰈺 "
+    openSUSE = " "
+    OracleLinux = "󰌷 "
+    Pop = " "
+    Raspbian = " "
+    Redhat = " "
+    RedHatEnterprise = " "
+    RockyLinux = " "
+    Redox = "󰀘 "
+    Solus = "󰠳 "
+    SUSE = " "
+    Ubuntu = " "
+    Unknown = " "
+    Void = " "
+    Windows = "󰍲 "
 
 [package]
 disabled = true
