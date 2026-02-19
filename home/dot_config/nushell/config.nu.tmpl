@@ -144,7 +144,13 @@ $env.YOUTUBE_DOWNLOAD_DIR = $env.DOWNLOAD_DIR | path join youtube
 alias ytdl = yt-dlp -P $env.YOUTUBE_DOWNLOAD_DIR
 
 # -- Clipboard --
-alias copy-to-clipboard = pbcopy
+
+# Cross platform copy to clipboard using OSC 52 escape sequence, which works even in remote SSH sessions (if the terminal supports it)
+def --env copy-to-clipboard [] {
+    let input = ($in | into string)
+    # OSC 52 sequence: ESC ] 52 ; c ; <base64> ST
+    print -n $"(ansi esc)]52;c;($input | encode base64)(char bel)"
+}
 
 # Copy input to clipboard
 # 
@@ -157,13 +163,46 @@ def to-clipboard [
 ]: string -> nothing {
     let input = $in
     if $strip {
-        $input | ansi strip | pbcopy
+        $input | ansi strip | copy-to-clipboard
     } else {
-        $input | pbcopy
+        $input | copy-to-clipboard
     }
 }
 alias tc = to-clipboard
 
+def paste-from-clipboard [] {
+    print --no-newline --stderr $"(ansi esc)]52;c;?(char bel)"
+    let raw = (input)
+    # This regex strips the terminal's OSC 52 response wrapper (52;c;...)
+    let b64 = ($raw | str replace -r '.*52;[cp];' '' | str replace -r '[^\w+/=]' '')
+    try {
+        $b64 | decode base64 | decode utf-8
+    } catch {
+        $raw
+    }
+}
+
+
+{{ if eq .chezmoi.os "darwin" -}}
+alias copy-to-clipboard = pbcopy
+alias paste-from-clipboard = pbpaste
+{{ end }}
+
+
+def fix-bash-newlines [] {
+    let raw_command = (paste-from-clipboard | str trim)
+    
+    # Match a backslash OR any whitespace character (including \n)
+    # The '+' handles multiple spaces/newlines at once
+    let flattened = ($raw_command 
+        | str replace --all --regex '[\\\s]+' ' ' 
+        | str trim)
+
+    if ($flattened | is-empty) { return }
+    
+    $flattened | copy-to-clipboard
+    print "Command copied to clipboard:"
+}
 
 # -- SSH --
 
