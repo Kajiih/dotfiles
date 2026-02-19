@@ -9,6 +9,7 @@ $all\
 $fill\
 $memory_usage\
 $battery\
+$custom\
 $time\
 $line_break\
 $jobs\
@@ -63,9 +64,9 @@ description = "Displays the current Piper workspace"
 command = 'IFS="/" read -ra path_parts <<< "$PWD"; echo "${path_parts[5]}"'
 when = '[[ "$PWD" =~ ^/google/src/cloud/ ]]'                                # Only show in Piper workspaces
 # when = '[[ "$PWD" == *"/google/src/cloud"* ]]'  
-symbol = "☁️  "
-style = "bold blue"
-format = "in [$symbol$output]($style) "
+symbol = "💼"
+style = "bright-black bold"
+format = "[$symbol $output]($style) "
 shell = "bash"
 
 [sudo]
