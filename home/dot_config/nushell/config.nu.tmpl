@@ -624,6 +624,7 @@ $env.config.menus ++= [
 {{- if .isGoogleSpecific }}
 alias gemini = /google/bin/releases/gemini-cli/tools/gemini
 alias colab = /google/bin/releases/grp-ix-team/rapid/colab-cli/cli.par  # TODO: P1 - Test this
+alias lamda_cli = /google/bin/releases/lamda-team/tools/lamda_cli
 alias tx = tmx2
 if $nu.is-interactive and (gcertstatus --check_remaining=60m | complete | get exit_code | $in != 0) {
     gcert -s
