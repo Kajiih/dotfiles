@@ -1,3 +1,4 @@
+# shellcheck disable=all
 font-family = "FiraCode Nerd Font Mono Ret"
 theme = "Dark+"
 theme = "Overnight Slumber"
@@ -10,7 +11,7 @@ window-colorspace = display-p3
 window-padding-color = background
 
 # I don't use full screen shortcuts but just in case to not break aerospace layouts
-macos-non-native-fullscreen=true
+macos-non-native-fullscreen = true
 macos-option-as-alt = true
 window-save-state = always
 
@@ -25,11 +26,11 @@ command = /opt/homebrew/bin/nu --login --interactive
 # === Notifications ===
 notify-on-command-finish = unfocused
 notify-on-command-finish-action = bell,notify
-// notify-on-command-finish-after = 5s  # Default
+# notify-on-command-finish-after = 5s  # Default
 
 
 # === Keybindings ===
 keybind = super+enter=unbind
 keybind = super+ctrl+f=unbind
-keybind= super+t=unbind
+keybind = super+t=unbind
 # keybind = super+shift+enter=unbind
