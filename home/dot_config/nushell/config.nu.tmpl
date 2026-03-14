@@ -25,14 +25,15 @@ const NU_LIB_DIRS = [$NU_COMPLETIONS_DIR ($nu.default-config-dir | path join mod
 # === Env Vars ===
 
 # --- Package Manager Binaries --- 
+# For tools installed outside of standard system paths (e.g. pack on corp laptop to replace digest)
+$env.MANUAL_BIN_DIR = "~/.manual_bin" | path expand
 # https://reimbar.org/dev/nushell/
 path add [
     "/usr/local/bin/" # System binaries (used at least on corp laptop)
     "/opt/homebrew/bin" # Homebrew binaries
     "~/.local/bin" # uv tools (and probably other) binaries
     "/opt/homebrew/opt/uutils-coreutils/libexec/uubin" # uutils-coreutils binaries
-    # TODO: Improve this:
-    "~/.manual_bin/clippy/" # Replaces digest on corp laptop
+    $env.MANUAL_BIN_DIR
     "~/.lmstudio/bin" # LM Studio binaries
 ]
 {{ if .useAndroidAutomotiveTools }}
@@ -435,7 +436,7 @@ def chas [] {
 $env.HOMEBREW_BUNDLE_FILE = $env.XDG_CONFIG_HOME | path join homebrew Brewfile
 {{- if eq .deviceUsage "professional" }}
 $env.HOMEBREW_NO_AUTO_UPDATE = 1
-$env.HOMEBREW_NO_CLEANUP_FORMULAE = "nushell,chezmoi"
+$env.HOMEBREW_NO_CLEANUP_FORMULAE = "nushell,chezmoi,node"
 {{- end }}
 
 # --- OCR with tesseract ---
@@ -622,15 +623,27 @@ $env.config.menus ++= [
 
 # === Google Specific Device Config ===
 {{- if .isGoogleSpecific }}
-alias gemini = /google/bin/releases/gemini-cli/tools/gemini
-alias colab = /google/bin/releases/grp-ix-team/rapid/colab-cli/cli.par  # TODO: P1 - Test this
 alias lamda_cli = /google/bin/releases/lamda-team/tools/lamda_cli
 alias tx = tmx2
 if $nu.is-interactive and (gcertstatus --check_remaining=60m | complete | get exit_code | $in != 0) {
     gcert -s
 }
 
-# --- Colab Auth ---
+# --- Gemini CLI ---
+
+alias gemini = /google/bin/releases/gemini-cli/tools/gemini
+
+# -- Extensions --
+# TODO(P2): Put extensions in a installation file that is ran on_change.
+# gemini extensions link /google/src/files/head/depot/google3/devtools/devassist/gemini_cli_for_google/extensions/coding/
+# gemini extensions link /google/src/files/head/depot/google3/devtools/devassist/gemini_cli_for_google/extensions/workspace/
+# gemini extensions link /google/src/files/head/depot/google3/devtools/devassist/ml4answers/gemini_cli/duckie/
+
+
+
+# --- Colab ---
+
+alias colab = /google/bin/releases/grp-ix-team/rapid/colab-cli/cli.par  # TODO: P1 - Test this
 
 # Timestamp marker file path
 let colab_auth_marker = ($env.XDG_DATA_HOME | path join "colab_auth_marker")
@@ -660,6 +673,39 @@ def check-colab-auth-validity [] {
 
 # --- Workspace tools ---
 
+# Return the root path for a given workspace and username
+def workspace-root [workspace: string, username: string = ""]: nothing -> string {
+    let username = if $username != "" { $username } else { whoami }
+    return $"/google/src/cloud/($username)/($workspace)"
+}
+
+# Return the current workspace based on the current path (5th segment of the path after splitting by "/").
+def current-workspace []: nothing -> string {
+    let segments = ($env.PWD | path split)
+    if ($segments | length) > 5 {
+        return $segments.4
+    } else {
+        return ""
+    }
+}
+
+# Change directory to the specified workspace, or to the current workspace if none specified.
+def cd-workspace [workspace: string = ""]: nothing -> nothing {
+    let target_workspace = if $workspace != "" { $workspace } else { current-workspace() }
+    if $target_workspace == "" {
+        print "Could not determine current workspace. Please specify a workspace to cd into."
+        return
+    }
+    let target_path = workspace-root $target_workspace
+    if ($target_path | path exists) {
+        cd $target_path
+    } else {
+        print $"Workspace '($target_workspace)' not found at expected path: ($target_path)"
+    }
+}
+alias cdw = cd-workspace
+
+
 # Copy file across piper/fig/jj workspaces
 # 
 # Source and destination paths are relative to google3/, as obtained by "Copy Path" in cider
@@ -669,13 +715,10 @@ def check-colab-auth-validity [] {
 @search-terms google copy workspace
 @example "Copy a file from one workspace to another" { copy-across-workspaces "my_source_workspace" "path/to/source/file.ext" "my_dest_workspace" "path/to/dest/file.ext" }
 def --wrapped copy-across-workspaces [source_workspace: string, source_path: string, dest_workspace: string, dest_path: string, ...args: string]: [nothing -> nothing] {
-    let username = (whoami)
-    # cp /google/src/cloud/<your username>/<your src workspace>/google3/<your/file.ext> /google/src/cloud/<your username>/<your dst workspace>/google3/<your/file.ext> 
-    let full_source_path = $"/google/src/cloud/($username)/($source_workspace)/google3/($source_path)"
-    let full_dest_path = $"/google/src/cloud/($username)/($dest_workspace)/google3/($dest_path)"
+    let full_source_path = workspace-root $source_workspace | path join "google3" $source_path
+    let full_dest_path = workspace-root $dest_workspace | path join "google3" $dest_path
     cp $full_source_path $full_dest_path ...$args
 }
-
 
 # --- Blaze tools ---
 
