@@ -76,8 +76,11 @@ def convert-bash-command-logic [raw_command: string] {
     # 1. Flatten
     let flattened = (remove-bash-newlines-logic $raw_command)
 
+    # 1.5 Replace $VAR and ${VAR} with $env.VAR
+    let with_env_vars = ($flattened | str replace --all --regex '\$\{?([A-Za-z_]\w*)\}?' '$$env.$1')
+
     # 2. Extract global exports
-    let exports = ($flattened | parse --regex "export\\s+(?P<key>[A-Za-z_]\\w*)=(?P<value>\"[^\"]*\"|'[^']*'|[^\\s;&]+)")
+    let exports = ($with_env_vars | parse --regex "export\\s+(?P<key>[A-Za-z_]\\w*)=(?P<value>\"[^\"]*\"|'[^']*'|[^\\s;&]+)")
     
     let env_record_global = (if ($exports | is-not-empty) {
         $exports | reduce --fold {} {|it, acc| 
@@ -87,7 +90,7 @@ def convert-bash-command-logic [raw_command: string] {
     } else { {} })
 
     # 3. Clean exports from command
-    let cleaned_exports = ($flattened | str replace --all --regex "export\\s+[A-Za-z_]\\w*=(?:\"[^\"]*\"|'[^']*'|[^\\s;&]+)\\s*(?:&&|[;&])?\\s*" '')
+    let cleaned_exports = ($with_env_vars | str replace --all --regex "export\\s+[A-Za-z_]\\w*=(?:\"[^\"]*\"|'[^']*'|[^\\s;&]+)\\s*(?:&&|[;&])?\\s*" '')
 
     # 4. Replace && with ;
     let replaced_and = ($cleaned_exports | str replace --all '&&' ';')
@@ -178,19 +181,24 @@ def run-tests [] {
 
     let t2_in = "export FOO=bar && echo $FOO"
     let t2_out = (convert-bash-command-logic $t2_in)
-    assert ($t2_out == 'with-env {FOO: bar} { echo $FOO }')
+    assert ($t2_out == 'with-env {FOO: bar} { echo $env.FOO }')
 
     let t3_in = "export FOO=bar && export BAZ=\"hello world\" && echo $FOO $BAZ"
     let t3_out = (convert-bash-command-logic $t3_in)
-    assert ($t3_out == 'with-env {FOO: bar, BAZ: "hello world"} { echo $FOO $BAZ }')
+    assert ($t3_out == 'with-env {FOO: bar, BAZ: "hello world"} { echo $env.FOO $env.BAZ }')
 
     let t4_in = "export FOO=bar; export BAZ='single quotes'; echo $FOO"
     let t4_out = (convert-bash-command-logic $t4_in)
-    assert ($t4_out == 'with-env {FOO: bar, BAZ: "single quotes"} { echo $FOO }')
+    assert ($t4_out == 'with-env {FOO: bar, BAZ: "single quotes"} { echo $env.FOO }')
 
     let t5_in = "ls -la && grep foo"
     let t5_out = (convert-bash-command-logic $t5_in)
     assert ($t5_out == "ls -la ; grep foo")
+
+    # === 2.1 Test Env Var curly brace syntax ===
+    let t9_in = "echo ${BAZ}"
+    let t9_out = (convert-bash-command-logic $t9_in)
+    assert ($t9_out == 'echo $env.BAZ')
 
     # === 3. Test Scoped / Mixed Env Variables ===
     print "   [3] Testing Scoped/Mixed Env Variables..."
@@ -205,7 +213,7 @@ def run-tests [] {
 
         let t8_in = "export FOO=\"bar\" \\\n  && export BAZ=123 \\\n  && PLAYWRIGHT_HTML_OPEN='never' echo $FOO $BAZ \\\n  && echo \"Done\""
     let t8_out = (convert-bash-command-logic $t8_in)
-        assert ($t8_out == 'with-env {FOO: bar, BAZ: "123"} { with-env {PLAYWRIGHT_HTML_OPEN: never} { echo $FOO $BAZ } ; echo "Done" }')
+    assert ($t8_out == 'with-env {FOO: bar, BAZ: "123"} { with-env {PLAYWRIGHT_HTML_OPEN: never} { echo $env.FOO $env.BAZ } ; echo "Done" }')
 
     print "(ansi green)✅ All tests passed!(ansi reset)"
 }
