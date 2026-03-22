@@ -214,7 +214,10 @@ def input-multiline [prompt: string = ""] {
 }
 
 # -- bash helper --
-use bash_helpers.nu *
+use bash_helpers.nu [
+    remove-bash-newlines-logic
+    convert-bash-command-logic
+]
 
 
 {{- if eq .deviceUsage "professional" }}

@@ -1,9 +1,9 @@
 # bash_helpers.nu
 
-# --- Core Logic (Exported for Testing) ---
+# --- Core Logic ---
 
 # Internal logic for remove-bash-newlines
-export def remove-bash-newlines-logic [raw_command: string] {
+def remove-bash-newlines-logic [raw_command: string] {
     if ($raw_command | is-empty) { return "" }
 
     # Match a backslash OR any whitespace character (including \n)
@@ -15,7 +15,7 @@ export def remove-bash-newlines-logic [raw_command: string] {
 }
 
 # Internal logic for convert-bash-command
-export def convert-bash-command-logic [raw_command: string] {
+def convert-bash-command-logic [raw_command: string] {
     if ($raw_command | is-empty) { return "" }
 
     # 1. Flatten (remove backslashes and collapse whitespace/newlines)
@@ -49,10 +49,14 @@ export def convert-bash-command-logic [raw_command: string] {
 # --- Top-Level Commands ---
 
 # Remove newlines and backslashes from a pasted command, flattening it into a single line, and copy the result to the clipboard. Useful for pasting multi-line bash commands in nushell.
+@category clipboard
+@search-terms flatten bash paste multi-line
+@example "Flatten a command string" { remove-bash-newlines "line1 \\\nline2" }
 export def remove-bash-newlines [
+    cmd: string = "" # Optional command string (reads from clipboard if omitted)
     --manual-input (-m) # Manually trigger the command instead of automatically on paste
 ]: nothing -> nothing {
-    let raw_command = (if $manual_input { input-multiline "Paste your command:" } else { paste-from-clipboard } | str trim)
+    let raw_command = (if ($cmd | is-not-empty) { $cmd } else if $manual_input { input-multiline "Paste your command:" } else { paste-from-clipboard } | str trim)
     
     let flattened = (remove-bash-newlines-logic $raw_command)
 
@@ -63,10 +67,14 @@ export def remove-bash-newlines [
 }
 
 # Convert a pasted Bash command with `&&` and `export` into a Nushell command using `;` and `with-env`.
+@category clipboard
+@search-terms converter bash switch with-env
+@example "Convert a command string with exports" { convert-bash-command "export A=1 && echo $A" }
 export def convert-bash-command [
+    cmd: string = "" # Optional command string (reads from clipboard if omitted)
     --manual-input (-m) # Manually trigger the command instead of automatically on paste
 ]: nothing -> nothing {
-    let raw_command = (if $manual_input { input-multiline "Paste your command:" } else { paste-from-clipboard } | str trim)
+    let raw_command = (if ($cmd | is-not-empty) { $cmd } else if $manual_input { input-multiline "Paste your command:" } else { paste-from-clipboard } | str trim)
     
     let converted = (convert-bash-command-logic $raw_command)
     
