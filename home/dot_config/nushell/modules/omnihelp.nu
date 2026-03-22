@@ -177,6 +177,9 @@ export def main [
 # operators: -> not supported
 # in
 
+# # Define temporary aliases for the test context
+alias test_ls = ls
+alias test_ll = test_ls -l
 
 # BROKEN
 def run-tests [] {
@@ -186,35 +189,34 @@ def run-tests [] {
 
     # === 1. Builtin Commands ===
     print "   Checking builtin: (ansi cyan)ls(ansi reset)..."
-    let res = (omnihelp ls)
-    assert str contains $res "List the files"
+    let res = (omnihelp ls | ansi strip)
+    assert str contains $res "List the filenames"
 
     # === 2. Subcommands ===
     print "   Checking subcommand: (ansi cyan)str trim(ansi reset)..."
-    let res = (omnihelp str trim)
+    let res = (omnihelp str trim | ansi strip)
     assert str contains $res "Trim whitespace"
 
     # === 3. Modules ===
     print "   Checking module: (ansi cyan)str(ansi reset)..."
-    let res = (omnihelp str)
+    let res = (omnihelp str | ansi strip)
     # Different versions of Nu might verify phrasing, looking for key terms
     assert str contains $res "string"
 
-    # === 4. Alias Chains (Fails inside module tests due to lexical scoping limitations of aliases) ===
-    # print "   Checking alias chain: (ansi cyan)my_ll -> ls -l(ansi reset)..."
+    # === 4. Alias Chains ===
+    print "   Checking alias chain: (ansi cyan)test_ll -> ls -l(ansi reset)..."
     
-    # # Define temporary aliases for the test context
-    # alias my_ls = ls
-    # alias my_ll = my_ls -l
+    let res = (omnihelp test_ll | ansi strip)
+
     
-    # let res = (omnihelp my_ll)
-    
-    # # Check for Intermediate Alias Header (Cyan)
-    # assert str contains $res "Alias: (ansi i)my_ll(ansi rst_i)"
-    # # Check for Expansion info
-    # assert str contains $res "Expansion: my_ls -l"
-    # # Check for Final Command Header (Yellow)
-    # assert str contains $res "ls" 
+    # Check for Intermediate Alias Header (separately to avoid ANSI interruption)
+    assert str contains $res "# ------ Alias:"
+    assert str contains $res "test_ll"
+    # Check for Expansion info
+    assert str contains $res "Expansion:"
+    assert str contains $res "test_ls -l"
+    # Check for Final Command Header (Yellow)
+    assert str contains $res "ls"
 
     # === 5. External Commands ===
     if (which git | is-not-empty) {
